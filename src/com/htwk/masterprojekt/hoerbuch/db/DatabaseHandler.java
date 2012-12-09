@@ -68,6 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		LastPlayed lastPlayed = new LastPlayed(Integer.parseInt(cursor
 				.getString(0)), cursor.getString(1), cursor.getString(2),
 				cursor.getString(3));
+		db.close();
 		// return
 		return lastPlayed;
 	}
@@ -93,7 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				lastPlayedList.add(lastPlayed);
 			} while (cursor.moveToNext());
 		}
-
+		db.close();
 		// return contact list
 		return lastPlayedList;
 	}
@@ -114,7 +115,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_FILE, lastPlayed.getFile());
 		values.put(KEY_PATH, lastPlayed.getPath());
 		values.put(KEY_TIME, lastPlayed.getTime());
-
+		db.close();
 		// updating row
 		return db.update(TABLE_LAST_PLAYED, values, KEY_ID + " = ?",
 				new String[] { String.valueOf(lastPlayed.getID()) });
