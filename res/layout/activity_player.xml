@@ -24,7 +24,6 @@
             android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:text="The Good, The Bad And The Ugly"
             android:textColor="#04b3d2"
             android:textSize="16sp"
             android:textStyle="bold" />

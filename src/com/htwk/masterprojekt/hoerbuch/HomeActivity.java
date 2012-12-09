@@ -7,13 +7,14 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
+import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
 
 public class HomeActivity extends ListActivity {
 
@@ -34,17 +35,20 @@ public class HomeActivity extends ListActivity {
 	 * FIXME make configurable by using the settings
 	 */
 	private static final File ROOTDIR = new File(
-			"/storage/sdcard1/AUDIOBOOKS/World War Z D1");
+			"/storage/sdcard1/MUSIC/Jazz ist anders");
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		File[] files = ROOTDIR.listFiles();
+		File[] files = ROOTDIR.listFiles(new AudioFilter());
+		setTitle(ROOTDIR.getName());
 		fileNames = new ArrayList<String>();
 		paths = new ArrayList<String>();
 		for (File file : files) {
-			fileNames.add(file.getName());
+
+			// cutting the extension
+			fileNames.add(file.getName().substring(0,
+					file.getName().length() - 4));
 			paths.add(file.getPath());
 		}
 
