@@ -1,94 +1,68 @@
 package com.htwk.masterprojekt.hoerbuch;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ListActivity;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 
-public class HomeActivity extends ListActivity implements
-		LoaderManager.LoaderCallbacks<Cursor> {
+public class HomeActivity extends ListActivity {
+
+	private static final String TAG = "HomeActivity";
+	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
+	public static final String EXTRA_FILE = "EXTRA_FILE";
 
 	// This is the Adapter being used to display the list's data
 	SimpleCursorAdapter mAdapter;
 
-	// These are the Contacts rows that we will retrieve
-	static final String[] PROJECTION = new String[] {
-			ContactsContract.Data._ID, ContactsContract.Data.DISPLAY_NAME };
+	// will contain the filenames and corresponding paths.
+	private List<String> fileNames;
+	private List<String> paths;
 
-	// This is the select criteria
-	static final String SELECTION = "((" + ContactsContract.Data.DISPLAY_NAME
-			+ " NOTNULL) AND (" + ContactsContract.Data.DISPLAY_NAME
-			+ " != '' ))";
+	/**
+	 * The dir where the audiobooks are supposed to be located in.
+	 * 
+	 * FIXME make configurable by using the settings
+	 */
+	private static final File ROOTDIR = new File(
+			"/storage/sdcard1/AUDIOBOOKS/World War Z D1");
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Create a progress bar to display while the list loads
-		ProgressBar progressBar = new ProgressBar(this);
-		progressBar.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT));
-		progressBar.setIndeterminate(true);
-		getListView().setEmptyView(progressBar);
+		File[] files = ROOTDIR.listFiles();
+		fileNames = new ArrayList<String>();
+		paths = new ArrayList<String>();
+		for (File file : files) {
+			fileNames.add(file.getName());
+			paths.add(file.getPath());
+		}
 
-		// Must add the progress bar to the root of the layout
-		ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-		root.addView(progressBar);
+		// simple list-adapter to display the items
+		ArrayAdapter<String> fileList = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, fileNames);
 
-		// For the cursor adapter, specify which columns go into which views
-		String[] fromColumns = { ContactsContract.Data.DISPLAY_NAME };
-		int[] toViews = { android.R.id.text1 }; // The TextView in
-												// simple_list_item_1
+		setListAdapter(fileList);
 
-		// Create an empty adapter we will use to display the loaded data.
-		// We pass null for the cursor, then update it in onLoadFinished()
-		mAdapter = new SimpleCursorAdapter(this,
-				android.R.layout.simple_list_item_1, null, fromColumns,
-				toViews, 0);
-		setListAdapter(mAdapter);
-
-		// Prepare the loader. Either re-connect with an existing one,
-		// or start a new one.
-		getLoaderManager().initLoader(0, null, this);
-	}
-
-	// Called when a new Loader needs to be created
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		// Now create and return a CursorLoader that will take care of
-		// creating a Cursor for the data being displayed.
-		return new CursorLoader(this, ContactsContract.Data.CONTENT_URI,
-				PROJECTION, SELECTION, null, null);
-	}
-
-	// Called when a previously created loader has finished loading
-	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		// Swap the new cursor in. (The framework will take care of closing the
-		// old cursor once we return.)
-		mAdapter.swapCursor(data);
-	}
-
-	// Called when a previously created loader is reset, making the data
-	// unavailable
-	public void onLoaderReset(Loader<Cursor> loader) {
-		// This is called when the last Cursor provided to onLoadFinished()
-		// above is about to be closed. We need to make sure we are no
-		// longer using it.
-		mAdapter.swapCursor(null);
 	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// Do something when a list item is clicked
+		File file = new File(paths.get(position));
+		Intent intent = new Intent(this, PlayerActivity.class);
+		intent.putExtra(EXTRA_FILE_PATH, file.getPath());
+		intent.putExtra(EXTRA_FILE, file.getName());
+		startActivity(intent);
 	}
 
 	@Override
@@ -96,5 +70,18 @@ public class HomeActivity extends ListActivity implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_home, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
