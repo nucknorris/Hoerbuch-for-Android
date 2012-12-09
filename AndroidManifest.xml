@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="16" />
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -21,6 +23,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.htwk.masterprojekt.hoerbuch.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
+        </activity>
+        <activity
+            android:name="com.htwk.masterprojekt.hoerbuch.PlayerActivity"
+            android:label="@string/title_activity_player"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.HomeActivity" 
+            android:theme="@android:style/Theme.Holo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
         </activity>
     </application>
 

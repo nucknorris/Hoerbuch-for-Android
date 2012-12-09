@@ -3,13 +3,13 @@ target
 bin/*.*
 project.properties
 bin
-
 # Package Files #
 *.jar
 *.war
 *.ear
 *.apk
 *.dex
+*.ap_
 .settings
 .classpath
 .project
