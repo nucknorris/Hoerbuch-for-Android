@@ -1,10 +1,15 @@
 *.class
 target
+bin/*.*
+project.properties
+bin
 
 # Package Files #
 *.jar
 *.war
 *.ear
+*.apk
+*.dex
 .settings
 .classpath
 .project
