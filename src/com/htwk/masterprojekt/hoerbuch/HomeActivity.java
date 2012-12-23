@@ -1,21 +1,27 @@
 package com.htwk.masterprojekt.hoerbuch;
 
-import com.htwk.masterprojekt.hoerbuch.db.test.DatabaseTest;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
 import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
 
 public class HomeActivity extends ListActivity {
+
+	File[] files;
+	ArrayAdapter<String> fileList;
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "HomeActivity";
@@ -34,42 +40,57 @@ public class HomeActivity extends ListActivity {
 	 * 
 	 * FIXME make configurable by using the settings
 	 */
-	private static final File ROOTDIR = new File(
-			"/storage/sdcard1/MUSIC/Jazz ist anders");
+	private static final File ROOTDIR = new File("/mnt/sdcard/Music");
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		File[] files = ROOTDIR.listFiles(new AudioFilter());
 		setTitle(ROOTDIR.getName());
-		fileNames = new ArrayList<String>();
-		paths = new ArrayList<String>();
-		// sqlite test
-		new DatabaseTest(this);
+		setContentView(R.layout.activity_home);
 
-		for (File file : files) {
-
-			// cutting the extension
-			fileNames.add(file.getName().substring(0,
-					file.getName().length() - 4));
-			paths.add(file.getPath());
-		}
-
-		// simple list-adapter to display the items
-		ArrayAdapter<String> fileList = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, fileNames);
-
+		// inti fill
+		getList(ROOTDIR);
 		setListAdapter(fileList);
+
+		// hock that biatch
+		// Intent intent = new Intent(this, MainActivity.class);
+		// startActivity(intent);
+
+		Button buttonUP = (Button) findViewById(R.id.HomeDirUp);
+		buttonUP.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				up();
+			}
+		});
 
 	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		File file = new File(paths.get(position));
-		Intent intent = new Intent(this, PlayerActivity.class);
-		intent.putExtra(EXTRA_FILE_PATH, file.getPath());
-		intent.putExtra(EXTRA_FILE, file.getName());
-		startActivity(intent);
+
+		if (new File(paths.get(position)).isFile()) {
+			File file = new File(paths.get(position));
+			Intent intent = new Intent(this, PlayerActivity.class);
+			intent.putExtra(EXTRA_FILE_PATH, file.getPath());
+			intent.putExtra(EXTRA_FILE, file.getName());
+			startActivity(intent);
+		} else {
+			getList(new File(paths.get(position)));
+			setListAdapter(fileList);
+		}
+	}
+
+	private void up() {
+
+		String dir = new File(paths.get(0)).getParentFile().getParentFile()
+				.getAbsolutePath();
+		String rootOneUP = ROOTDIR.getParentFile().getAbsolutePath();
+
+		if (!(dir.equals(rootOneUP))) {
+			getList(new File(dir));
+			setListAdapter(fileList);
+			Log.d("DEBUG", "Dir UP");
+		}
 	}
 
 	@Override
@@ -89,5 +110,44 @@ public class HomeActivity extends ListActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void getList(File dir) {
+
+		files = dir.listFiles(new AudioFilter());
+		fileNames = new ArrayList<String>();
+		paths = new ArrayList<String>();
+		for (File file : files) {
+
+			// cutting the extension
+			fileNames.add(getMP3Meta(file.getAbsolutePath()));
+			paths.add(file.getPath());
+		}
+		fileList = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, fileNames);
+
+	}
+
+	private String getMP3Meta(String filePath) {
+		StringBuilder sb = new StringBuilder();
+		if (new File(filePath).isFile()) {
+			MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+			mmr.setDataSource(filePath);
+
+			String titleName = mmr
+					.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+			String artistName = mmr
+					.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+			sb.append(artistName);
+			sb.append(" - ");
+			sb.append(titleName);
+
+		} else {
+			sb.append("<< ");
+			sb.append(new File(filePath).getName());
+			sb.append(" >>");
+		}
+
+		return sb.toString();
 	}
 }

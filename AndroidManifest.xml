@@ -33,10 +33,17 @@
                 android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
         </activity>
         <activity
+            android:name="com.htwk.masterprojekt.hoerbuch.MainActivity"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
+        </activity>
+        <activity
             android:name="com.htwk.masterprojekt.hoerbuch.PlayerActivity"
             android:label="@string/title_activity_player"
-            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.HomeActivity" 
-            android:theme="@android:style/Theme.Holo">
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.HomeActivity"
+            android:theme="@android:style/Theme.Holo" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
