@@ -89,12 +89,11 @@ public class FileBrowserActivity extends ListActivity {
 	}
 
 	private void up() {
+		if (bredcrumsPosition - 1 >= 0) {
+			bredcrums.remove(bredcrumsPosition);
+			bredcrumsPosition--;
 
-		bredcrumsPosition--;
-
-		if (bredcrumsPosition >= 0) {
 			String dir = bredcrums.get(bredcrumsPosition);
-			bredcrums.remove(bredcrumsPosition + 1);
 			getList(new File(dir));
 			setListAdapter(fileList);
 			Log.d("DEBUG", "Dir UP");
