@@ -2,7 +2,7 @@ package com.htwk.masterprojekt.hoerbuch.services;
 
 import java.io.File;
 
-import com.htwk.masterprojekt.hoerbuch.HomeActivity;
+import com.htwk.masterprojekt.hoerbuch.FileBrowserActivity;
 
 import android.app.Notification;
 import android.app.Service;
@@ -20,7 +20,7 @@ public class PlayerService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		String file = intent.getStringExtra(HomeActivity.EXTRA_FILE_PATH);
+		String file = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE_PATH);
 		play(new File(file));
 		return START_NOT_STICKY;
 	}

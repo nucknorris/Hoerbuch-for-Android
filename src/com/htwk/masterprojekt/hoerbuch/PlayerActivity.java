@@ -31,8 +31,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		Intent intent = getIntent();
-		file = intent.getStringExtra(HomeActivity.EXTRA_FILE);
-		filePath = intent.getStringExtra(HomeActivity.EXTRA_FILE_PATH);
+		file = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE);
+		filePath = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE_PATH);
 		TextView songTitleView = (TextView) findViewById(R.id.songTitle);
 		songTitleView.setText(file);
 

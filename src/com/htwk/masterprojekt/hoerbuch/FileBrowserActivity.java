@@ -3,6 +3,7 @@ package com.htwk.masterprojekt.hoerbuch;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
@@ -18,7 +19,7 @@ import android.widget.SimpleCursorAdapter;
 
 import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
 
-public class HomeActivity extends ListActivity {
+public class FileBrowserActivity extends ListActivity {
 
 	File[] files;
 	ArrayAdapter<String> fileList;
@@ -34,6 +35,8 @@ public class HomeActivity extends ListActivity {
 	// will contain the filenames and corresponding paths.
 	private List<String> fileNames;
 	private List<String> paths;
+	private List<String> bredcrums;
+	private int bredcrumsPosition;
 
 	/**
 	 * The dir where the audiobooks are supposed to be located in.
@@ -51,13 +54,16 @@ public class HomeActivity extends ListActivity {
 		// inti fill
 		getList(ROOTDIR);
 		setListAdapter(fileList);
+		bredcrums = new ArrayList<String>();
+		bredcrumsPosition = 0;
+		bredcrums.add(ROOTDIR.getAbsolutePath());
 
-		// hock that biatch
 		// Intent intent = new Intent(this, MainActivity.class);
 		// startActivity(intent);
 
 		Button buttonUP = (Button) findViewById(R.id.HomeDirUp);
 		buttonUP.setOnClickListener(new Button.OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				up();
 			}
@@ -75,6 +81,8 @@ public class HomeActivity extends ListActivity {
 			intent.putExtra(EXTRA_FILE, file.getName());
 			startActivity(intent);
 		} else {
+			bredcrumsPosition++;
+			bredcrums.add(paths.get(position));
 			getList(new File(paths.get(position)));
 			setListAdapter(fileList);
 		}
@@ -82,14 +90,15 @@ public class HomeActivity extends ListActivity {
 
 	private void up() {
 
-		String dir = new File(paths.get(0)).getParentFile().getParentFile()
-				.getAbsolutePath();
-		String rootOneUP = ROOTDIR.getParentFile().getAbsolutePath();
+		bredcrumsPosition--;
 
-		if (!(dir.equals(rootOneUP))) {
+		if (bredcrumsPosition >= 0) {
+			String dir = bredcrums.get(bredcrumsPosition);
 			getList(new File(dir));
 			setListAdapter(fileList);
 			Log.d("DEBUG", "Dir UP");
+		} else {
+			Log.d("DEBUG", "BROWSER WHAT ARE U DOOOOING STAAAHHP");
 		}
 	}
 
@@ -125,7 +134,6 @@ public class HomeActivity extends ListActivity {
 		}
 		fileList = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, fileNames);
-
 	}
 
 	private String getMP3Meta(String filePath) {
