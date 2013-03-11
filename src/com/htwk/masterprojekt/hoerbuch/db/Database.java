@@ -14,9 +14,9 @@ public class Database {
 	DatabaseHandler db;
 
 	public Database(LastPlayedActivity lastPlayedActivity) {
-		// c = lastPlayedActivity;
-		// db = new DatabaseHandler(c);
-		Log.d("Database Open", null);
+		c = lastPlayedActivity;
+		db = new DatabaseHandler(c);
+		Log.d("Database", "OPEN");
 	}
 
 	public List<LastPlayed> getLastPlayedList() {
