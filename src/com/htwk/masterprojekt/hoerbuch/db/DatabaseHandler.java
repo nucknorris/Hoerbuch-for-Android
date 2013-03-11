@@ -3,13 +3,13 @@ package com.htwk.masterprojekt.hoerbuch.db;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -37,10 +37,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// lastplayed
-		String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_LAST_PLAYED
+		String CREATE_TABLE_LAST_PLAYED = "CREATE TABLE " + TABLE_LAST_PLAYED
 				+ "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FILE + " TEXT,"
 				+ KEY_PATH + " TEXT," + KEY_TIME + " TEXT" + ")";
-		db.execSQL(CREATE_CONTACTS_TABLE);
+		db.execSQL(CREATE_TABLE_LAST_PLAYED);
 	}
 
 	// Upgrading database

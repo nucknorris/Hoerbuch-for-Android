@@ -25,7 +25,7 @@ public class FileBrowserActivity extends ListActivity {
 	ArrayAdapter<String> fileList;
 
 	@SuppressWarnings("unused")
-	private static final String TAG = "HomeActivity";
+	private static final String TAG = "FileBrowserActivity";
 	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
 	public static final String EXTRA_FILE = "EXTRA_FILE";
 
@@ -49,7 +49,7 @@ public class FileBrowserActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTitle(ROOTDIR.getName());
-		setContentView(R.layout.activity_home);
+		setContentView(R.layout.activity_browser);
 
 		// inti fill
 		getList(ROOTDIR);
