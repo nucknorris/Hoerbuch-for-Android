@@ -6,4 +6,11 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_player">PlayerActivity</string>
 
+    <!-- player buttons -->
+    <string name="player_btnPrevious">&lt;</string>
+    <string name="player_btnBackward">&lt;&lt;</string>
+    <string name="player_btnForward">>></string>
+    <string name="player_btnNext">></string>
+    <string name="player_btnPlay">Play</string>
+
 </resources>

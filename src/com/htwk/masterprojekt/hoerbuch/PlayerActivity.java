@@ -7,26 +7,35 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class PlayerActivity extends Activity implements OnCompletionListener {
+public class PlayerActivity extends Activity implements OnCompletionListener,
+		SeekBar.OnSeekBarChangeListener {
 	private static final String TAG = "PlayerActivity";
 	private String file;
 	private String filePath;
 	private ImageButton btnPlay;
 	private MediaPlayer mp;
+	private Handler mHandler = new Handler(); // for updating the progress bar
 	private TextView songTitleLabel;
+	private TextView songCurrentDurationLabel;
+	private TextView songTotalDurationLabel;
+	private SeekBar songProgressBar;
+	private Utils utils;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_player);
+
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -38,7 +47,15 @@ public class PlayerActivity extends Activity implements OnCompletionListener {
 
 		btnPlay = (ImageButton) findViewById(R.id.btnPlay);
 		songTitleLabel = (TextView) findViewById(R.id.songTitle);
+		songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
+		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
+		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
+
 		mp = new MediaPlayer();
+		utils = new Utils();
+
+		// listeners
+		songProgressBar.setOnSeekBarChangeListener(this); // Important
 		mp.setOnCompletionListener(this); // Important
 
 		playSong();
@@ -112,11 +129,11 @@ public class PlayerActivity extends Activity implements OnCompletionListener {
 			btnPlay.setImageResource(R.drawable.pause);
 
 			// set Progress bar values
-			// songProgressBar.setProgress(0);
-			// songProgressBar.setMax(100);
+			songProgressBar.setProgress(0);
+			songProgressBar.setMax(100);
 
 			// Updating progress bar
-			// updateProgressBar();
+			updateProgressBar();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
@@ -130,6 +147,71 @@ public class PlayerActivity extends Activity implements OnCompletionListener {
 	public void onDestroy() {
 		super.onDestroy();
 		mp.release();
+	}
+
+	/**
+	 * Update timer on seekbar
+	 * */
+	public void updateProgressBar() {
+		mHandler.postDelayed(mUpdateTimeTask, 100);
+	}
+
+	/**
+	 * Background Runnable thread
+	 * */
+	private Runnable mUpdateTimeTask = new Runnable() {
+		public void run() {
+			long totalDuration = mp.getDuration();
+			long currentDuration = mp.getCurrentPosition();
+
+			// Displaying Total Duration time
+			songTotalDurationLabel.setText(""
+					+ utils.milliSecondsToTimer(totalDuration));
+			// Displaying time completed playing
+			songCurrentDurationLabel.setText(""
+					+ utils.milliSecondsToTimer(currentDuration));
+
+			// Updating progress bar
+			int progress = (int) (utils.getProgressPercentage(currentDuration,
+					totalDuration));
+			// Log.d("Progress", ""+progress);
+			songProgressBar.setProgress(progress);
+
+			// Running this thread after 100 milliseconds
+			mHandler.postDelayed(this, 100);
+		}
+	};
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int arg1, boolean arg2) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * When user starts moving the progress handler
+	 * */
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		// remove message Handler from updating progress bar
+		mHandler.removeCallbacks(mUpdateTimeTask);
+	}
+
+	/**
+	 * When user stops moving the progress hanlder
+	 * */
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		mHandler.removeCallbacks(mUpdateTimeTask);
+		int totalDuration = mp.getDuration();
+		int currentPosition = utils.progressToTimer(seekBar.getProgress(),
+				totalDuration);
+
+		// forward or backward to certain seconds
+		mp.seekTo(currentPosition);
+
+		// update timer progress again
+		updateProgressBar();
 	}
 
 }
