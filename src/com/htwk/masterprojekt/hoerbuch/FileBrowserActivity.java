@@ -2,6 +2,7 @@ package com.htwk.masterprojekt.hoerbuch;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
+import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
 
 public class FileBrowserActivity extends ListActivity {
 
@@ -30,13 +32,15 @@ public class FileBrowserActivity extends ListActivity {
 	public static final String EXTRA_FILE = "EXTRA_FILE";
 
 	// This is the Adapter being used to display the list's data
-	SimpleCursorAdapter mAdapter;
+	private SimpleCursorAdapter mAdapter;
+	private MediaFileManager mediaManager;
+	HashMap<String, String> mediaFiles;
 
 	// will contain the filenames and corresponding paths.
 	private List<String> fileNames;
 	private List<String> paths;
-	private List<String> bredcrums;
-	private int bredcrumsPosition;
+	private List<String> breadcrumbs;
+	private int breadcrumbsPosition;
 
 	/**
 	 * The dir where the audiobooks are supposed to be located in.
@@ -50,22 +54,31 @@ public class FileBrowserActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setTitle(ROOTDIR.getName());
 		setContentView(R.layout.activity_home);
+		mediaManager = new MediaFileManager();
 
-		// inti fill
-		getList(ROOTDIR);
+		// init fill
+		// retrieving the map containing the paths (keys)
+		// and filenames (values)
+		mediaFiles = mediaManager.getList(ROOTDIR);
+		// extracting the filenames
+		fileNames = new ArrayList<String>(mediaFiles.values());
+		paths = new ArrayList<String>(mediaFiles.keySet());
+
+		fileList = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, fileNames);
 		setListAdapter(fileList);
-		bredcrums = new ArrayList<String>();
-		bredcrumsPosition = 0;
-		bredcrums.add(ROOTDIR.getAbsolutePath());
+		breadcrumbs = new ArrayList<String>();
+		breadcrumbsPosition = 0;
+		breadcrumbs.add(ROOTDIR.getAbsolutePath());
 
 		// Intent intent = new Intent(this, MainActivity.class);
 		// startActivity(intent);
 
-		Button buttonUP = (Button) findViewById(R.id.HomeDirUp);
-		buttonUP.setOnClickListener(new Button.OnClickListener() {
+		Button buttonUp = (Button) findViewById(R.id.HomeDirUp);
+		buttonUp.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				up();
+				goToUpperDirectory();
 			}
 		});
 
@@ -81,24 +94,37 @@ public class FileBrowserActivity extends ListActivity {
 			intent.putExtra(EXTRA_FILE, file.getName());
 			startActivity(intent);
 		} else {
-			bredcrumsPosition++;
-			bredcrums.add(paths.get(position));
-			getList(new File(paths.get(position)));
+			breadcrumbsPosition++;
+			breadcrumbs.add(paths.get(position));
+			mediaFiles = mediaManager.getList(new File(paths.get(position)));
+			fileNames = new ArrayList<String>(mediaFiles.values());
+			paths = new ArrayList<String>(mediaFiles.keySet());
+			fileList = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, fileNames);
+
 			setListAdapter(fileList);
 		}
 	}
 
-	private void up() {
-		if (bredcrumsPosition - 1 >= 0) {
-			bredcrums.remove(bredcrumsPosition);
-			bredcrumsPosition--;
+	/**
+	 * Goes back in hierarchically order until the root directory is reached.
+	 */
+	private void goToUpperDirectory() {
+		while (breadcrumbsPosition - 1 >= 0) {
+			breadcrumbs.remove(breadcrumbsPosition);
+			breadcrumbsPosition--;
 
-			String dir = bredcrums.get(bredcrumsPosition);
-			getList(new File(dir));
+			String dir = breadcrumbs.get(breadcrumbsPosition);
+
+			mediaFiles = mediaManager.getList(new File(dir));
+			fileNames = new ArrayList<String>(mediaFiles.values());
+			paths = new ArrayList<String>(mediaFiles.keySet());
+
+			fileList = new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, fileNames);
+
 			setListAdapter(fileList);
 			Log.d("DEBUG", "Dir UP");
-		} else {
-			Log.d("DEBUG", "BROWSER WHAT ARE U DOOOOING STAAAHHP");
 		}
 	}
 
@@ -121,41 +147,4 @@ public class FileBrowserActivity extends ListActivity {
 		}
 	}
 
-	private void getList(File dir) {
-
-		files = dir.listFiles(new AudioFilter());
-		fileNames = new ArrayList<String>();
-		paths = new ArrayList<String>();
-		for (File file : files) {
-
-			// cutting the extension
-			fileNames.add(getMP3Meta(file.getAbsolutePath()));
-			paths.add(file.getPath());
-		}
-		fileList = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, fileNames);
-	}
-
-	private String getMP3Meta(String filePath) {
-		StringBuilder sb = new StringBuilder();
-		if (new File(filePath).isFile()) {
-			MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-			mmr.setDataSource(filePath);
-
-			String titleName = mmr
-					.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-			String artistName = mmr
-					.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-			sb.append(artistName);
-			sb.append(" - ");
-			sb.append(titleName);
-
-		} else {
-			sb.append("<< ");
-			sb.append(new File(filePath).getName());
-			sb.append(" >>");
-		}
-
-		return sb.toString();
-	}
 }

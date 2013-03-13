@@ -20,6 +20,7 @@ import android.widget.TextView;
 public class PlayerActivity extends Activity implements OnCompletionListener,
 		SeekBar.OnSeekBarChangeListener {
 	private static final String TAG = "PlayerActivity";
+	private Intent intent;
 	private String file;
 	private String filePath;
 	private ImageButton btnPlay;
@@ -39,12 +40,10 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		Intent intent = getIntent();
+		// registering the GUI components
+		intent = getIntent();
 		file = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE);
 		filePath = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE_PATH);
-		TextView songTitleView = (TextView) findViewById(R.id.songTitle);
-		songTitleView.setText(file);
-
 		btnPlay = (ImageButton) findViewById(R.id.btnPlay);
 		songTitleLabel = (TextView) findViewById(R.id.songTitle);
 		songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
@@ -57,6 +56,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		// listeners
 		songProgressBar.setOnSeekBarChangeListener(this); // Important
 		mp.setOnCompletionListener(this); // Important
+		songTitleLabel.setText(file);
 
 		playSong();
 
@@ -143,12 +143,6 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		}
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		mp.release();
-	}
-
 	/**
 	 * Update timer on seekbar
 	 * */
@@ -183,9 +177,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	};
 
 	@Override
-	public void onProgressChanged(SeekBar seekBar, int arg1, boolean arg2) {
-		// TODO Auto-generated method stub
-
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
 	}
 
 	/**
@@ -214,4 +207,10 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		updateProgressBar();
 	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mHandler.removeCallbacks(mUpdateTimeTask);
+		mp.release();
+	}
 }

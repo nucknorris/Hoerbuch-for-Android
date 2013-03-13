@@ -34,14 +34,14 @@ public class MainActivity extends Activity {
 		but.setText("FileBrowser");
 		but.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Log.d("SAY", "leClick");
+				Log.d(TAG, "leClick");
 				if (click) {
-					Log.d("SAY", "SHOW");
+					Log.d(TAG, "SHOW");
 					fb.show(mainLayout);
 
 					click = false;
 				} else {
-					Log.d("SAY", "HIDE");
+					Log.d(TAG, "HIDE");
 					fb.hide();
 					click = true;
 				}
@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
 		but2.setText("DataBase");
 		but2.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Log.d("SAY", "leClick");
+				Log.d(TAG, "leClick");
 				// sqlite test
 				new DatabaseTest(c);
 			}

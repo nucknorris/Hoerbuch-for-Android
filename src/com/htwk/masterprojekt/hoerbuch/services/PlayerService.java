@@ -2,12 +2,11 @@ package com.htwk.masterprojekt.hoerbuch.services;
 
 import java.io.File;
 
-import com.htwk.masterprojekt.hoerbuch.FileBrowserActivity;
-
-import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+
+import com.htwk.masterprojekt.hoerbuch.FileBrowserActivity;
 
 public class PlayerService extends Service {
 

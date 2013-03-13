@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="16" />
+        android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
@@ -26,26 +26,26 @@
         <activity
             android:name="com.htwk.masterprojekt.hoerbuch.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.HomeActivity" >
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
         </activity>
         <activity
             android:name="com.htwk.masterprojekt.hoerbuch.MainActivity"
-            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.MainActivity" >
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
+                android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" />
         </activity>
         <activity
             android:name="com.htwk.masterprojekt.hoerbuch.PlayerActivity"
             android:label="@string/title_activity_player"
-            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.HomeActivity"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity"
             android:theme="@android:style/Theme.Holo" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
+                android:value="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" />
         </activity>
     </application>
 
