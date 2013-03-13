@@ -1,6 +1,10 @@
 package com.htwk.masterprojekt.hoerbuch;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,9 +17,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
 
 public class PlayerActivity extends Activity implements OnCompletionListener,
 		SeekBar.OnSeekBarChangeListener {
@@ -24,13 +31,17 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private String file;
 	private String filePath;
 	private ImageButton btnPlay;
-	private MediaPlayer mp;
+	private Button btnNext;
+	private Button btnPrev;
+	private MediaPlayer player;
+	private MediaFileManager mediaManager;
 	private Handler mHandler = new Handler(); // for updating the progress bar
 	private TextView songTitleLabel;
 	private TextView songCurrentDurationLabel;
 	private TextView songTotalDurationLabel;
 	private SeekBar songProgressBar;
 	private Utils utils;
+	private HashMap<String, String> mediaFiles;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,40 +51,47 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		// registering the GUI components
+		// getting the information from the previous activity/intent
 		intent = getIntent();
-		file = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE);
 		filePath = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE_PATH);
+
+		// registering the GUI components
 		btnPlay = (ImageButton) findViewById(R.id.btnPlay);
+		btnNext = (Button) findViewById(R.id.btnNext);
+		btnPrev = (Button) findViewById(R.id.btnPrevious);
 		songTitleLabel = (TextView) findViewById(R.id.songTitle);
 		songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
 		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
 		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
 
-		mp = new MediaPlayer();
+		player = new MediaPlayer();
 		utils = new Utils();
+		mediaManager = new MediaFileManager();
+
+		// provide the playlist
+		mediaFiles = mediaManager.getList(new File(filePath));
 
 		// listeners
 		songProgressBar.setOnSeekBarChangeListener(this); // Important
-		mp.setOnCompletionListener(this); // Important
+		player.setOnCompletionListener(this); // Important
 		songTitleLabel.setText(file);
 
-		playSong();
+		playSong(filePath);
 
 		btnPlay.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				// check for already playing
-				if (mp.isPlaying()) {
-					if (mp != null) {
-						mp.pause();
+				if (player.isPlaying()) {
+					if (player != null) {
+						player.pause();
 						// Changing button image to play button
 						btnPlay.setImageResource(R.drawable.play);
 					}
 				} else {
 					// Resume song
-					if (mp != null) {
-						mp.start();
+					if (player != null) {
+						player.start();
 						// Changing button image to pause button
 						btnPlay.setImageResource(R.drawable.pause);
 					}
@@ -81,6 +99,45 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 			}
 		});
+
+		btnNext.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				List<String> listOfFiles = new ArrayList<String>(mediaFiles
+						.keySet());
+				// get the next element of the list and update the current file
+				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
+
+				// play next song until end of playlist is reached
+				if (indexOfCurrentFile < listOfFiles.size() - 1) {
+					filePath = listOfFiles.get(indexOfCurrentFile + 1);
+					file = mediaFiles.get(filePath);
+					playSong(filePath);
+				}
+
+			}
+		});
+
+		btnPrev.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				List<String> listOfFiles = new ArrayList<String>(mediaFiles
+						.keySet());
+				// get the next element of the list and update the current file
+				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
+
+				// play next song until end of playlist is reached
+				if (indexOfCurrentFile > 0) {
+					filePath = listOfFiles.get(indexOfCurrentFile - 1);
+					file = mediaFiles.get(filePath);
+					playSong(filePath);
+				}
+
+			}
+		});
+
 	}
 
 	@Override
@@ -113,16 +170,16 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 	}
 
-	public void playSong() {
-		Log.v(TAG, "playing: " + filePath);
+	public void playSong(String path) {
+		Log.v(TAG, "playing: " + path);
 		// Play song
 		try {
-			mp.reset();
-			mp.setDataSource(filePath);
-			mp.prepare();
-			mp.start();
+			player.reset();
+			player.setDataSource(path);
+			player.prepare();
+			player.start();
 			// Displaying Song title
-			String songTitle = filePath;
+			String songTitle = path;
 			songTitleLabel.setText(songTitle);
 
 			// Changing Button Image to pause image
@@ -155,8 +212,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	 * */
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
-			long totalDuration = mp.getDuration();
-			long currentDuration = mp.getCurrentPosition();
+			long totalDuration = player.getDuration();
+			long currentDuration = player.getCurrentPosition();
 
 			// Displaying Total Duration time
 			songTotalDurationLabel.setText(""
@@ -196,12 +253,12 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		mHandler.removeCallbacks(mUpdateTimeTask);
-		int totalDuration = mp.getDuration();
+		int totalDuration = player.getDuration();
 		int currentPosition = utils.progressToTimer(seekBar.getProgress(),
 				totalDuration);
 
 		// forward or backward to certain seconds
-		mp.seekTo(currentPosition);
+		player.seekTo(currentPosition);
 
 		// update timer progress again
 		updateProgressBar();
@@ -211,6 +268,6 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	public void onDestroy() {
 		super.onDestroy();
 		mHandler.removeCallbacks(mUpdateTimeTask);
-		mp.release();
+		player.release();
 	}
 }

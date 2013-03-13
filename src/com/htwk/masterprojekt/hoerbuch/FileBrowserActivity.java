@@ -7,7 +7,6 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +17,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
 import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
 
 public class FileBrowserActivity extends ListActivity {
@@ -28,13 +26,14 @@ public class FileBrowserActivity extends ListActivity {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "HomeActivity";
-	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
 	public static final String EXTRA_FILE = "EXTRA_FILE";
+	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
+	public static final String EXTRA_PLAYLIST_POSITION = "PLAYLIST_POSITION";
 
 	// This is the Adapter being used to display the list's data
 	private SimpleCursorAdapter mAdapter;
 	private MediaFileManager mediaManager;
-	HashMap<String, String> mediaFiles;
+	private HashMap<String, String> mediaFiles;
 
 	// will contain the filenames and corresponding paths.
 	private List<String> fileNames;
@@ -91,7 +90,7 @@ public class FileBrowserActivity extends ListActivity {
 			File file = new File(paths.get(position));
 			Intent intent = new Intent(this, PlayerActivity.class);
 			intent.putExtra(EXTRA_FILE_PATH, file.getPath());
-			intent.putExtra(EXTRA_FILE, file.getName());
+			intent.putExtra(EXTRA_PLAYLIST_POSITION, position);
 			startActivity(intent);
 		} else {
 			breadcrumbsPosition++;

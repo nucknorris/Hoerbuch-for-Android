@@ -6,12 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.media.MediaMetadataRetriever;
+import android.util.Log;
 
 import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
 
 public class MediaFileManager {
+	private static final String TAG = "MediaFileManager";
 	// will contain the filenames and corresponding paths.
-	@SuppressWarnings("unused")
 	private List<String> fileNames;
 	private List<String> paths;
 	private File[] files;
@@ -30,8 +31,11 @@ public class MediaFileManager {
 
 		// map contains <path, filename>
 		HashMap<String, String> mediaFiles = new HashMap<String, String>();
-
-		files = dir.listFiles(new AudioFilter());
+		if (dir.isFile()) {
+			files = dir.getParentFile().listFiles(new AudioFilter());
+		} else {
+			files = dir.listFiles(new AudioFilter());
+		}
 		fileNames = new ArrayList<String>();
 		paths = new ArrayList<String>();
 		for (File file : files) {
