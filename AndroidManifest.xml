@@ -10,30 +10,77 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!-- <application -->
+    <!-- android:allowBackup="true" -->
+    <!-- android:icon="@drawable/ic_launcher" -->
+    <!-- android:label="@string/app_name" -->
+    <!-- android:theme="@style/AppTheme" > -->
+    <!-- <activity -->
+    <!-- android:name="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" -->
+    <!-- android:label="@string/app_name" > -->
+    <!-- <intent-filter> -->
+    <!-- <action android:name="android.intent.action.MAIN" /> -->
+    <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+    <!-- </intent-filter> -->
+    <!-- </activity> -->
+    <!-- <activity -->
+    <!-- android:name="com.htwk.masterprojekt.hoerbuch.SettingsActivity" -->
+    <!-- android:label="@string/title_activity_settings" -->
+    <!-- android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" > -->
+    <!-- <meta-data -->
+    <!-- android:name="android.support.PARENT_ACTIVITY" -->
+    <!-- android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" /> -->
+    <!-- </activity> -->
+    <!-- <activity -->
+    <!-- android:name="com.htwk.masterprojekt.hoerbuch.MainActivity" -->
+    <!-- android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" > -->
+    <!-- <meta-data -->
+    <!-- android:name="android.support.PARENT_ACTIVITY" -->
+    <!-- android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" /> -->
+    <!-- </activity> -->
+    <!-- <activity -->
+    <!-- android:name="com.htwk.masterprojekt.hoerbuch.PlayerActivity" -->
+    <!-- android:label="@string/title_activity_player" -->
+    <!-- android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" -->
+    <!-- android:theme="@android:style/Theme.Holo" > -->
+    <!-- <meta-data -->
+    <!-- android:name="android.support.PARENT_ACTIVITY" -->
+    <!-- android:value="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" /> -->
+    <!-- </activity> -->
+    <!-- </application> -->
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity"
+            android:name="com.htwk.masterprojekt.hoerbuch.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.htwk.masterprojekt.hoerbuch.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" >
+            android:name="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.htwk.masterprojekt.hoerbuch.HomeActivity" />
+                android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" />
         </activity>
         <activity
-            android:name="com.htwk.masterprojekt.hoerbuch.MainActivity"
-            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" >
+            android:name="com.htwk.masterprojekt.hoerbuch.LastPlayedActivity"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.htwk.masterprojekt.hoerbuch.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" />
@@ -41,11 +88,11 @@
         <activity
             android:name="com.htwk.masterprojekt.hoerbuch.PlayerActivity"
             android:label="@string/title_activity_player"
-            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.MainActivity"
             android:theme="@android:style/Theme.Holo" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.htwk.masterprojekt.hoerbuch.FileBrowserActivity" />
+                android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" />
         </activity>
     </application>
 
