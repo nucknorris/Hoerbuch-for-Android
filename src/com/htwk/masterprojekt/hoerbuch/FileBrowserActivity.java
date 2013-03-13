@@ -55,24 +55,22 @@ public class FileBrowserActivity extends ListActivity {
 		setContentView(R.layout.activity_browser);
 		mediaManager = new MediaFileManager();
 
-		// init fill
-		// retrieving the map containing the paths (keys)
-		// and filenames (values)
 		mediaFiles = mediaManager.getList(ROOTDIR);
-		// extracting the filenames
 		fileNames = new ArrayList<String>(mediaFiles.values());
 		paths = new ArrayList<String>(mediaFiles.keySet());
 
 		fileList = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, fileNames);
 		setListAdapter(fileList);
+
+		// save the dir position in a array
 		breadcrumbs = new ArrayList<String>();
+
+		// start position for directory curser
 		breadcrumbsPosition = 0;
 		breadcrumbs.add(ROOTDIR.getAbsolutePath());
 
-		// Intent intent = new Intent(this, MainActivity.class);
-		// startActivity(intent);
-
+		// button to go one dir up
 		Button buttonUp = (Button) findViewById(R.id.HomeDirUp);
 		buttonUp.setOnClickListener(new Button.OnClickListener() {
 			@Override
@@ -85,7 +83,7 @@ public class FileBrowserActivity extends ListActivity {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-
+		// creates a list of all files in the dir
 		if (new File(paths.get(position)).isFile()) {
 			File file = new File(paths.get(position));
 			Intent intent = new Intent(this, PlayerActivity.class);
@@ -100,7 +98,6 @@ public class FileBrowserActivity extends ListActivity {
 			paths = new ArrayList<String>(mediaFiles.keySet());
 			fileList = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, fileNames);
-
 			setListAdapter(fileList);
 		}
 	}
@@ -113,6 +110,7 @@ public class FileBrowserActivity extends ListActivity {
 			breadcrumbs.remove(breadcrumbsPosition);
 			breadcrumbsPosition--;
 
+			// get the new position for dir cursor
 			String dir = breadcrumbs.get(breadcrumbsPosition);
 
 			mediaFiles = mediaManager.getList(new File(dir));

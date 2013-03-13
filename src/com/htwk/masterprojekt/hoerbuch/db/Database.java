@@ -8,6 +8,9 @@ import android.util.Log;
 import com.htwk.masterprojekt.hoerbuch.LastPlayedActivity;
 import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
 
+/*
+ * class to interact with the database
+ * */
 public class Database {
 
 	Context c;
@@ -33,7 +36,7 @@ public class Database {
 		for (LastPlayed lp : llp) {
 			String log = "Id: " + lp.getID() + " ,Name: " + lp.getFile()
 					+ " ,Path: " + lp.getPath() + " ,Time: " + lp.getTime();
-			// Writing lp to log
+			// writing lp to log
 			Log.d("LP: ", log);
 		}
 	}

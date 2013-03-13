@@ -122,7 +122,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	// add a single lastplayed
-
 	public void addLastPlayed(LastPlayed lastPlayed) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
