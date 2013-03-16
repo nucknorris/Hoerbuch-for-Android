@@ -1,0 +1,27 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="General" >
+
+        <CheckBoxPreference
+            android:key="swag"
+            android:summary="Do you feel it?"
+            android:title="SWAG" />
+
+        <EditTextPreference
+            android:dialogTitle="Audio Root-Folder"
+            android:key="path"
+            android:summary="Audio Root-Folder"
+            android:title="ROOT-Path" />
+
+        <Preference
+            android:summary="Some Description"
+            android:title="Some Title" >
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.htwk.masterprojekt.hoerbuch.FilePicker"
+                android:targetPackage="com.htwk.masterprojekt.hoerbuch" />
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

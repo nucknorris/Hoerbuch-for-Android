@@ -71,6 +71,13 @@
                 android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" />
         </activity>
         <activity
+            android:name="com.htwk.masterprojekt.hoerbuch.FilePicker"
+            android:parentActivityName="com.htwk.masterprojekt.hoerbuch.SettingsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.htwk.masterprojekt.hoerbuch.SettingsActivity" />
+        </activity>
+        <activity
             android:name="com.htwk.masterprojekt.hoerbuch.LastPlayedActivity"
             android:parentActivityName="com.htwk.masterprojekt.hoerbuch.MainActivity" >
             <meta-data
