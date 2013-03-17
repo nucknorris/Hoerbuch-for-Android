@@ -124,7 +124,7 @@ public class FilePicker extends ListActivity {
 	}
 
 	private void goToUpperDirectory() {
-		while (breadcrumbsPosition - 1 >= 0) {
+		if (breadcrumbsPosition - 1 >= 0) {
 			breadcrumbs.remove(breadcrumbsPosition);
 			breadcrumbsPosition--;
 			String dir = breadcrumbs.get(breadcrumbsPosition);
