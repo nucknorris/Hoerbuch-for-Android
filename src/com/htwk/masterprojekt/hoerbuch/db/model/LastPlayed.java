@@ -1,5 +1,9 @@
 package com.htwk.masterprojekt.hoerbuch.db.model;
 
+import java.io.File;
+
+import com.htwk.masterprojekt.hoerbuch.Utils;
+
 public class LastPlayed {
 
 	// private variables
@@ -21,6 +25,13 @@ public class LastPlayed {
 		this.file = file;
 		this.path = path;
 		this.time = time;
+	}
+
+	public LastPlayed(String longPath, String time) {
+		this.time = time;
+		File file = new File(longPath);
+		this.path = file.getPath();
+		this.file = Utils.rsplit("/", longPath);
 	}
 
 	public LastPlayed() {

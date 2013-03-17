@@ -14,9 +14,12 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.htwk.masterprojekt.hoerbuch.FileBrowserActivity;
-import com.htwk.masterprojekt.hoerbuch.MainActivity;
+import com.htwk.masterprojekt.hoerbuch.LastPlayedActivity;
 import com.htwk.masterprojekt.hoerbuch.PlayerActivity;
 import com.htwk.masterprojekt.hoerbuch.R;
+import com.htwk.masterprojekt.hoerbuch.db.Database;
+import com.htwk.masterprojekt.hoerbuch.db.DatabaseHandler;
+import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
 
 public class PlayerService extends Service implements OnCompletionListener,
 		MediaPlayer.OnErrorListener {
@@ -28,6 +31,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 	public static int PLAYER_FLAG = 0;
 	private MediaPlayer player = null;
 	private String filePath;
+	private DatabaseHandler db;
 
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -97,6 +101,9 @@ public class PlayerService extends Service implements OnCompletionListener,
 
 	public void onDestroy() {
 		Log.v(TAG, "onDestroy reached");
+		db = new DatabaseHandler(this);
+		db.addLastPlayed(new LastPlayed(filePath, ""
+				+ player.getCurrentPosition()));
 		super.onDestroy();
 		if (player.isPlaying()) {
 			player.stop();

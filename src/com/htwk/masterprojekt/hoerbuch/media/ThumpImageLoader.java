@@ -30,7 +30,7 @@ public class ThumpImageLoader {
 		} else {
 			Log.d("ThumpImageLoader", "DIR");
 			bmp = BitmapFactory.decodeResource(context.getResources(),
-					R.drawable.ic_launcher);
+					R.drawable.folder);
 		}
 
 	}

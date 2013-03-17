@@ -16,8 +16,8 @@ public class Database {
 	Context c;
 	DatabaseHandler db;
 
-	public Database(LastPlayedActivity lastPlayedActivity) {
-		c = lastPlayedActivity;
+	public Database(Context context) {
+		c = context;
 		db = new DatabaseHandler(c);
 		Log.d(TAG, "OPEN");
 	}
