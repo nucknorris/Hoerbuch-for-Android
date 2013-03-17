@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.w3c.dom.Element;
+
 import android.media.MediaMetadataRetriever;
-import android.util.Log;
 
 import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
 
@@ -22,15 +23,15 @@ public class MediaFileManager {
 	private static AudioFilter filter = new AudioFilter();
 
 	/**
-	 * Generates a map of the files located in the given directory.
+	 * Generates a list of the files located in the given directory.
 	 * 
 	 * @param dir
 	 *            directory to be used
 	 */
-	public HashMap<String, String> getList(File dir) {
+	public List<MediaFile> getList(File dir) {
 
 		// map contains <path, filename>
-		HashMap<String, String> mediaFiles = new HashMap<String, String>();
+		List<MediaFile> mediaFiles = new ArrayList<MediaFile>();
 		if (dir.isFile()) {
 			files = dir.getParentFile().listFiles(new AudioFilter());
 		} else {
@@ -39,9 +40,10 @@ public class MediaFileManager {
 		fileNames = new ArrayList<String>();
 		paths = new ArrayList<String>();
 		for (File file : files) {
-
-			mediaFiles.put(file.getPath(),
-					extractMP3Meta(file.getAbsolutePath()));
+			MediaFile mediaFile = new MediaFile();
+			mediaFile.setPath(file.getPath());
+			mediaFile.setTitle(extractMP3Meta(file.getAbsolutePath()));
+			mediaFiles.add(mediaFile);
 		}
 		return mediaFiles;
 	}

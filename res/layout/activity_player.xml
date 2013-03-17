@@ -67,20 +67,24 @@
 
             <!-- Previous Button -->
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnPrevious"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".20"
+                android:contentDescription="@string/player_btnPrevious"
+                android:src="@drawable/previous"
                 android:text="@string/player_btnPrevious" />
 
             <!-- Backward Button -->
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnBackward"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".20"
+                android:contentDescription="@string/player_btnBackward"
+                android:src="@drawable/rewind"
                 android:text="@string/player_btnBackward" />
 
             <!-- Play Button -->
@@ -95,20 +99,24 @@
 
             <!-- Forward Button -->
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnForward"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".20"
+                android:contentDescription="@string/player_btnForward"
+                android:src="@drawable/forward"
                 android:text="@string/player_btnForward" />
 
             <!-- Next Button -->
 
-            <Button
+            <ImageButton
                 android:id="@+id/btnNext"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".20"
+                android:contentDescription="@string/player_btnNext"
+                android:src="@drawable/next"
                 android:text="@string/player_btnNext" />
         </LinearLayout>
     </LinearLayout>
@@ -124,7 +132,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:paddingLeft="6dp"
-        android:paddingRight="6dp"/>
+        android:paddingRight="6dp" />
 
     <!-- Timer Display -->
 
