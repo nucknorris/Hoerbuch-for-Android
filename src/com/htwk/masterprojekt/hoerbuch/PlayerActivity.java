@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.htwk.masterprojekt.hoerbuch.media.MediaFile;
 import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
 
 public class PlayerActivity extends Activity implements OnCompletionListener,
@@ -45,7 +46,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private TextView songTotalDurationLabel;
 	private SeekBar songProgressBar;
 	private Utils utils;
-	private HashMap<String, String> mediaFiles;
+	private List<MediaFile> mediaFiles;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,18 +111,24 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 			@Override
 			public void onClick(View v) {
-				List<String> listOfFiles = new ArrayList<String>(mediaFiles
-						.keySet());
+				List<String> listOfFiles = new ArrayList<String>();
+				for (MediaFile mf : mediaFiles) {
+					listOfFiles.add(mf.getPath());
+				}
 				// get the next element of the list and update the current file
 				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
 
 				// play next song until end of playlist is reached
 				if (indexOfCurrentFile < listOfFiles.size() - 1) {
 					filePath = listOfFiles.get(indexOfCurrentFile + 1);
-					file = mediaFiles.get(filePath);
+					for (MediaFile mf : mediaFiles) {
+						if (mf.getPath().equals(filePath)) {
+							file = mf.getFileName();
+							break;
+						}
+					}
 					playSong(filePath);
 				}
-
 			}
 		});
 
@@ -129,15 +136,22 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 			@Override
 			public void onClick(View v) {
-				List<String> listOfFiles = new ArrayList<String>(mediaFiles
-						.keySet());
+				List<String> listOfFiles = new ArrayList<String>();
+				for (MediaFile mf : mediaFiles) {
+					listOfFiles.add(mf.getPath());
+				}
 				// get the next element of the list and update the current file
 				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
 
 				// play next song until end of playlist is reached
 				if (indexOfCurrentFile > 0) {
 					filePath = listOfFiles.get(indexOfCurrentFile - 1);
-					file = mediaFiles.get(filePath);
+					for (MediaFile mf : mediaFiles) {
+						if (mf.getPath().equals(filePath)) {
+							file = mf.getFileName();
+							break;
+						}
+					}
 					playSong(filePath);
 				}
 

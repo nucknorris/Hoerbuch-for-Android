@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import com.htwk.masterprojekt.hoerbuch.media.MediaFile;
 import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
 
 public class FileBrowserActivity extends ListActivity {
@@ -33,7 +34,7 @@ public class FileBrowserActivity extends ListActivity {
 	// This is the Adapter being used to display the list's data
 	private SimpleCursorAdapter mAdapter;
 	private MediaFileManager mediaManager;
-	private HashMap<String, String> mediaFiles;
+	private List<MediaFile> mediaFiles;
 
 	// will contain the filenames and corresponding paths.
 	private List<String> fileNames;
@@ -56,8 +57,12 @@ public class FileBrowserActivity extends ListActivity {
 		mediaManager = new MediaFileManager();
 
 		mediaFiles = mediaManager.getList(ROOTDIR);
-		fileNames = new ArrayList<String>(mediaFiles.values());
-		paths = new ArrayList<String>(mediaFiles.keySet());
+		paths = new ArrayList<String>();
+		fileNames = new ArrayList<String>();
+		for (MediaFile mf : mediaFiles) {
+			fileNames.add(mf.getFileName());
+			paths.add(mf.getPath());
+		}
 
 		fileList = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, fileNames);
@@ -94,8 +99,12 @@ public class FileBrowserActivity extends ListActivity {
 			breadcrumbsPosition++;
 			breadcrumbs.add(paths.get(position));
 			mediaFiles = mediaManager.getList(new File(paths.get(position)));
-			fileNames = new ArrayList<String>(mediaFiles.values());
-			paths = new ArrayList<String>(mediaFiles.keySet());
+			paths = new ArrayList<String>();
+			fileNames = new ArrayList<String>();
+			for (MediaFile mf : mediaFiles) {
+				fileNames.add(mf.getFileName());
+				paths.add(mf.getPath());
+			}
 			fileList = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, fileNames);
 			setListAdapter(fileList);
@@ -106,7 +115,7 @@ public class FileBrowserActivity extends ListActivity {
 	 * Goes back in hierarchically order until the root directory is reached.
 	 */
 	private void goToUpperDirectory() {
-		while (breadcrumbsPosition - 1 >= 0) {
+		if (breadcrumbsPosition - 1 >= 0) {
 			breadcrumbs.remove(breadcrumbsPosition);
 			breadcrumbsPosition--;
 
@@ -114,8 +123,12 @@ public class FileBrowserActivity extends ListActivity {
 			String dir = breadcrumbs.get(breadcrumbsPosition);
 
 			mediaFiles = mediaManager.getList(new File(dir));
-			fileNames = new ArrayList<String>(mediaFiles.values());
-			paths = new ArrayList<String>(mediaFiles.keySet());
+			paths = new ArrayList<String>();
+			fileNames = new ArrayList<String>();
+			for (MediaFile mf : mediaFiles) {
+				fileNames.add(mf.getFileName());
+				paths.add(mf.getPath());
+			}
 
 			fileList = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, fileNames);
