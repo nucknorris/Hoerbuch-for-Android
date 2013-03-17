@@ -88,4 +88,9 @@ public class Utils {
 	public static String rsplit(String atLastElement, String string) {
 		return string.substring(string.lastIndexOf(atLastElement) + 1);
 	}
+
+	// split the string at the last position of a given element
+	public static String lsplit(String atLastElement, String string) {
+		return string.substring(0, string.lastIndexOf(atLastElement) + 1);
+	}
 }

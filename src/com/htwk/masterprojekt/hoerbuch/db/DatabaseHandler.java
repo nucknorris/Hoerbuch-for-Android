@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
 
@@ -16,6 +17,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// All Static variables
 	// Database Version
 	protected static final int DATABASE_VERSION = 1;
+	private static final String TAG = "DatabaseHandler";
 	// Database Name
 	protected static final String DATABASE_NAME = "hoerbuchdb";
 	// lastplayed table name
@@ -120,5 +122,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// Inserting Row
 		db.insert(TABLE_LAST_PLAYED, null, values);
 		db.close(); // Closing database connection
+	}
+
+	public void printLastPlayed() {
+		for (LastPlayed lp : getAllLastPlayed()) {
+			Log.d(TAG,
+					"" + lp.getPath() + " " + lp.getFile() + " " + lp.getTime());
+		}
 	}
 }

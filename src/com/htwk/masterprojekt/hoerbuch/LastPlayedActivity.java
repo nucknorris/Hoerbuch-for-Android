@@ -78,7 +78,10 @@ public class LastPlayedActivity extends Activity {
 				map.put(KEY_TITLE, mf.getTitle());
 				map.put(KEY_FILE, mf.getFileNameShort());
 				map.put(KEY_ARTIST, mf.getArtist());
-				map.put(KEY_DURATION, "Stopped at " + lp.getTime());
+				map.put(KEY_DURATION,
+						"Stopped at "
+								+ new Utils().milliSecondsToTimer(Long
+										.parseLong(lp.getTime())));
 				map.put(KEY_THUMB_URL, mf.getFileNameLong());
 				// adding HashList to ArrayList
 				songsList.add(map);

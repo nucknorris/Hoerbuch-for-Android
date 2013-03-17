@@ -14,10 +14,8 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.htwk.masterprojekt.hoerbuch.FileBrowserActivity;
-import com.htwk.masterprojekt.hoerbuch.LastPlayedActivity;
 import com.htwk.masterprojekt.hoerbuch.PlayerActivity;
 import com.htwk.masterprojekt.hoerbuch.R;
-import com.htwk.masterprojekt.hoerbuch.db.Database;
 import com.htwk.masterprojekt.hoerbuch.db.DatabaseHandler;
 import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
 
@@ -33,6 +31,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 	private String filePath;
 	private DatabaseHandler db;
 
+	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
 		if (intent.getAction().equals(ACTION_PLAY) && player == null) {
@@ -99,11 +98,13 @@ public class PlayerService extends Service implements OnCompletionListener,
 		PLAYER_FLAG = 0;
 	}
 
+	@Override
 	public void onDestroy() {
 		Log.v(TAG, "onDestroy reached");
 		db = new DatabaseHandler(this);
 		db.addLastPlayed(new LastPlayed(filePath, ""
 				+ player.getCurrentPosition()));
+		db.printLastPlayed();
 		super.onDestroy();
 		if (player.isPlaying()) {
 			player.stop();
