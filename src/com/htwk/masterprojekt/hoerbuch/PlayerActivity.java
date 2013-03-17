@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -27,12 +26,17 @@ import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
 public class PlayerActivity extends Activity implements OnCompletionListener,
 		SeekBar.OnSeekBarChangeListener {
 	private static final String TAG = "PlayerActivity";
+	private static final int SEEK_FORWARD_TIME = 5000;
+	private static final int SEEK_BACKWARD_TIME = 5000;
 	private Intent intent;
 	private String file;
 	private String filePath;
 	private ImageButton btnPlay;
-	private Button btnNext;
-	private Button btnPrev;
+	private ImageButton btnNext;
+	private ImageButton btnPrev;
+	private ImageButton btnFwd;
+	private ImageButton btnBwd;
+
 	private MediaPlayer player;
 	private MediaFileManager mediaManager;
 	private Handler mHandler = new Handler(); // for updating the progress bar
@@ -57,8 +61,10 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 		// registering the GUI components
 		btnPlay = (ImageButton) findViewById(R.id.btnPlay);
-		btnNext = (Button) findViewById(R.id.btnNext);
-		btnPrev = (Button) findViewById(R.id.btnPrevious);
+		btnNext = (ImageButton) findViewById(R.id.btnNext);
+		btnPrev = (ImageButton) findViewById(R.id.btnPrevious);
+		btnFwd = (ImageButton) findViewById(R.id.btnForward);
+		btnBwd = (ImageButton) findViewById(R.id.btnBackward);
 		songTitleLabel = (TextView) findViewById(R.id.songTitle);
 		songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
 		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
@@ -135,6 +141,35 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 					playSong(filePath);
 				}
 
+			}
+		});
+
+		btnFwd.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int currentPostion = player.getCurrentPosition();
+
+				if (currentPostion + SEEK_FORWARD_TIME <= player.getDuration()) {
+					player.seekTo(currentPostion + SEEK_FORWARD_TIME);
+				} else {
+					player.seekTo(player.getDuration());
+				}
+
+			}
+		});
+
+		btnBwd.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int currentPostion = player.getCurrentPosition();
+
+				if (currentPostion + SEEK_BACKWARD_TIME >= 0) {
+					player.seekTo(currentPostion - SEEK_BACKWARD_TIME);
+				} else {
+					player.seekTo(0);
+				}
 			}
 		});
 
