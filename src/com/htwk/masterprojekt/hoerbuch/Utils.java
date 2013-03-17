@@ -1,5 +1,8 @@
 package com.htwk.masterprojekt.hoerbuch;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class Utils {
 	/**
 	 * Function to convert milliseconds time to Timer Format
@@ -60,10 +63,29 @@ public class Utils {
 	 * */
 	public int progressToTimer(int progress, int totalDuration) {
 		int currentDuration = 0;
-		totalDuration = (int) (totalDuration / 1000);
+		totalDuration = (totalDuration / 1000);
 		currentDuration = (int) ((((double) progress) / 100) * totalDuration);
 
 		// return current duration in milliseconds
 		return currentDuration * 1000;
+	}
+
+	public static void CopyStream(InputStream is, OutputStream os) {
+		final int buffer_size = 1024;
+		try {
+			byte[] bytes = new byte[buffer_size];
+			for (;;) {
+				int count = is.read(bytes, 0, buffer_size);
+				if (count == -1)
+					break;
+				os.write(bytes, 0, count);
+			}
+		} catch (Exception ex) {
+		}
+	}
+
+	// split the string at the last position of a given element
+	public static String rsplit(String atLastElement, String string) {
+		return string.substring(string.lastIndexOf(atLastElement) + 1);
 	}
 }

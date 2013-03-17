@@ -16,13 +16,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// All Static variables
 	// Database Version
 	protected static final int DATABASE_VERSION = 1;
-
 	// Database Name
 	protected static final String DATABASE_NAME = "hoerbuchdb";
-
 	// lastplayed table name
 	protected static final String TABLE_LAST_PLAYED = "lastplayed";
-
 	// lastplayed Table Columns names
 	protected static final String KEY_ID = "id";
 	protected static final String KEY_FILE = "name";
@@ -48,23 +45,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_LAST_PLAYED);
-
 		// Create tables again
 		onCreate(db);
 	}
 
-	// // DATA HANDLING METHODES
-
 	// Getting single lastplayed
 	public LastPlayed getLastPlayed(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
-
 		Cursor cursor = db.query(TABLE_LAST_PLAYED, new String[] { KEY_ID,
 				KEY_FILE, KEY_PATH, KEY_TIME }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
-
 		LastPlayed lastPlayed = new LastPlayed(Integer.parseInt(cursor
 				.getString(0)), cursor.getString(1), cursor.getString(2),
 				cursor.getString(3));
@@ -78,10 +70,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		List<LastPlayed> lastPlayedList = new ArrayList<LastPlayed>();
 		// Select All Query
 		String selectQuery = "SELECT  * FROM " + TABLE_LAST_PLAYED;
-
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
-
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
@@ -110,7 +100,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Updating single lastplayed
 	public int updateLastPlayed(LastPlayed lastPlayed) {
 		SQLiteDatabase db = this.getWritableDatabase();
-
 		ContentValues values = new ContentValues();
 		values.put(KEY_FILE, lastPlayed.getFile());
 		values.put(KEY_PATH, lastPlayed.getPath());
@@ -124,12 +113,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// add a single lastplayed
 	public void addLastPlayed(LastPlayed lastPlayed) {
 		SQLiteDatabase db = this.getWritableDatabase();
-
 		ContentValues values = new ContentValues();
 		values.put(KEY_FILE, lastPlayed.getFile());
 		values.put(KEY_PATH, lastPlayed.getPath());
 		values.put(KEY_TIME, lastPlayed.getTime());
-
 		// Inserting Row
 		db.insert(TABLE_LAST_PLAYED, null, values);
 		db.close(); // Closing database connection
