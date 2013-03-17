@@ -12,19 +12,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+// generates the listrow for views with icons
 public class LazyAdapter extends BaseAdapter {
 
 	private Activity activity;
 	private ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
-	public ImageLoader imageLoader;
 
 	public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		imageLoader = new ImageLoader(activity.getApplicationContext());
+		// imageLoader = new ImageLoader(activity.getApplicationContext());
 	}
 
 	@Override
@@ -47,23 +47,18 @@ public class LazyAdapter extends BaseAdapter {
 		View vi = convertView;
 		if (convertView == null)
 			vi = inflater.inflate(R.layout.list_row, null);
-
 		TextView title = (TextView) vi.findViewById(R.id.title); // title
-		TextView artist = (TextView) vi.findViewById(R.id.artist); // artist
-																	// name
+		TextView artist = (TextView) vi.findViewById(R.id.artist); // artistname
 		TextView duration = (TextView) vi.findViewById(R.id.duration); // duration
-		ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image); // thumb
-																				// image
-
+		ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image); // thumbimage
 		HashMap<String, String> song = new HashMap<String, String>();
 		song = data.get(position);
-
 		// Setting all values in listview
-		title.setText(song.get(CustomizedListView.KEY_TITLE));
-		artist.setText(song.get(CustomizedListView.KEY_ARTIST));
-		duration.setText(song.get(CustomizedListView.KEY_DURATION));
-		imageLoader.DisplayImage(song.get(CustomizedListView.KEY_THUMB_URL),
-				thumb_image);
+		title.setText(song.get(FileBrowserActivity.KEY_TITLE));
+		artist.setText(song.get(FileBrowserActivity.KEY_ARTIST));
+		duration.setText(song.get(FileBrowserActivity.KEY_DURATION));
+		thumb_image.setImageBitmap(new ThumpImageLoader(activity, song
+				.get(FileBrowserActivity.KEY_THUMB_URL)).getImage());
 		return vi;
 	}
 }

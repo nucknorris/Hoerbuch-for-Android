@@ -3,9 +3,7 @@ package com.htwk.masterprojekt.hoerbuch;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +11,7 @@ import android.widget.Button;
 /*
  * only a overview for all activitis
  * (only testing)
+ * TODO make it pretty
  * */
 public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
@@ -31,7 +30,7 @@ public class MainActivity extends Activity {
 		buttonPlayer.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("MAIN", "open player");
+				Log.d(TAG, "open player");
 				Intent intPlayer = new Intent(MainActivity.this,
 						PlayerActivity.class);
 				MainActivity.this.startActivity(intPlayer);
@@ -43,7 +42,7 @@ public class MainActivity extends Activity {
 		buttonBrowser.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("MAIN", "open file browser");
+				Log.d(TAG, "open file browser");
 				Intent intBrowser = new Intent(MainActivity.this,
 						FileBrowserActivity.class);
 				MainActivity.this.startActivity(intBrowser);
@@ -55,7 +54,7 @@ public class MainActivity extends Activity {
 		buttonLastPlayed.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("MAIN", "open last played list");
+				Log.d(TAG, "open last played list");
 				Intent intLastPlayed = new Intent(MainActivity.this,
 						LastPlayedActivity.class);
 				MainActivity.this.startActivity(intLastPlayed);
@@ -67,7 +66,7 @@ public class MainActivity extends Activity {
 		buttonSettings.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("MAIN", "open settings");
+				Log.d(TAG, "open settings");
 				Intent intSettings = new Intent(MainActivity.this,
 						SettingsActivity.class);
 				MainActivity.this.startActivity(intSettings);
@@ -79,17 +78,9 @@ public class MainActivity extends Activity {
 		buttonExit.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.d("MAIN", "bring app in background");
+				Log.d(TAG, "bring app in background");
 				moveTaskToBack(true);
 			}
 		});
-
-		// testing prefs
-
-		SharedPreferences app_preferences = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		String dir = app_preferences.getString("path", "");
-		Log.d("MAIN", "Test:" + dir);
-
 	}
 }
