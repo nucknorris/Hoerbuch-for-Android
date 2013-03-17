@@ -84,6 +84,7 @@ public class LastPlayedActivity extends Activity {
 				songsList.add(map);
 			} else {
 				Log.d(TAG, "File not found or deleted");
+				db.db().deleteLastPlayed(lp);
 			}
 		}
 		list = (ListView) findViewById(R.id.list);
