@@ -101,6 +101,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.htwk.masterprojekt.hoerbuch.MainActivity" />
         </activity>
+
+        <service
+            android:name="com.htwk.masterprojekt.hoerbuch.services.PlayerService"
+            android:label="PlayerService" >
+        </service>
     </application>
 
 </manifest>

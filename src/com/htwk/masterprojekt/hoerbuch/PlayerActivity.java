@@ -7,11 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +27,8 @@ import android.widget.TextView;
 
 import com.htwk.masterprojekt.hoerbuch.media.MediaFile;
 import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
+import com.htwk.masterprojekt.hoerbuch.media.PlayerFlag;
+import com.htwk.masterprojekt.hoerbuch.services.PlayerService;
 
 public class PlayerActivity extends Activity implements OnCompletionListener,
 		SeekBar.OnSeekBarChangeListener {
@@ -47,6 +53,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private SeekBar songProgressBar;
 	private Utils utils;
 	private List<MediaFile> mediaFiles;
+	private PlayerService playerService;
+	private Intent playerServiceIntent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +79,6 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
 		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
 
-		player = new MediaPlayer();
 		utils = new Utils();
 		mediaManager = new MediaFileManager();
 
@@ -79,113 +86,176 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		mediaFiles = mediaManager.getList(new File(filePath));
 
 		// listeners
-		songProgressBar.setOnSeekBarChangeListener(this); // Important
-		player.setOnCompletionListener(this); // Important
+		// songProgressBar.setOnSeekBarChangeListener(this); // Important
 		songTitleLabel.setText(file);
 
-		playSong(filePath);
+		playerServiceIntent = new Intent(this, PlayerService.class);
+		playerServiceIntent.setAction(PlayerService.ACTION_PLAY);
+		playerServiceIntent.putExtra(FileBrowserActivity.EXTRA_FILE_PATH,
+				filePath);
+		startService(playerServiceIntent);
 
+		btnPlay.setTag(1);
+		btnPlay.setImageResource(R.drawable.pause);
 		btnPlay.setOnClickListener(new View.OnClickListener() {
+
 			@Override
-			public void onClick(View arg0) {
-				// check for already playing
-				if (player.isPlaying()) {
-					if (player != null) {
-						player.pause();
-						// Changing button image to play button
-						btnPlay.setImageResource(R.drawable.play);
-					}
+			public void onClick(View v) {
+
+				final int status = (Integer) v.getTag();
+
+				if (status == 1) {
+					btnPlay.setImageResource(R.drawable.play);
+					v.setTag(0);
+					playerService.pausePlaying();
 				} else {
-					// Resume song
-					if (player != null) {
-						player.start();
-						// Changing button image to pause button
-						btnPlay.setImageResource(R.drawable.pause);
-					}
+					btnPlay.setImageResource(R.drawable.pause);
+					v.setTag(1);
+					playerService.startPlaying();
 				}
 
 			}
 		});
 
-		btnNext.setOnClickListener(new View.OnClickListener() {
+		// playSong(filePath);
 
-			@Override
-			public void onClick(View v) {
-				List<String> listOfFiles = new ArrayList<String>();
-				for (MediaFile mf : mediaFiles) {
-					listOfFiles.add(mf.getPath());
-				}
-				// get the next element of the list and update the current file
-				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
+		// btnPlay.setOnClickListener(new View.OnClickListener() {
+		// @Override
+		// public void onClick(View arg0) {
+		// // check for already playing
+		// if (player.isPlaying()) {
+		// if (player != null) {
+		// player.pause();
+		// // Changing button image to play button
+		// btnPlay.setImageResource(R.drawable.play);
+		// }
+		// } else {
+		// // Resume song
+		// if (player != null) {
+		// player.start();
+		// // Changing button image to pause button
+		// btnPlay.setImageResource(R.drawable.pause);
+		// }
+		// }
+		//
+		// }
+		// });
 
-				// play next song until end of playlist is reached
-				if (indexOfCurrentFile < listOfFiles.size() - 1) {
-					filePath = listOfFiles.get(indexOfCurrentFile + 1);
-					for (MediaFile mf : mediaFiles) {
-						if (mf.getPath().equals(filePath)) {
-							file = mf.getFileName();
-							break;
-						}
-					}
-					playSong(filePath);
-				}
-			}
-		});
+		// btnNext.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// List<String> listOfFiles = new ArrayList<String>();
+		// for (MediaFile mf : mediaFiles) {
+		// listOfFiles.add(mf.getPath());
+		// }
+		// // get the next element of the list and update the current file
+		// int indexOfCurrentFile = listOfFiles.indexOf(filePath);
+		//
+		// // play next song until end of playlist is reached
+		// if (indexOfCurrentFile < listOfFiles.size() - 1) {
+		// filePath = listOfFiles.get(indexOfCurrentFile + 1);
+		// for (MediaFile mf : mediaFiles) {
+		// if (mf.getPath().equals(filePath)) {
+		// file = mf.getFileName();
+		// break;
+		// }
+		// }
+		// playSong(filePath);
+		// }
+		// }
+		// });
 
-		btnPrev.setOnClickListener(new View.OnClickListener() {
+		// btnPrev.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// List<String> listOfFiles = new ArrayList<String>();
+		// for (MediaFile mf : mediaFiles) {
+		// listOfFiles.add(mf.getPath());
+		// }
+		// // get the next element of the list and update the current file
+		// int indexOfCurrentFile = listOfFiles.indexOf(filePath);
+		//
+		// // play next song until end of playlist is reached
+		// if (indexOfCurrentFile > 0) {
+		// filePath = listOfFiles.get(indexOfCurrentFile - 1);
+		// for (MediaFile mf : mediaFiles) {
+		// if (mf.getPath().equals(filePath)) {
+		// file = mf.getFileName();
+		// break;
+		// }
+		// }
+		// playSong(filePath);
+		// }
+		//
+		// }
+		// });
 
-			@Override
-			public void onClick(View v) {
-				List<String> listOfFiles = new ArrayList<String>();
-				for (MediaFile mf : mediaFiles) {
-					listOfFiles.add(mf.getPath());
-				}
-				// get the next element of the list and update the current file
-				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
+		// btnFwd.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// int currentPostion = player.getCurrentPosition();
+		//
+		// if (currentPostion + SEEK_FORWARD_TIME <= player.getDuration()) {
+		// player.seekTo(currentPostion + SEEK_FORWARD_TIME);
+		// } else {
+		// player.seekTo(player.getDuration());
+		// }
+		//
+		// }
+		// });
+		//
+		// btnBwd.setOnClickListener(new View.OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// int currentPostion = player.getCurrentPosition();
+		//
+		// if (currentPostion + SEEK_BACKWARD_TIME >= 0) {
+		// player.seekTo(currentPostion - SEEK_BACKWARD_TIME);
+		// } else {
+		// player.seekTo(0);
+		// }
+		// }
+		// });
 
-				// play next song until end of playlist is reached
-				if (indexOfCurrentFile > 0) {
-					filePath = listOfFiles.get(indexOfCurrentFile - 1);
-					for (MediaFile mf : mediaFiles) {
-						if (mf.getPath().equals(filePath)) {
-							file = mf.getFileName();
-							break;
-						}
-					}
-					playSong(filePath);
-				}
+	}
 
-			}
-		});
+	private ServiceConnection serviceConnection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName className, IBinder binder) {
+			playerService = ((PlayerService.PlayerServiceBinder) binder)
+					.getService();
+		}
 
-		btnFwd.setOnClickListener(new View.OnClickListener() {
+		public void onServiceDisconnected(ComponentName className) {
+			playerService = null;
+		}
+	};
 
-			@Override
-			public void onClick(View v) {
-				int currentPostion = player.getCurrentPosition();
+	@Override
+	public void onResume() {
+		getApplicationContext().bindService(playerServiceIntent,
+				serviceConnection, Context.BIND_AUTO_CREATE);
+		Log.d(TAG, "on resume + re-bound service");
+		super.onResume();
+	}
 
-				if (currentPostion + SEEK_FORWARD_TIME <= player.getDuration()) {
-					player.seekTo(currentPostion + SEEK_FORWARD_TIME);
-				} else {
-					player.seekTo(player.getDuration());
-				}
+	@Override
+	public void onDestroy() {
+		stopService(playerServiceIntent);
+		getApplicationContext().unbindService(serviceConnection);
 
-			}
-		});
+		Log.d(TAG, "destroy'd + unbind service");
+		// finish();
+		super.onDestroy();
+	}
 
-		btnBwd.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				int currentPostion = player.getCurrentPosition();
-
-				if (currentPostion + SEEK_BACKWARD_TIME >= 0) {
-					player.seekTo(currentPostion - SEEK_BACKWARD_TIME);
-				} else {
-					player.seekTo(0);
-				}
-			}
-		});
+	void doBindService() {
+		getApplicationContext().bindService(playerServiceIntent,
+				serviceConnection, Context.BIND_AUTO_CREATE);
+		Log.d(TAG, "do bind service");
 
 	}
 
@@ -313,10 +383,10 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		updateProgressBar();
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		mHandler.removeCallbacks(mUpdateTimeTask);
-		player.release();
-	}
+	// @Override
+	// public void onDestroy() {
+	// super.onDestroy();
+	// mHandler.removeCallbacks(mUpdateTimeTask);
+	// player.release();
+	// }
 }
