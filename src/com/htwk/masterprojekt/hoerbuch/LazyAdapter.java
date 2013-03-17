@@ -58,8 +58,11 @@ public class LazyAdapter extends BaseAdapter {
 		title.setText(song.get(FileBrowserActivity.KEY_TITLE));
 		artist.setText(song.get(FileBrowserActivity.KEY_ARTIST));
 		duration.setText(song.get(FileBrowserActivity.KEY_DURATION));
-		thumb_image.setImageBitmap(new ThumpImageLoader(activity, song
-				.get(FileBrowserActivity.KEY_THUMB_URL)).getImage());
+		try {
+			thumb_image.setImageBitmap(new ThumpImageLoader(activity, song
+					.get(FileBrowserActivity.KEY_THUMB_URL)).getImage());
+		} catch (Exception ex) {
+		}
 		return vi;
 	}
 }
