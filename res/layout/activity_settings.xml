@@ -7,15 +7,18 @@
             android:summary="Do you feel it?"
             android:title="SWAG" />
 
-        <EditTextPreference
+        <!--
+             <EditTextPreference
             android:dialogTitle="Audio Root-Folder"
             android:key="path"
             android:summary="Audio Root-Folder"
             android:title="ROOT-Path" />
+        -->
 
         <Preference
-            android:summary="Some Description"
-            android:title="Some Title" >
+            android:key="path"
+            android:summary="Audio Root-Folder"
+            android:title="ROOT-Path" >
 
             <intent
                 android:action="android.intent.action.VIEW"

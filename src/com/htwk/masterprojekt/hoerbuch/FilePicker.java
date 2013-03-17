@@ -18,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 public class FilePicker extends ListActivity {
 
@@ -27,15 +26,9 @@ public class FilePicker extends ListActivity {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "FilePicker";
-	public static final String EXTRA_FILE = "EXTRA_FILE";
-	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
-	public static final String EXTRA_PLAYLIST_POSITION = "PLAYLIST_POSITION";
 	private static final File ROOTDIR = new File("/mnt/sdcard");
 
 	EditText e;
-
-	// This is the Adapter being used to display the list's data
-	private SimpleCursorAdapter mAdapter;
 
 	// will contain the filenames and corresponding paths.
 	private List<String> fileNames;
@@ -46,17 +39,18 @@ public class FilePicker extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// activity stuff
 		setTitle("Search for Directory");
 		setContentView(R.layout.utils_filepicker);
 		e = (EditText) findViewById(R.id.pathText);
 		e.setText(ROOTDIR.getAbsolutePath());
-		refrechLists(getDirs(ROOTDIR.getAbsolutePath()));
-
+		refreshLists(getDirs(ROOTDIR.getAbsolutePath()));
 		fileList = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, fileNames);
 		setListAdapter(fileList);
 
-		// save the dir position in a array
+		// save the current and last dir positions in a array
 		breadcrumbs = new ArrayList<String>();
 		breadcrumbsPosition = 0;
 		breadcrumbs.add(ROOTDIR.getAbsolutePath());
@@ -72,7 +66,7 @@ public class FilePicker extends ListActivity {
 
 		final SharedPreferences appPref = PreferenceManager
 				.getDefaultSharedPreferences(this);
-
+		// edir and save the prefreneces
 		Button buttonSave = (Button) findViewById(R.id.Save);
 		buttonSave.setOnClickListener(new Button.OnClickListener() {
 			@Override
@@ -87,7 +81,8 @@ public class FilePicker extends ListActivity {
 
 	}
 
-	private void refrechLists(File[] files) {
+	// refresh the directory array
+	private void refreshLists(File[] files) {
 		fileNames = new ArrayList<String>();
 		paths = new ArrayList<String>();
 		for (File file : files) {
@@ -97,6 +92,7 @@ public class FilePicker extends ListActivity {
 		}
 	}
 
+	// refresh the
 	private File[] getDirs(String directory) {
 		File dir = new File(directory);
 		FileFilter fileFilter = new FileFilter() {
@@ -111,12 +107,12 @@ public class FilePicker extends ListActivity {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// creates a list of all files in the dir
+		// creates a list of all dirs in the dir
 		if (new File(paths.get(position)).isDirectory()) {
 			breadcrumbsPosition++;
 			breadcrumbs.add(paths.get(position));
 			e.setText(paths.get(position));
-			refrechLists(getDirs(paths.get(position)));
+			refreshLists(getDirs(paths.get(position)));
 			fileList = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, fileNames);
 			setListAdapter(fileList);
@@ -129,7 +125,7 @@ public class FilePicker extends ListActivity {
 			breadcrumbsPosition--;
 			String dir = breadcrumbs.get(breadcrumbsPosition);
 			e.setText(dir);
-			refrechLists(getDirs(dir));
+			refreshLists(getDirs(dir));
 			fileList = new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, fileNames);
 			setListAdapter(fileList);
