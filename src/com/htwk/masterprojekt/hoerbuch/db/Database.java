@@ -12,19 +12,19 @@ import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
  * class to interact with the database
  * */
 public class Database {
-
+	private static final String TAG = "Database";
 	Context c;
 	DatabaseHandler db;
 
 	public Database(LastPlayedActivity lastPlayedActivity) {
 		c = lastPlayedActivity;
 		db = new DatabaseHandler(c);
-		Log.d("Database", "OPEN");
+		Log.d(TAG, "OPEN");
 	}
 
 	public List<LastPlayed> getLastPlayedList() {
 		List<LastPlayed> lp = db.getAllLastPlayed();
-		Log.d("Last Played", "" + lp.size());
+		Log.d(TAG, "" + lp.size());
 		return lp;
 	}
 
@@ -37,7 +37,7 @@ public class Database {
 			String log = "Id: " + lp.getID() + " ,Name: " + lp.getFile()
 					+ " ,Path: " + lp.getPath() + " ,Time: " + lp.getTime();
 			// writing lp to log
-			Log.d("LP: ", log);
+			Log.d(TAG, log);
 		}
 	}
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ public class LastPlayedActivity extends Activity {
 
 	File[] files;
 	ArrayAdapter<String> fileList;
+	private static final String TAG = "LastPlayedActivity";
 	public static final String EXTRA_FILE = "EXTRA_FILE";
 	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
 	public static final String EXTRA_PLAYLIST_POSITION = "PLAYLIST_POSITION";
@@ -71,14 +73,18 @@ public class LastPlayedActivity extends Activity {
 			HashMap<String, String> map = new HashMap<String, String>();
 			// adding each child node to HashMap key => value
 			MediaFile mf = mfm.getmediaFile(lp.getPath() + lp.getFile());
-			map.put(KEY_ID, mf.getPath());
-			map.put(KEY_TITLE, mf.getTitle());
-			map.put(KEY_FILE, mf.getFileNameShort());
-			map.put(KEY_ARTIST, mf.getArtist());
-			map.put(KEY_DURATION, "Stopped at " + lp.getTime());
-			map.put(KEY_THUMB_URL, mf.getFileNameLong());
-			// adding HashList to ArrayList
-			songsList.add(map);
+			if (mf != null) {
+				map.put(KEY_ID, mf.getPath());
+				map.put(KEY_TITLE, mf.getTitle());
+				map.put(KEY_FILE, mf.getFileNameShort());
+				map.put(KEY_ARTIST, mf.getArtist());
+				map.put(KEY_DURATION, "Stopped at " + lp.getTime());
+				map.put(KEY_THUMB_URL, mf.getFileNameLong());
+				// adding HashList to ArrayList
+				songsList.add(map);
+			} else {
+				Log.d(TAG, "File not found or deleted");
+			}
 		}
 		list = (ListView) findViewById(R.id.list);
 		adapter = new LazyAdapter(LastPlayedActivity.this, songsList);
