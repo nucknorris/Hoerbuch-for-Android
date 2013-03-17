@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.htwk.masterprojekt.hoerbuch.media.ThumpImageLoader;
+
 // generates the listrow for views with icons
 public class LazyAdapter extends BaseAdapter {
 
@@ -24,7 +26,6 @@ public class LazyAdapter extends BaseAdapter {
 		data = d;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		// imageLoader = new ImageLoader(activity.getApplicationContext());
 	}
 
 	@Override

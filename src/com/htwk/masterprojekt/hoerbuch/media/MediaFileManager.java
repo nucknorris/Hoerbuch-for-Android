@@ -49,6 +49,24 @@ public class MediaFileManager {
 		return mediaFiles;
 	}
 
+	// just return one mediafile from given path
+	public MediaFile getmediaFile(String path) {
+		File dir = new File(path);
+		if (dir.isFile()) {
+			MediaFile mediaFile = new MediaFile();
+			String fileName = dir.getAbsolutePath();
+			mediaFile.setPath(dir.getPath());
+			mediaFile.setTitle(extractTitel(fileName));
+			try {
+				mediaFile.setDuration(Double
+						.parseDouble(extractDuration(fileName)));
+			} catch (Exception ex) {
+			}
+			return mediaFile;
+		}
+		return null;
+	}
+
 	// get the titel of a file or dir
 	private String extractTitel(String filePath) {
 		StringBuilder sb = new StringBuilder();

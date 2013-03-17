@@ -1,4 +1,4 @@
-package com.htwk.masterprojekt.hoerbuch;
+package com.htwk.masterprojekt.hoerbuch.media;
 
 import java.io.File;
 
@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
+import com.htwk.masterprojekt.hoerbuch.R;
 public class ThumpImageLoader {
 
 	Bitmap bmp = null;
