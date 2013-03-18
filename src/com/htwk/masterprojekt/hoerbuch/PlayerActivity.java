@@ -44,7 +44,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private ImageButton btnFwd;
 	private ImageButton btnBwd;
 
-	private MediaPlayer player;
+	// private MediaPlayer player;
 	private MediaFileManager mediaManager;
 	private Handler mHandler = new Handler(); // for updating the progress bar
 	private TextView songTitleLabel;
@@ -93,10 +93,16 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		playerServiceIntent.setAction(PlayerService.ACTION_PLAY);
 		playerServiceIntent.putExtra(FileBrowserActivity.EXTRA_FILE_PATH,
 				filePath);
-		startService(playerServiceIntent);
 
+		// start playing and update activity
+		startService(playerServiceIntent);
+		songProgressBar.setProgress(0);
+		songProgressBar.setMax(100);
+		songTitleLabel.setText(filePath);
+		updateProgressBar();
 		btnPlay.setTag(1);
 		btnPlay.setImageResource(R.drawable.pause);
+
 		btnPlay.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -111,116 +117,111 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 				} else {
 					btnPlay.setImageResource(R.drawable.pause);
 					v.setTag(1);
-					playerService.startPlaying();
+					playCurrentFile(filePath);
 				}
 
 			}
 		});
 
-		// playSong(filePath);
+		btnNext.setOnClickListener(new View.OnClickListener() {
 
-		// btnPlay.setOnClickListener(new View.OnClickListener() {
-		// @Override
-		// public void onClick(View arg0) {
-		// // check for already playing
-		// if (player.isPlaying()) {
-		// if (player != null) {
-		// player.pause();
-		// // Changing button image to play button
-		// btnPlay.setImageResource(R.drawable.play);
-		// }
-		// } else {
-		// // Resume song
-		// if (player != null) {
-		// player.start();
-		// // Changing button image to pause button
-		// btnPlay.setImageResource(R.drawable.pause);
-		// }
-		// }
-		//
-		// }
-		// });
+			@Override
+			public void onClick(View v) {
+				List<String> listOfFiles = new ArrayList<String>();
+				for (MediaFile mf : mediaFiles) {
+					listOfFiles.add(mf.getPath());
+				}
+				// get the next element of the list and update the current file
+				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
 
-		// btnNext.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// List<String> listOfFiles = new ArrayList<String>();
-		// for (MediaFile mf : mediaFiles) {
-		// listOfFiles.add(mf.getPath());
-		// }
-		// // get the next element of the list and update the current file
-		// int indexOfCurrentFile = listOfFiles.indexOf(filePath);
-		//
-		// // play next song until end of playlist is reached
-		// if (indexOfCurrentFile < listOfFiles.size() - 1) {
-		// filePath = listOfFiles.get(indexOfCurrentFile + 1);
-		// for (MediaFile mf : mediaFiles) {
-		// if (mf.getPath().equals(filePath)) {
-		// file = mf.getFileName();
-		// break;
-		// }
-		// }
-		// playSong(filePath);
-		// }
-		// }
-		// });
+				// play next song until end of playlist is reached
+				if (indexOfCurrentFile < listOfFiles.size() - 1) {
+					filePath = listOfFiles.get(indexOfCurrentFile + 1);
+					for (MediaFile mf : mediaFiles) {
+						if (mf.getPath().equals(filePath)) {
+							file = mf.getFileName();
+							break;
+						}
+					}
+					Log.v(TAG, "playing next file (" + filePath + ")");
+					btnPlay.setImageResource(R.drawable.pause);
+					v.setTag(1);
+					playFile(filePath);
+				}
+			}
+		});
 
-		// btnPrev.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// List<String> listOfFiles = new ArrayList<String>();
-		// for (MediaFile mf : mediaFiles) {
-		// listOfFiles.add(mf.getPath());
-		// }
-		// // get the next element of the list and update the current file
-		// int indexOfCurrentFile = listOfFiles.indexOf(filePath);
-		//
-		// // play next song until end of playlist is reached
-		// if (indexOfCurrentFile > 0) {
-		// filePath = listOfFiles.get(indexOfCurrentFile - 1);
-		// for (MediaFile mf : mediaFiles) {
-		// if (mf.getPath().equals(filePath)) {
-		// file = mf.getFileName();
-		// break;
-		// }
-		// }
-		// playSong(filePath);
-		// }
-		//
-		// }
-		// });
+		btnPrev.setOnClickListener(new View.OnClickListener() {
 
-		// btnFwd.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// int currentPostion = player.getCurrentPosition();
-		//
-		// if (currentPostion + SEEK_FORWARD_TIME <= player.getDuration()) {
-		// player.seekTo(currentPostion + SEEK_FORWARD_TIME);
-		// } else {
-		// player.seekTo(player.getDuration());
-		// }
-		//
-		// }
-		// });
-		//
-		// btnBwd.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// int currentPostion = player.getCurrentPosition();
-		//
-		// if (currentPostion + SEEK_BACKWARD_TIME >= 0) {
-		// player.seekTo(currentPostion - SEEK_BACKWARD_TIME);
-		// } else {
-		// player.seekTo(0);
-		// }
-		// }
-		// });
+			@Override
+			public void onClick(View v) {
+				List<String> listOfFiles = new ArrayList<String>();
+				for (MediaFile mf : mediaFiles) {
+					listOfFiles.add(mf.getPath());
+				}
+				// get the next element of the list and update the current file
+				int indexOfCurrentFile = listOfFiles.indexOf(filePath);
 
+				// play next song until end of playlist is reached
+				if (indexOfCurrentFile > 0) {
+					filePath = listOfFiles.get(indexOfCurrentFile - 1);
+					for (MediaFile mf : mediaFiles) {
+						if (mf.getPath().equals(filePath)) {
+							file = mf.getFileName();
+							break;
+						}
+					}
+					Log.v(TAG, "playing previous file (" + filePath + ")");
+					btnPlay.setImageResource(R.drawable.pause);
+					v.setTag(1);
+					playFile(filePath);
+				}
+
+			}
+		});
+
+		btnFwd.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int currentPostion = playerService.getCurrentPosition();
+
+				if (currentPostion + SEEK_FORWARD_TIME <= playerService
+						.getTotalDuration()) {
+					playerService.seekTo(currentPostion + SEEK_FORWARD_TIME);
+				} else {
+					playerService.seekTo(playerService.getTotalDuration());
+				}
+
+			}
+		});
+
+		btnBwd.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int currentPostion = playerService.getCurrentPosition();
+
+				if (currentPostion + SEEK_BACKWARD_TIME >= 0) {
+					playerService.seekTo(currentPostion - SEEK_BACKWARD_TIME);
+				} else {
+					playerService.seekTo(0);
+				}
+			}
+		});
+
+	}
+
+	private void playCurrentFile(String filePath) {
+		songTitleLabel.setText(filePath);
+		playerService.startPlaying();
+		updateProgressBar();
+	}
+
+	private void playFile(String filePath) {
+		songTitleLabel.setText(filePath);
+		playerService.startPlaying(filePath);
+		updateProgressBar();
 	}
 
 	private ServiceConnection serviceConnection = new ServiceConnection() {
@@ -285,38 +286,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 	@Override
 	public void onCompletion(MediaPlayer arg0) {
-		// TODO Auto-generated method stub
 
-	}
-
-	public void playSong(String path) {
-		Log.v(TAG, "playing: " + path);
-		// Play song
-		try {
-			player.reset();
-			player.setDataSource(path);
-			player.prepare();
-			player.start();
-			// Displaying Song title
-			String songTitle = path;
-			songTitleLabel.setText(songTitle);
-
-			// Changing Button Image to pause image
-			btnPlay.setImageResource(R.drawable.pause);
-
-			// set Progress bar values
-			songProgressBar.setProgress(0);
-			songProgressBar.setMax(100);
-
-			// Updating progress bar
-			updateProgressBar();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -331,8 +301,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	 * */
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
-			long totalDuration = player.getDuration();
-			long currentDuration = player.getCurrentPosition();
+			long totalDuration = playerService.getTotalDuration();
+			long currentDuration = playerService.getCurrentPosition();
 
 			// Displaying Total Duration time
 			songTotalDurationLabel.setText(""
@@ -355,6 +325,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
 			boolean fromUser) {
+		Log.v(TAG, "Process changed!");
 	}
 
 	/**
@@ -362,6 +333,9 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	 * */
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
+
+		Log.v(TAG, "Le Drag");
+
 		// remove message Handler from updating progress bar
 		mHandler.removeCallbacks(mUpdateTimeTask);
 	}
@@ -371,22 +345,16 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	 * */
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
+		Log.v(TAG, "Le Drag has stopped");
 		mHandler.removeCallbacks(mUpdateTimeTask);
-		int totalDuration = player.getDuration();
+		int totalDuration = playerService.getTotalDuration();
 		int currentPosition = utils.progressToTimer(seekBar.getProgress(),
 				totalDuration);
 
 		// forward or backward to certain seconds
-		player.seekTo(currentPosition);
+		playerService.seekTo(currentPosition);
 
 		// update timer progress again
 		updateProgressBar();
 	}
-
-	// @Override
-	// public void onDestroy() {
-	// super.onDestroy();
-	// mHandler.removeCallbacks(mUpdateTimeTask);
-	// player.release();
-	// }
 }

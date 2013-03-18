@@ -12,6 +12,7 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.SeekBar;
 
 import com.htwk.masterprojekt.hoerbuch.FileBrowserActivity;
 import com.htwk.masterprojekt.hoerbuch.PlayerActivity;
@@ -26,10 +27,13 @@ public class PlayerService extends Service implements OnCompletionListener,
 
 	private static final String TAG = "PlayerService";
 	public static final String ACTION_PLAY = "com.example.action.PLAY";
-	public static int PLAYER_FLAG = 0;
+	public static boolean IS_PLAYING = false;
 	private MediaPlayer player = null;
 	private String filePath;
 	private DatabaseHandler db;
+	private int currentPosition;
+
+	private int totalDuration;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -37,40 +41,50 @@ public class PlayerService extends Service implements OnCompletionListener,
 		if (intent.getAction().equals(ACTION_PLAY) && player == null) {
 			filePath = intent
 					.getStringExtra(FileBrowserActivity.EXTRA_FILE_PATH);
+			currentPosition = intent.getIntExtra(
+					FileBrowserActivity.EXTRA_FILE_POSTION, 0);
 			Log.v(TAG, filePath);
 			player = new MediaPlayer();
 			player.setOnErrorListener(this);
 			player.setOnCompletionListener(this);
-			player.reset();
+			play(filePath);
 
-			// data source
-			try {
-				player.setDataSource(filePath);
-			} catch (IllegalArgumentException e) {
-				Log.v(TAG, e.getMessage());
-			} catch (SecurityException e) {
-				Log.v(TAG, e.getMessage());
-			} catch (IllegalStateException e) {
-				Log.v(TAG, e.getMessage());
-			} catch (IOException e) {
-				Log.v(TAG, e.getMessage());
-			}
 		}
 
-		player.prepareAsync(); // prepare async to not block main thread
+		return START_NOT_STICKY;
+	}
 
+	private void play(String filePath) {
+		player.reset();
+
+		// data source
+		try {
+			player.setDataSource(filePath);
+		} catch (IllegalArgumentException e) {
+			Log.v(TAG, e.getMessage());
+		} catch (SecurityException e) {
+			Log.v(TAG, e.getMessage());
+		} catch (IllegalStateException e) {
+			Log.v(TAG, e.getMessage());
+		} catch (IOException e) {
+			Log.v(TAG, e.getMessage());
+		}
+		player.prepareAsync(); // prepare async to not block main thread
 		player.setOnPreparedListener(new OnPreparedListener() {
 
 			@Override
 			public void onPrepared(MediaPlayer mp) {
-				Log.v(TAG, "playing: " + mp.getTrackInfo());
+				Log.v(TAG, "playing... (duration: " + mp.getDuration()
+						+ "), starting at position: " + currentPosition);
+				mp.seekTo(currentPosition);
 				mp.start();
-				PLAYER_FLAG = 1;
+				IS_PLAYING = true;
+				totalDuration = mp.getDuration();
 			}
 		});
+		Log.v(TAG, "finished preparing");
 
 		// notification
-		Log.v(TAG, "finished preparing");
 		Intent i = new Intent(this, PlayerActivity.class);
 		PendingIntent pi = PendingIntent.getActivity(this, 0, i, 0);
 		Notification noti = new Notification.Builder(this)
@@ -81,9 +95,6 @@ public class PlayerService extends Service implements OnCompletionListener,
 
 		startForeground(1337, noti);
 
-		Log.v(TAG, "finished creating notif");
-
-		return START_NOT_STICKY;
 	}
 
 	@Override
@@ -95,7 +106,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 	public void onCompletion(MediaPlayer mp) {
 		Log.v(TAG, "onCompletion reached");
 		this.stopSelf();
-		PLAYER_FLAG = 0;
+		IS_PLAYING = false;
 	}
 
 	@Override
@@ -108,7 +119,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 		super.onDestroy();
 		if (player.isPlaying()) {
 			player.stop();
-			PLAYER_FLAG = 0;
+			IS_PLAYING = false;
 			player.release();
 		}
 	}
@@ -120,14 +131,39 @@ public class PlayerService extends Service implements OnCompletionListener,
 		return false;
 	}
 
+	/**
+	 * Playes the already loaded file.
+	 */
 	public void startPlaying() {
 		if (!player.isPlaying()) {
 			player.start();
 		}
 	}
 
+	/**
+	 * Playes the five file.
+	 * 
+	 * @param filePath
+	 */
+	public void startPlaying(String filePath) {
+		player.reset();
+		play(filePath);
+	}
+
 	public void pausePlaying() {
 		player.pause();
+	}
+
+	public int getTotalDuration() {
+		return totalDuration;
+	}
+
+	public int getCurrentPosition() {
+		return player.getCurrentPosition();
+	}
+
+	public void seekTo(int position) {
+		player.seekTo(position);
 	}
 
 	/**

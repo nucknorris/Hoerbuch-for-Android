@@ -33,6 +33,7 @@ public class FileBrowserActivity extends Activity {
 	public static final String EXTRA_FILE = "EXTRA_FILE";
 	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
 	public static final String EXTRA_PLAYLIST_POSITION = "PLAYLIST_POSITION";
+	public static final String EXTRA_FILE_POSTION = "EXTRA_FILE_POSITION";
 
 	// This is the Adapter being used to display the list's data
 	private MediaFileManager mediaManager;
