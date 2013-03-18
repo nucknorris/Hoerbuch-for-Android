@@ -42,6 +42,8 @@ public class PlayerService extends Service implements OnCompletionListener,
 					.getStringExtra(FileBrowserActivity.EXTRA_FILE_PATH);
 			currentPosition = intent.getIntExtra(
 					FileBrowserActivity.EXTRA_FILE_POSTION, 0);
+
+			Log.v(TAG, "postion: " + currentPosition);
 			Log.v(TAG, filePath);
 			player = new MediaPlayer();
 			player.setOnErrorListener(this);

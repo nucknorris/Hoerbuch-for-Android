@@ -55,6 +55,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private List<MediaFile> mediaFiles;
 	private PlayerService playerService;
 	private Intent playerServiceIntent;
+	private int currentPosition;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		// getting the information from the previous activity/intent
 		intent = getIntent();
 		filePath = intent.getStringExtra(FileBrowserActivity.EXTRA_FILE_PATH);
+		currentPosition = intent.getIntExtra(
+				FileBrowserActivity.EXTRA_FILE_POSTION, 0);
 
 		// registering the GUI components
 		btnPlay = (ImageButton) findViewById(R.id.btnPlay);
@@ -93,6 +96,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		playerServiceIntent.setAction(PlayerService.ACTION_PLAY);
 		playerServiceIntent.putExtra(FileBrowserActivity.EXTRA_FILE_PATH,
 				filePath);
+		playerServiceIntent.putExtra(FileBrowserActivity.EXTRA_FILE_POSTION,
+				currentPosition);
 
 		// start playing and update activity
 		startService(playerServiceIntent);
