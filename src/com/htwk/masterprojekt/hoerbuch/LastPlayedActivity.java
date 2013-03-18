@@ -30,6 +30,7 @@ public class LastPlayedActivity extends Activity {
 	public static final String EXTRA_FILE = "EXTRA_FILE";
 	public static final String EXTRA_FILE_PATH = "EXTRA_FILE_PATH";
 	public static final String EXTRA_PLAYLIST_POSITION = "PLAYLIST_POSITION";
+	public static final String EXTRA_FILE_POSTION = "EXTRA_FILE_POSITION";
 
 	// private MediaFileManager mediaManager;
 	private List<LastPlayed> mediaFiles;
@@ -102,13 +103,17 @@ public class LastPlayedActivity extends Activity {
 					int position, long id) {
 				String file = mediaFiles.get(position).getPath()
 						+ mediaFiles.get(position).getFile();
-				db.db().deleteLastPlayed(mediaFiles.get(position));
+
 				if (new File(file).isFile()) {
 					File f = new File(file);
 					Intent intent = new Intent(LastPlayedActivity.this,
 							PlayerActivity.class);
 					intent.putExtra(EXTRA_FILE_PATH, f.getPath());
 					intent.putExtra(EXTRA_PLAYLIST_POSITION, position);
+					// start at this point
+					intent.putExtra(EXTRA_FILE_POSTION, mediaFiles
+							.get(position).getTime());
+					db.db().deleteLastPlayed(mediaFiles.get(position));
 					startActivity(intent);
 				}
 			}

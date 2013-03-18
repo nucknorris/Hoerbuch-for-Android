@@ -17,8 +17,7 @@ public class ImageCache {
 	// create the cache but is is actually a hashmap :D
 	HashMap<String, Bitmap> cache = new HashMap<String, Bitmap>();
 	private static final String TAG = "ImageCache";
-	Bitmap defaultBmp = BitmapFactory.decodeResource(c.getResources(),
-			R.drawable.def);
+	Bitmap defaultBmp;
 
 	public ImageCache(Context context) {
 		this.c = context;
@@ -26,6 +25,8 @@ public class ImageCache {
 		cache.put("dir", BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.folder));
 		cache.put("def", defaultBmp);
+		defaultBmp = BitmapFactory.decodeResource(c.getResources(),
+				R.drawable.def);
 		Log.d(TAG, "init done");
 	}
 
