@@ -12,7 +12,6 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.SeekBar;
 
 import com.htwk.masterprojekt.hoerbuch.FileBrowserActivity;
 import com.htwk.masterprojekt.hoerbuch.PlayerActivity;

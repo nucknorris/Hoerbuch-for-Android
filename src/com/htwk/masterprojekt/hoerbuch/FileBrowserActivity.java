@@ -81,6 +81,7 @@ public class FileBrowserActivity extends Activity {
 							PlayerActivity.class);
 					intent.putExtra(EXTRA_FILE_PATH, file.getPath());
 					intent.putExtra(EXTRA_PLAYLIST_POSITION, position);
+					intent.putExtra(EXTRA_FILE_POSTION, 0);
 					startActivity(intent);
 				} else {
 					breadcrumbsPosition++;

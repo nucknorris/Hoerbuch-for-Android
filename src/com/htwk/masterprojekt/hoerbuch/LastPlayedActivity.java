@@ -111,8 +111,9 @@ public class LastPlayedActivity extends Activity {
 					intent.putExtra(EXTRA_FILE_PATH, f.getPath());
 					intent.putExtra(EXTRA_PLAYLIST_POSITION, position);
 					// start at this point
-					intent.putExtra(EXTRA_FILE_POSTION, mediaFiles
-							.get(position).getTime());
+					Log.d(TAG, "" + mediaFiles.get(position).getTime());
+					intent.putExtra(EXTRA_FILE_POSTION, Integer
+							.parseInt(mediaFiles.get(position).getTime()));
 					db.db().deleteLastPlayed(mediaFiles.get(position));
 					startActivity(intent);
 				}
