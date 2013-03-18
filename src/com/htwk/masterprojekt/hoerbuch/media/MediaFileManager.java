@@ -37,8 +37,7 @@ public class MediaFileManager {
 			mediaFile.setPath(file.getPath());
 			mediaFile.setTitle(extractTitel(fileName));
 			try {
-				mediaFile.setDuration(Double
-						.parseDouble(extractDuration(fileName)));
+				mediaFile.setDuration(extractDuration(fileName));
 			} catch (Exception ex) {
 			}
 			mediaFile.setFileNameLong(fileName);
@@ -58,8 +57,7 @@ public class MediaFileManager {
 			mediaFile.setPath(dir.getPath());
 			mediaFile.setTitle(extractTitel(fileName));
 			try {
-				mediaFile.setDuration(Double
-						.parseDouble(extractDuration(fileName)));
+				mediaFile.setDuration(extractDuration(fileName));
 			} catch (Exception ex) {
 			}
 			return mediaFile;
@@ -82,13 +80,14 @@ public class MediaFileManager {
 	}
 
 	// get the duration von the mediafile
-	private String extractDuration(String filePath) {
+	private Long extractDuration(String filePath) {
 		if (new File(filePath).isFile()) {
 			mmr.setDataSource(filePath);
-			return mmr
-					.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+			return Long
+					.parseLong(mmr
+							.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
 		} else {
-			return "";
+			return (long) 0;
 		}
 	}
 

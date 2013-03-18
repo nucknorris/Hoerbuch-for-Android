@@ -37,7 +37,7 @@ public class MediaFile {
 	private String fileNameShort;
 	private String title;
 	private String artist;
-	private double duration;
+	private Long duration;
 	private Bitmap cover;
 	private String id;
 
@@ -65,11 +65,11 @@ public class MediaFile {
 		this.artist = artist;
 	}
 
-	public double getDuration() {
+	public Long getDuration() {
 		return duration;
 	}
 
-	public void setDuration(double duration) {
+	public void setDuration(Long duration) {
 		this.duration = duration;
 	}
 

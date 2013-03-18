@@ -42,7 +42,7 @@ public final class R {
         public static final int HomeDirUp=0x7f080001;
         public static final int LastPlayedButton=0x7f080004;
         public static final int PlayerButton=0x7f080002;
-        public static final int Save=0x7f080019;
+        public static final int Save=0x7f08001a;
         public static final int SettingsButton=0x7f080005;
         public static final int artist=0x7f080017;
         public static final int btnBackward=0x7f08000c;
@@ -50,11 +50,12 @@ public final class R {
         public static final int btnNext=0x7f08000f;
         public static final int btnPlay=0x7f08000d;
         public static final int btnPrevious=0x7f08000b;
-        public static final int duration=0x7f080018;
+        public static final int duration=0x7f080019;
+        public static final int imageView1=0x7f080018;
         public static final int list=0x7f080000;
         public static final int list_image=0x7f080015;
-        public static final int menu_settings=0x7f08001b;
-        public static final int pathText=0x7f08001a;
+        public static final int menu_settings=0x7f08001c;
+        public static final int pathText=0x7f08001b;
         public static final int player_footer_bg=0x7f08000a;
         public static final int player_header_bg=0x7f080007;
         public static final int songCurrentDurationLabel=0x7f080012;

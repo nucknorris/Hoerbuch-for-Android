@@ -99,6 +99,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 
+	// Deleting single lastplayed
+	private void deleteAllLastPlayedWithPath(String path) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_LAST_PLAYED, KEY_PATH + " = ?", new String[] { path });
+		db.close();
+	}
+
 	// Updating single lastplayed
 	public int updateLastPlayed(LastPlayed lastPlayed) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -114,6 +121,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// add a single lastplayed
 	public void addLastPlayed(LastPlayed lastPlayed) {
+		deleteAllLastPlayedWithPath(lastPlayed.getPath());
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(KEY_FILE, lastPlayed.getFile());
