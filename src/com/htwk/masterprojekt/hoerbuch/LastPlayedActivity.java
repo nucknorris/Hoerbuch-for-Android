@@ -62,7 +62,7 @@ public class LastPlayedActivity extends Activity {
 	 * Gets a list of all last played elements from database
 	 */
 	private void openLastPlayed() {
-		Database db = new Database(this);
+		final Database db = new Database(this);
 		MediaFileManager mfm = new MediaFileManager();
 		db.printLastPlayed(db.getLastPlayedList());
 		mediaFiles = db.getLastPlayedList();
@@ -72,7 +72,9 @@ public class LastPlayedActivity extends Activity {
 			// creating new HashMap
 			HashMap<String, String> map = new HashMap<String, String>();
 			// adding each child node to HashMap key => value
-			MediaFile mf = mfm.getmediaFile(lp.getPath() + lp.getFile());
+			String url = lp.getPath() + lp.getFile();
+			MediaFile mf = mfm.getmediaFile(url);
+			Log.d(TAG, url);
 			if (mf != null) {
 				map.put(KEY_ID, mf.getPath());
 				map.put(KEY_TITLE, mf.getTitle());
@@ -82,7 +84,7 @@ public class LastPlayedActivity extends Activity {
 						"Stopped at "
 								+ new Utils().milliSecondsToTimer(Long
 										.parseLong(lp.getTime())));
-				map.put(KEY_THUMB_URL, mf.getFileNameLong());
+				map.put(KEY_THUMB_URL, url);
 				// adding HashList to ArrayList
 				songsList.add(map);
 			} else {
@@ -100,6 +102,7 @@ public class LastPlayedActivity extends Activity {
 					int position, long id) {
 				String file = mediaFiles.get(position).getPath()
 						+ mediaFiles.get(position).getFile();
+				db.db().deleteLastPlayed(mediaFiles.get(position));
 				if (new File(file).isFile()) {
 					File f = new File(file);
 					Intent intent = new Intent(LastPlayedActivity.this,
