@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,13 +68,11 @@ public class LazyAdapter extends BaseAdapter {
 			// is dir
 			duration.setText("");
 			thumb_image.setImageBitmap(icache.getImage("dir"));
-			Log.d(TAG, song.get(FileBrowserActivity.KEY_THUMB_URL));
 		} else {
 			// is file
 			duration.setText(song.get(FileBrowserActivity.KEY_DURATION));
 			thumb_image.setImageBitmap(icache.getImage(song
 					.get(FileBrowserActivity.KEY_THUMB_URL)));
-			Log.d(TAG, song.get(FileBrowserActivity.KEY_THUMB_URL));
 		}
 		return vi;
 	}

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
-import android.util.Log;
 
 import com.htwk.masterprojekt.hoerbuch.R;
 
@@ -19,17 +18,13 @@ public class ThumpImageLoader {
 	public ThumpImageLoader(Context context, String keyThumbUrl) {
 		this.context = context;
 		MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-		Log.d("ThumpImageLoader", "FILE: " + keyThumbUrl);
-
 		if (new File(keyThumbUrl).isFile()) {
-			Log.d("ThumpImageLoader", "FILE");
 			mmr.setDataSource(keyThumbUrl);
 			byte[] cover_array = mmr.getEmbeddedPicture();
 			// bmp = BitmapFactory.decodeByteArray(cover_array, 0,
 			// cover_array.length);
 			bmp = decode(cover_array);
 		} else {
-			Log.d("ThumpImageLoader", "DIR");
 			bmp = BitmapFactory.decodeResource(context.getResources(),
 					R.drawable.folder);
 		}

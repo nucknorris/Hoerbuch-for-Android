@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,7 +86,6 @@ public class FileBrowserActivity extends Activity {
 					breadcrumbsPosition++;
 					breadcrumbs.add(mediaFiles.get(position).getFileNameLong());
 					String dir = mediaFiles.get(position).getFileNameLong();
-					Log.d("FileBrowserActivity", "File :" + dir);
 					setDir(dir);
 				}
 			}
@@ -142,9 +140,7 @@ public class FileBrowserActivity extends Activity {
 			breadcrumbsPosition--;
 			// get the new position for dir cursor
 			String dir = breadcrumbs.get(breadcrumbsPosition);
-			Log.d("FileBrowserActivity", "File :" + new File(dir));
 			setDir(dir);
-			Log.d("DEBUG", "Dir UP");
 		}
 	}
 

@@ -27,16 +27,15 @@ public class ImageCache {
 		cache.put("def", defaultBmp);
 		defaultBmp = BitmapFactory.decodeResource(c.getResources(),
 				R.drawable.def);
-		Log.d(TAG, "init done");
 	}
 
 	// get a image from the hashmap
 	public Bitmap getImage(String path) {
 		Bitmap bmp = null;
 		// just for the fans
-		Log.d(TAG, Utils.lsplit("/", path));
 		bmp = cache.get(Utils.lsplit("/", path));
 		if (bmp == null) {
+			Log.d(TAG, path);
 			// is there no iamge in cache create one
 			bmp = createImage(path);
 		}
