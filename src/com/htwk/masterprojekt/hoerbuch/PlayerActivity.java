@@ -35,6 +35,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private static final String TAG = "PlayerActivity";
 	private static final int SEEK_FORWARD_TIME = 5000;
 	private static final int SEEK_BACKWARD_TIME = 5000;
+	public static boolean IS_PREPARED = false;
 	private Intent intent;
 	private String file;
 	private String filePath;
@@ -86,6 +87,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		mediaManager = new MediaFileManager();
 
 		// provide the playlist
+		Log.v(TAG, "getting playlist for " + filePath);
 		mediaFiles = mediaManager.getList(new File(filePath));
 
 		// listeners
@@ -224,6 +226,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	}
 
 	private void playFile(String filePath) {
+		IS_PREPARED = false;
 		songTitleLabel.setText(filePath);
 		playerService.startPlaying(filePath);
 		updateProgressBar();
@@ -306,8 +309,12 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	 * */
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
-			long totalDuration = playerService.getTotalDuration();
-			long currentDuration = playerService.getCurrentPosition();
+			long totalDuration = 0;
+			long currentDuration = 0;
+			if (IS_PREPARED) {
+				currentDuration = playerService.getCurrentPosition();
+				totalDuration = playerService.getTotalDuration();
+			}
 
 			// Displaying Total Duration time
 			songTotalDurationLabel.setText(""

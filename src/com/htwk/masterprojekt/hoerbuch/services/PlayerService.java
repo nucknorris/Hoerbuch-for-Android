@@ -30,9 +30,9 @@ public class PlayerService extends Service implements OnCompletionListener,
 	private MediaPlayer player = null;
 	private String filePath;
 	private DatabaseHandler db;
-	private int currentPosition;
+	private int currentPosition = 0;
 
-	private int totalDuration;
+	private int totalDuration = 0;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -75,6 +75,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 
 			@Override
 			public void onPrepared(MediaPlayer mp) {
+				PlayerActivity.IS_PREPARED = true;
 				Log.v(TAG, "playing... (duration: " + mp.getDuration()
 						+ "), starting at position: " + currentPosition);
 				mp.seekTo(currentPosition);
@@ -108,6 +109,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 		Log.v(TAG, "onCompletion reached");
 		this.stopSelf();
 		IS_PLAYING = false;
+		PlayerActivity.IS_PREPARED = false;
 	}
 
 	@Override
@@ -121,6 +123,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 		if (player.isPlaying()) {
 			player.stop();
 			IS_PLAYING = false;
+			PlayerActivity.IS_PREPARED = false;
 			player.release();
 		}
 	}
@@ -129,6 +132,7 @@ public class PlayerService extends Service implements OnCompletionListener,
 	public boolean onError(MediaPlayer player, int what, int extra) {
 		Log.v(TAG, "ERROR! What: " + what);
 		player.reset();
+		PlayerActivity.IS_PREPARED = false;
 		return false;
 	}
 
