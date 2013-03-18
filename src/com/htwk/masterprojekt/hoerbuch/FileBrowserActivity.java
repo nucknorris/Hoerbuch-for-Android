@@ -62,7 +62,7 @@ public class FileBrowserActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		SharedPreferences app_preferences = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		ROOTDIR = app_preferences.getString("path", "");
+		ROOTDIR = app_preferences.getString("path", "/mnt/sdcard");
 		setTitle(ROOTDIR);
 		setContentView(R.layout.activity_browser);
 		mediaManager = new MediaFileManager();
@@ -118,7 +118,8 @@ public class FileBrowserActivity extends Activity {
 			map.put(KEY_TITLE, mf.getTitle());
 			map.put(KEY_FILE, mf.getFileNameShort());
 			map.put(KEY_ARTIST, mf.getArtist());
-			map.put(KEY_DURATION, "" + mf.getDuration());
+			map.put(KEY_DURATION,
+					"" + new Utils().milliSecondsToTimer(mf.getDuration()));
 			// Log.d("FileBrowserActivity", "" +
 			// mf.getFileNameLong());
 			map.put(KEY_THUMB_URL, mf.getFileNameLong());

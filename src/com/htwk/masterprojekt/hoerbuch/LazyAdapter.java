@@ -62,14 +62,15 @@ public class LazyAdapter extends BaseAdapter {
 		// Setting all values in listview
 		title.setText(song.get(FileBrowserActivity.KEY_TITLE));
 		artist.setText(song.get(FileBrowserActivity.KEY_ARTIST));
-		duration.setText(song.get(FileBrowserActivity.KEY_DURATION));
 
 		Log.d(TAG, song.get(FileBrowserActivity.KEY_THUMB_URL));
 		if (new File(song.get(FileBrowserActivity.KEY_THUMB_URL)).isDirectory()) {
 			// is dir
+			duration.setText("");
 			thumb_image.setImageBitmap(icache.getImage("dir"));
 		} else {
 			// is file
+			duration.setText(song.get(FileBrowserActivity.KEY_DURATION));
 			thumb_image.setImageBitmap(icache.getImage(song
 					.get(FileBrowserActivity.KEY_THUMB_URL)));
 		}
