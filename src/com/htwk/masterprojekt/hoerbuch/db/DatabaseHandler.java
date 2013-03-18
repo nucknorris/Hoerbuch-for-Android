@@ -99,7 +99,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	// Deleting single lastplayed
+	// deleting all LPs with given path
 	private void deleteAllLastPlayedWithPath(String path) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_LAST_PLAYED, KEY_PATH + " = ?", new String[] { path });
@@ -132,6 +132,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close(); // Closing database connection
 	}
 
+	// just to print it out
 	public void printLastPlayed() {
 		for (LastPlayed lp : getAllLastPlayed()) {
 			Log.d(TAG,

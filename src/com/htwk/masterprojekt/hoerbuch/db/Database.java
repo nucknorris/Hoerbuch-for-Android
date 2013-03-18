@@ -8,7 +8,7 @@ import android.util.Log;
 import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
 
 /*
- * class to interact with the database
+ * class to simple interact with the database
  * */
 public class Database {
 	private static final String TAG = "Database";

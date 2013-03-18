@@ -19,11 +19,12 @@ import com.htwk.masterprojekt.hoerbuch.media.ImageCache;
 // generates the listrow for views with icons
 public class LazyAdapter extends BaseAdapter {
 
+	private static final String TAG = "LazyAdapter";
 	private Activity activity;
 	private ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
+	// the image cache
 	private ImageCache icache;
-	private static final String TAG = "LazyAdapter";
 
 	public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
@@ -48,6 +49,7 @@ public class LazyAdapter extends BaseAdapter {
 		return position;
 	}
 
+	// generate one item in listview
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
@@ -62,6 +64,7 @@ public class LazyAdapter extends BaseAdapter {
 		// Setting all values in listview
 		title.setText(song.get(FileBrowserActivity.KEY_TITLE));
 		artist.setText(song.get(FileBrowserActivity.KEY_ARTIST));
+		// now with image cache
 		if (new File(song.get(FileBrowserActivity.KEY_THUMB_URL)).isDirectory()) {
 			// is dir
 			duration.setText("");
@@ -74,11 +77,6 @@ public class LazyAdapter extends BaseAdapter {
 					.get(FileBrowserActivity.KEY_THUMB_URL)));
 			Log.d(TAG, song.get(FileBrowserActivity.KEY_THUMB_URL));
 		}
-		// try {
-		// thumb_image.setImageBitmap(new ThumpImageLoader(activity, song
-		// .get(FileBrowserActivity.KEY_THUMB_URL)).getImage());
-		// } catch (Exception ex) {
-		// }
 		return vi;
 	}
 }

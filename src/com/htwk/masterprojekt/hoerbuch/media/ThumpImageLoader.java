@@ -9,6 +9,7 @@ import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
 import com.htwk.masterprojekt.hoerbuch.R;
+
 public class ThumpImageLoader {
 
 	Bitmap bmp = null;
@@ -46,7 +47,6 @@ public class ThumpImageLoader {
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeByteArray(cover_array, 0, cover_array.length);
-
 		// Find the correct scale value. It should be the power of 2.
 		final int REQUIRED_SIZE = 70;
 		int width_tmp = o.outWidth, height_tmp = o.outHeight;
@@ -58,7 +58,6 @@ public class ThumpImageLoader {
 			height_tmp /= 2;
 			scale *= 2;
 		}
-
 		// decode with inSampleSize
 		BitmapFactory.Options o2 = new BitmapFactory.Options();
 		o2.inSampleSize = scale;
