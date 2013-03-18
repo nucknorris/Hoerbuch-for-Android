@@ -5,7 +5,6 @@ import java.util.List;
 import android.content.Context;
 import android.util.Log;
 
-import com.htwk.masterprojekt.hoerbuch.LastPlayedActivity;
 import com.htwk.masterprojekt.hoerbuch.db.model.LastPlayed;
 
 /*

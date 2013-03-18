@@ -1,10 +1,12 @@
 package com.htwk.masterprojekt.hoerbuch;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.htwk.masterprojekt.hoerbuch.media.ThumpImageLoader;
+import com.htwk.masterprojekt.hoerbuch.media.ImageCache;
 
 // generates the listrow for views with icons
 public class LazyAdapter extends BaseAdapter {
@@ -20,12 +22,15 @@ public class LazyAdapter extends BaseAdapter {
 	private Activity activity;
 	private ArrayList<HashMap<String, String>> data;
 	private static LayoutInflater inflater = null;
+	private ImageCache icache;
+	private static final String TAG = "LazyAdapter";
 
 	public LazyAdapter(Activity a, ArrayList<HashMap<String, String>> d) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		icache = new ImageCache(activity);
 	}
 
 	@Override
@@ -58,11 +63,21 @@ public class LazyAdapter extends BaseAdapter {
 		title.setText(song.get(FileBrowserActivity.KEY_TITLE));
 		artist.setText(song.get(FileBrowserActivity.KEY_ARTIST));
 		duration.setText(song.get(FileBrowserActivity.KEY_DURATION));
-		try {
-			thumb_image.setImageBitmap(new ThumpImageLoader(activity, song
-					.get(FileBrowserActivity.KEY_THUMB_URL)).getImage());
-		} catch (Exception ex) {
+
+		Log.d(TAG, song.get(FileBrowserActivity.KEY_THUMB_URL));
+		if (new File(song.get(FileBrowserActivity.KEY_THUMB_URL)).isDirectory()) {
+			// is dir
+			thumb_image.setImageBitmap(icache.getImage("dir"));
+		} else {
+			// is file
+			thumb_image.setImageBitmap(icache.getImage(song
+					.get(FileBrowserActivity.KEY_THUMB_URL)));
 		}
+		// try {
+		// thumb_image.setImageBitmap(new ThumpImageLoader(activity, song
+		// .get(FileBrowserActivity.KEY_THUMB_URL)).getImage());
+		// } catch (Exception ex) {
+		// }
 		return vi;
 	}
 }
