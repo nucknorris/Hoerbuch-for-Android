@@ -82,7 +82,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
 		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
 		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
-		cover = (ImageView) findViewById(R.id.imageView1);
+		cover = (ImageView) findViewById(R.id.coverImage);
 
 		utils = new Utils();
 		mediaManager = new MediaFileManager(this);

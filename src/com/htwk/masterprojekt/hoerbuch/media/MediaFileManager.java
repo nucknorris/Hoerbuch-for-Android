@@ -78,6 +78,7 @@ public class MediaFileManager {
 				mediaFile.setCover(BitmapFactory.decodeByteArray(cover_array,
 						0, cover_array.length));
 			} catch (NullPointerException e) {
+				Log.d(TAG, "DONT FINE A COVER");
 			}
 			return mediaFile;
 		} else {
