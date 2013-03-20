@@ -102,10 +102,8 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		songTitleLabel.setText(currentFile.getArtist() + " - "
 				+ currentFile.getTitle());
 
-		try {
+		if (currentFile.getCover() != null) {
 			cover.setImageBitmap(currentFile.getCover());
-		} catch (NullPointerException npe) {
-			Log.v(TAG, "No cover found, using default.");
 		}
 
 		playerServiceIntent = new Intent(this, PlayerService.class);
