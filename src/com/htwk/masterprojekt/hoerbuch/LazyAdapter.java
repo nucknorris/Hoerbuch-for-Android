@@ -18,6 +18,7 @@ import com.htwk.masterprojekt.hoerbuch.media.ImageCache;
 // generates the listrow for views with icons
 public class LazyAdapter extends BaseAdapter {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "LazyAdapter";
 	private Activity activity;
 	private ArrayList<HashMap<String, String>> data;

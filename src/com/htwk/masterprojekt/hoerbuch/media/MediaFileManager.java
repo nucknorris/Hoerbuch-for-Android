@@ -4,19 +4,29 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.Bitmap;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
-import com.htwk.masterprojekt.hoerbuch.Utils;
+import com.htwk.masterprojekt.hoerbuch.db.DatabaseHandler;
 import com.htwk.masterprojekt.hoerbuch.filters.AudioFilter;
 
 public class MediaFileManager {
 	private static final String TAG = "MediaFileManager";
 	// will contain the filenames and corresponding paths.
 	private File[] files;
-	MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+	DatabaseHandler dbh;
+	Context c;
+	List<MediaFile> mediaFiles;
+	MediaMetadataRetriever mmr;
+
+	public MediaFileManager(Context context) {
+		this.c = context;
+		dbh = new DatabaseHandler(c);
+		mediaFiles = new ArrayList<MediaFile>();
+	}
 
 	/**
 	 * Generates a list of the files located in the given directory.
@@ -27,97 +37,57 @@ public class MediaFileManager {
 	public List<MediaFile> getList(File dir) {
 		Log.d(TAG, "get the List");
 		// map contains <path, filename>
-		List<MediaFile> mediaFiles = new ArrayList<MediaFile>();
+		mediaFiles.clear();
 		if (dir.isFile()) {
 			files = dir.getParentFile().listFiles(new AudioFilter());
 		} else {
 			files = dir.listFiles(new AudioFilter());
 		}
 		for (File file : files) {
-			MediaFile mediaFile = new MediaFile();
-			String filePath = file.getAbsolutePath();
-			mediaFile.setPath(file.getPath());
-			mediaFile.setTitle(extractTitel(filePath));
-			try {
-				mediaFile.setDuration(extractDuration(filePath));
-			} catch (Exception ex) {
-			}
-			mediaFile.setFileNameLong(filePath);
-			mediaFile.setFileNameShort(Utils.rsplit("/", filePath));
-			mediaFile.setArtist(extractArtist(filePath));
-			try {
-				mediaFile.setCover(extractCover(filePath));
-			} catch (NullPointerException e) {
-			}
-			mediaFiles.add(mediaFile);
+			mediaFiles.add(getMediaFileTwo(file.getPath()));
 		}
 		return mediaFiles;
 	}
 
 	// just return one mediafile from given path
-	public MediaFile getmediaFile(String path) {
-		File dir = new File(path);
-		if (dir.isFile()) {
+	@SuppressLint("UseValueOf")
+	public MediaFile getMediaFileTwo(String path) {
+		mmr = new MediaMetadataRetriever();
+		File file = new File(path);
+		if (file.isFile()) {
+			mmr.setDataSource(path);
 			MediaFile mediaFile = new MediaFile();
-			String fileName = dir.getAbsolutePath();
-			mediaFile.setPath(dir.getPath());
-			mediaFile.setTitle(extractTitel(fileName));
+			mediaFile.setPath(path);
+			mediaFile
+					.setTitle(mmr
+							.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE));
 			try {
-				mediaFile.setDuration(extractDuration(fileName));
+				mediaFile
+						.setDuration(Long.parseLong(mmr
+								.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)));
 			} catch (Exception ex) {
+				mediaFile.setDuration((long) 0);
 			}
-			return mediaFile;
-		}
-		return null;
-	}
-
-	// get the titel of a file or dir
-	private String extractTitel(String filePath) {
-		StringBuilder sb = new StringBuilder();
-		if (new File(filePath).isFile()) {
-			mmr.setDataSource(filePath);
-			String titleName = mmr
-					.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-			sb.append(titleName);
-		} else {
-			sb.append(new File(filePath).getName());
-		}
-		return sb.toString();
-	}
-
-	// get the duration von the mediafile
-	private Long extractDuration(String filePath) {
-		if (new File(filePath).isFile()) {
-			mmr.setDataSource(filePath);
-			return Long
-					.parseLong(mmr
-							.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
-		} else {
-			return (long) 0;
-		}
-	}
-
-	// get the auhor of the mediafile
-	private String extractArtist(String filePath) {
-		if (new File(filePath).isFile()) {
-			mmr.setDataSource(filePath);
-			return mmr
-					.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-		} else {
-			return "";
-		}
-	}
-
-	private Bitmap extractCover(String filePath) {
-		MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-		if (new File(filePath).isFile()) {
-			mmr.setDataSource(filePath);
+			mediaFile
+					.setArtist(mmr
+							.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST));
 			byte[] cover_array = mmr.getEmbeddedPicture();
 			BitmapFactory.Options o = new BitmapFactory.Options();
 			o.inJustDecodeBounds = true;
-			return BitmapFactory.decodeByteArray(cover_array, 0,
-					cover_array.length);
+			try {
+				mediaFile.setCover(BitmapFactory.decodeByteArray(cover_array,
+						0, cover_array.length));
+			} catch (NullPointerException e) {
+			}
+			return mediaFile;
+		} else {
+			MediaFile mediaFile = new MediaFile();
+			mediaFile.setPath(path);
+			mediaFile.setTitle(file.getName());
+			mediaFile.setArtist("");
+			mediaFile.setDuration((long) 0);
+			mediaFile.setDir(true);
+			return mediaFile;
 		}
-		return null;
 	}
 }

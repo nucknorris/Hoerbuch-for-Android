@@ -1,9 +1,7 @@
 package com.htwk.masterprojekt.hoerbuch;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -16,7 +14,6 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +25,6 @@ import android.widget.TextView;
 
 import com.htwk.masterprojekt.hoerbuch.media.MediaFile;
 import com.htwk.masterprojekt.hoerbuch.media.MediaFileManager;
-import com.htwk.masterprojekt.hoerbuch.media.PlayerFlag;
 import com.htwk.masterprojekt.hoerbuch.services.PlayerService;
 
 public class PlayerActivity extends Activity implements OnCompletionListener,
@@ -38,6 +34,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private static final int SEEK_BACKWARD_TIME = 5000;
 	public static boolean IS_PREPARED = false;
 	private Intent intent;
+	@SuppressWarnings("unused")
 	private String file;
 	private String filePath;
 	private ImageButton btnPlay;
@@ -88,7 +85,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		cover = (ImageView) findViewById(R.id.imageView1);
 
 		utils = new Utils();
-		mediaManager = new MediaFileManager();
+		mediaManager = new MediaFileManager(this);
 
 		// provide the playlist
 		Log.v(TAG, "getting playlist for " + filePath);
@@ -122,7 +119,6 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		startService(playerServiceIntent);
 		songProgressBar.setProgress(0);
 		songProgressBar.setMax(100);
-		songTitleLabel.setText(filePath);
 		updateProgressBar();
 		btnPlay.setTag(1);
 		btnPlay.setImageResource(R.drawable.pause_dark);
@@ -250,11 +246,13 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	}
 
 	private ServiceConnection serviceConnection = new ServiceConnection() {
+		@Override
 		public void onServiceConnected(ComponentName className, IBinder binder) {
 			playerService = ((PlayerService.PlayerServiceBinder) binder)
 					.getService();
 		}
 
+		@Override
 		public void onServiceDisconnected(ComponentName className) {
 			playerService = null;
 		}
@@ -320,6 +318,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	 * Background Runnable thread
 	 * */
 	private Runnable mUpdateTimeTask = new Runnable() {
+		@Override
 		public void run() {
 			long totalDuration = 0;
 			long currentDuration = 0;
@@ -336,7 +335,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 					+ utils.milliSecondsToTimer(currentDuration));
 
 			// Updating progress bar
-			int progress = (int) (utils.getProgressPercentage(currentDuration,
+			int progress = (utils.getProgressPercentage(currentDuration,
 					totalDuration));
 			// Log.d("Progress", ""+progress);
 			songProgressBar.setProgress(progress);

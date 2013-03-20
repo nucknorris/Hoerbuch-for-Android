@@ -65,27 +65,26 @@ public class FileBrowserActivity extends Activity {
 		ROOTDIR = app_preferences.getString("path", "/mnt/sdcard");
 		setTitle(ROOTDIR);
 		setContentView(R.layout.activity_browser);
-		mediaManager = new MediaFileManager();
+		mediaManager = new MediaFileManager(this);
+		songsList = new ArrayList<HashMap<String, String>>();
 		setDir(ROOTDIR);
 		// Click event for single list row
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				if (new File(mediaFiles.get(position).getFileNameLong())
-						.isFile()) {
-					File file = new File(mediaFiles.get(position)
-							.getFileNameLong());
+				if (!mediaFiles.get(position).isDir()) {
 					Intent intent = new Intent(FileBrowserActivity.this,
 							PlayerActivity.class);
-					intent.putExtra(EXTRA_FILE_PATH, file.getPath());
+					intent.putExtra(EXTRA_FILE_PATH, mediaFiles.get(position)
+							.getPath());
 					intent.putExtra(EXTRA_PLAYLIST_POSITION, position);
 					intent.putExtra(EXTRA_FILE_POSTION, 0);
 					startActivity(intent);
 				} else {
 					breadcrumbsPosition++;
-					breadcrumbs.add(mediaFiles.get(position).getFileNameLong());
-					String dir = mediaFiles.get(position).getFileNameLong();
+					breadcrumbs.add(mediaFiles.get(position).getPath());
+					String dir = mediaFiles.get(position).getPath();
 					setDir(dir);
 				}
 			}
@@ -108,21 +107,16 @@ public class FileBrowserActivity extends Activity {
 	// the list view with the given dir
 	private void setDir(String dir) {
 		mediaFiles = mediaManager.getList(new File(dir));
-		songsList = new ArrayList<HashMap<String, String>>();
+		songsList.clear();
 		// looping through all song nodes <song>
 		for (MediaFile mf : mediaFiles) {
 			// creating new HashMap
 			HashMap<String, String> map = new HashMap<String, String>();
-			// adding each child node to HashMap key => value
-			map.put(KEY_ID, mf.getPath());
 			map.put(KEY_TITLE, mf.getTitle());
-			map.put(KEY_FILE, mf.getFileNameShort());
 			map.put(KEY_ARTIST, mf.getArtist());
 			map.put(KEY_DURATION,
 					"" + new Utils().milliSecondsToTimer(mf.getDuration()));
-			// Log.d("FileBrowserActivity", "" +
-			// mf.getFileNameLong());
-			map.put(KEY_THUMB_URL, mf.getFileNameLong());
+			map.put(KEY_THUMB_URL, mf.getPath());
 			// adding HashList to ArrayList
 			songsList.add(map);
 		}

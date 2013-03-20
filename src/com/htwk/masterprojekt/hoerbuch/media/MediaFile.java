@@ -4,24 +4,24 @@ import android.graphics.Bitmap;
 
 public class MediaFile {
 
+	public boolean isDir() {
+		return isDir;
+	}
+
+	public void setDir(boolean isDir) {
+		this.isDir = isDir;
+	}
+
 	public String getFileName() {
 		return artist + " " + title;
 	}
 
-	public String getFileNameLong() {
-		return fileNameLong;
+	public String getPathShort() {
+		return pathShort;
 	}
 
-	public void setFileNameLong(String fileNameLong) {
-		this.fileNameLong = fileNameLong;
-	}
-
-	public String getFileNameShort() {
-		return fileNameShort;
-	}
-
-	public void setFileNameShort(String fileNameShort) {
-		this.fileNameShort = fileNameShort;
+	public void setPathShort(String pathShort) {
+		this.pathShort = pathShort;
 	}
 
 	public String getTitle() {
@@ -33,13 +33,13 @@ public class MediaFile {
 	}
 
 	private String path;
-	private String fileNameLong;
-	private String fileNameShort;
+	private String pathShort;
 	private String title;
 	private String artist;
 	private Long duration;
 	private Bitmap cover;
 	private String id;
+	boolean isDir = false;
 
 	public String getId() {
 		return id;

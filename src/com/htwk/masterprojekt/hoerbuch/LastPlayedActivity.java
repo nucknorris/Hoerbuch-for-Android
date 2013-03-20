@@ -50,10 +50,14 @@ public class LastPlayedActivity extends Activity {
 
 	// will contain the filenames and corresponding paths.
 	ArrayList<HashMap<String, String>> songsList;
+	Database db;
+	MediaFileManager mfm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mfm = new MediaFileManager(this);
+		db = new Database(this);
 		setContentView(R.layout.activity_lastplayed);
 		// get list of last played elements
 		openLastPlayed();
@@ -63,8 +67,6 @@ public class LastPlayedActivity extends Activity {
 	 * Gets a list of all last played elements from database
 	 */
 	private void openLastPlayed() {
-		final Database db = new Database(this);
-		MediaFileManager mfm = new MediaFileManager();
 		db.printLastPlayed(db.getLastPlayedList());
 		mediaFiles = db.getLastPlayedList();
 		songsList = new ArrayList<HashMap<String, String>>();
@@ -74,12 +76,12 @@ public class LastPlayedActivity extends Activity {
 			HashMap<String, String> map = new HashMap<String, String>();
 			// adding each child node to HashMap key => value
 			String url = lp.getPath() + lp.getFile();
-			MediaFile mf = mfm.getmediaFile(url);
+			MediaFile mf = mfm.getMediaFileTwo(url);
 			Log.d(TAG, url);
 			if (mf != null) {
 				map.put(KEY_ID, mf.getPath());
 				map.put(KEY_TITLE, mf.getTitle());
-				map.put(KEY_FILE, mf.getFileNameShort());
+				map.put(KEY_FILE, mf.getPath());
 				map.put(KEY_ARTIST, mf.getArtist());
 				map.put(KEY_DURATION,
 						"Stopped at "
