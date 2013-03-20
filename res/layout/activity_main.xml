@@ -4,44 +4,70 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/PlayerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="PLAYER" >
-    </Button>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dip"
+        android:layout_weight="3" >
+    </View>
 
-    <Button
-        android:id="@+id/BrowserButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="BROWSER" >
-    </Button>
+        android:layout_weight="1"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/LastPlayedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="LAST PALYED" >
-    </Button>
+        <ImageButton
+            android:id="@+id/BrowserButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="30dp"
+            android:contentDescription="@string/main_BrowserButton"
+            android:scaleType="center"
+            android:src="@drawable/list" >
+        </ImageButton>
 
-    <Button
-        android:id="@+id/SettingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="SETTINGS" >
-    </Button>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="@string/main_BrowserButton"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/ExitButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="EXIT" >
-    </Button>
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="1.0" >
+
+        <ImageButton
+            android:id="@+id/LastPlayedButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="30dp"
+            android:contentDescription="@string/main_LastPlayedButton"
+            android:scaleType="center"
+            android:src="@drawable/play" >
+        </ImageButton>
+
+        <TextView
+            android:id="@+id/resumeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="@string/main_LastPlayedButton"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dip"
+        android:layout_weight="6" >
+    </View>
 
 </LinearLayout>

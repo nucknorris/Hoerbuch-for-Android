@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -44,6 +45,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private ImageButton btnPrev;
 	private ImageButton btnFwd;
 	private ImageButton btnBwd;
+	private MediaFile currentFile;
 
 	// private MediaPlayer player;
 	private MediaFileManager mediaManager;
@@ -51,6 +53,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 	private TextView songTitleLabel;
 	private TextView songCurrentDurationLabel;
 	private TextView songTotalDurationLabel;
+	private ImageView cover;
 	private SeekBar songProgressBar;
 	private Utils utils;
 	private List<MediaFile> mediaFiles;
@@ -82,6 +85,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		songProgressBar = (SeekBar) findViewById(R.id.songProgressBar);
 		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
 		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
+		cover = (ImageView) findViewById(R.id.imageView1);
 
 		utils = new Utils();
 		mediaManager = new MediaFileManager();
@@ -92,7 +96,20 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 		// listeners
 		// songProgressBar.setOnSeekBarChangeListener(this); // Important
-		songTitleLabel.setText(file);
+		for (MediaFile mf : mediaFiles) {
+			if (mf.getPath().equals(filePath)) {
+				currentFile = mf;
+				break;
+			}
+		}
+		songTitleLabel.setText(currentFile.getArtist() + " - "
+				+ currentFile.getTitle());
+
+		try {
+			cover.setImageBitmap(currentFile.getCover());
+		} catch (NullPointerException npe) {
+			Log.v(TAG, "No cover found, using default.");
+		}
 
 		playerServiceIntent = new Intent(this, PlayerService.class);
 		playerServiceIntent.setAction(PlayerService.ACTION_PLAY);
@@ -108,7 +125,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 		songTitleLabel.setText(filePath);
 		updateProgressBar();
 		btnPlay.setTag(1);
-		btnPlay.setImageResource(R.drawable.pause);
+		btnPlay.setImageResource(R.drawable.pause_dark);
 
 		btnPlay.setOnClickListener(new View.OnClickListener() {
 
@@ -118,11 +135,11 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 				final int status = (Integer) v.getTag();
 
 				if (status == 1) {
-					btnPlay.setImageResource(R.drawable.play);
+					btnPlay.setImageResource(R.drawable.play_dark);
 					v.setTag(0);
 					playerService.pausePlaying();
 				} else {
-					btnPlay.setImageResource(R.drawable.pause);
+					btnPlay.setImageResource(R.drawable.pause_dark);
 					v.setTag(1);
 					playCurrentFile(filePath);
 				}
@@ -151,7 +168,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 						}
 					}
 					Log.v(TAG, "playing next file (" + filePath + ")");
-					btnPlay.setImageResource(R.drawable.pause);
+					btnPlay.setImageResource(R.drawable.pause_dark);
 					v.setTag(1);
 					playFile(filePath);
 				}
@@ -179,7 +196,7 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 						}
 					}
 					Log.v(TAG, "playing previous file (" + filePath + ")");
-					btnPlay.setImageResource(R.drawable.pause);
+					btnPlay.setImageResource(R.drawable.pause_dark);
 					v.setTag(1);
 					playFile(filePath);
 				}
@@ -277,19 +294,14 @@ public class PlayerActivity extends Activity implements OnCompletionListener,
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+		case R.id.menu_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override

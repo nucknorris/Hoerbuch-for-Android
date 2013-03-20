@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
@@ -33,16 +35,20 @@ public class MediaFileManager {
 		}
 		for (File file : files) {
 			MediaFile mediaFile = new MediaFile();
-			String fileName = file.getAbsolutePath();
+			String filePath = file.getAbsolutePath();
 			mediaFile.setPath(file.getPath());
-			mediaFile.setTitle(extractTitel(fileName));
+			mediaFile.setTitle(extractTitel(filePath));
 			try {
-				mediaFile.setDuration(extractDuration(fileName));
+				mediaFile.setDuration(extractDuration(filePath));
 			} catch (Exception ex) {
 			}
-			mediaFile.setFileNameLong(fileName);
-			mediaFile.setFileNameShort(Utils.rsplit("/", fileName));
-			mediaFile.setArtist(extractArtist(fileName));
+			mediaFile.setFileNameLong(filePath);
+			mediaFile.setFileNameShort(Utils.rsplit("/", filePath));
+			mediaFile.setArtist(extractArtist(filePath));
+			try {
+				mediaFile.setCover(extractCover(filePath));
+			} catch (NullPointerException e) {
+			}
 			mediaFiles.add(mediaFile);
 		}
 		return mediaFiles;
@@ -100,5 +106,18 @@ public class MediaFileManager {
 		} else {
 			return "";
 		}
+	}
+
+	private Bitmap extractCover(String filePath) {
+		MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+		if (new File(filePath).isFile()) {
+			mmr.setDataSource(filePath);
+			byte[] cover_array = mmr.getEmbeddedPicture();
+			BitmapFactory.Options o = new BitmapFactory.Options();
+			o.inJustDecodeBounds = true;
+			return BitmapFactory.decodeByteArray(cover_array, 0,
+					cover_array.length);
+		}
+		return null;
 	}
 }

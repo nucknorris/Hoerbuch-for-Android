@@ -13,4 +13,8 @@
     <string name="player_btnNext">></string>
     <string name="player_btnPlay">Play</string>
 
+    <!-- main screen buttons -->
+    <string name="main_BrowserButton">Browser</string>
+    <string name="main_LastPlayedButton">Resume playing</string>
+
 </resources>
