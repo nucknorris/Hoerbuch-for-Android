@@ -21,8 +21,6 @@ public class ThumpImageLoader {
 		if (new File(keyThumbUrl).isFile()) {
 			mmr.setDataSource(keyThumbUrl);
 			byte[] cover_array = mmr.getEmbeddedPicture();
-			// bmp = BitmapFactory.decodeByteArray(cover_array, 0,
-			// cover_array.length);
 			bmp = decode(cover_array);
 		} else {
 			bmp = BitmapFactory.decodeResource(context.getResources(),

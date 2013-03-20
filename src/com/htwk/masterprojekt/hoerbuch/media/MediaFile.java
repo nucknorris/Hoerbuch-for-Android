@@ -16,14 +16,6 @@ public class MediaFile {
 		return artist + " " + title;
 	}
 
-	public String getPathShort() {
-		return pathShort;
-	}
-
-	public void setPathShort(String pathShort) {
-		this.pathShort = pathShort;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -33,21 +25,11 @@ public class MediaFile {
 	}
 
 	private String path;
-	private String pathShort;
 	private String title;
 	private String artist;
 	private Long duration;
 	private Bitmap cover;
-	private String id;
 	boolean isDir = false;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getPath() {
 		return path;
