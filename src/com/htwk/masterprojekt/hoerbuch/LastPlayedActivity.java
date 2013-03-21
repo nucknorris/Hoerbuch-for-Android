@@ -105,7 +105,6 @@ public class LastPlayedActivity extends Activity {
 					int position, long id) {
 				String file = mediaFiles.get(position).getPath()
 						+ mediaFiles.get(position).getFile();
-
 				if (new File(file).isFile()) {
 					File f = new File(file);
 					Intent intent = new Intent(LastPlayedActivity.this,
@@ -116,7 +115,6 @@ public class LastPlayedActivity extends Activity {
 					Log.d(TAG, "" + mediaFiles.get(position).getTime());
 					intent.putExtra(EXTRA_FILE_POSTION, Integer
 							.parseInt(mediaFiles.get(position).getTime()));
-					db.db().deleteLastPlayed(mediaFiles.get(position));
 					startActivity(intent);
 				}
 			}
