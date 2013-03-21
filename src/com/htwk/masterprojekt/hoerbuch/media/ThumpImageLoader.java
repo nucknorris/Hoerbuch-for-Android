@@ -36,25 +36,12 @@ public class ThumpImageLoader {
 
 	// decode and resize the image from a mediafile
 	private Bitmap decode(byte[] cover_array) {
-		// decode image size
 		BitmapFactory.Options o = new BitmapFactory.Options();
 		o.inJustDecodeBounds = true;
-		BitmapFactory.decodeByteArray(cover_array, 0, cover_array.length);
-		// Find the correct scale value. It should be the power of 2.
-		final int REQUIRED_SIZE = 70;
-		int width_tmp = o.outWidth, height_tmp = o.outHeight;
-		int scale = 1;
-		while (true) {
-			if (width_tmp / 2 < REQUIRED_SIZE || height_tmp / 2 < REQUIRED_SIZE)
-				break;
-			width_tmp /= 2;
-			height_tmp /= 2;
-			scale *= 2;
-		}
-		// decode with inSampleSize
-		BitmapFactory.Options o2 = new BitmapFactory.Options();
-		o2.inSampleSize = scale;
-		return BitmapFactory
-				.decodeByteArray(cover_array, 0, cover_array.length);
+		Bitmap originalBitmap = BitmapFactory.decodeByteArray(cover_array, 0,
+				cover_array.length);
+		Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, 70,
+				70, false);
+		return resizedBitmap;
 	}
 }
