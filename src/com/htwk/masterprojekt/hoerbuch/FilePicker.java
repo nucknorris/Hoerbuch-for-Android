@@ -5,6 +5,11 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.htwk.masterprojekt.hoerbuch.R;
+import com.htwk.masterprojekt.hoerbuch.R.id;
+import com.htwk.masterprojekt.hoerbuch.R.layout;
+import com.htwk.masterprojekt.hoerbuch.R.menu;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;

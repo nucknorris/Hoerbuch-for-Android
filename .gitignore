@@ -13,3 +13,9 @@ bin
 .settings
 .classpath
 .project
+*.out
+*.aux
+*.log
+*.gz
+*.toc
+*.pdf
