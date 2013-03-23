@@ -1,2 +1,14 @@
 %!TEX root = ../docu.tex
-\subsection{Blabla}
+\section{Fazit}
+\subsection{Aufgetretene Probleme}
+Währet der entwicklung sind einige probleme aufgetreten. an diese stelle wird auf einige genauer eingegangen und  die lösung für das aufgetretene problem diskutiert.
+\subsubsection{Laufzeiten für verschiedene Operationen}
+die laufzeit spiel in anwendungen für benutzer eine große rolle. langsame laufzeiten wirken frustieren auf beutzer und die akzeptanz für lang wartenzeiten ist geing. diese langen laufzeiten treten häufig bei rechenintensiven operatioen auf. eine dieser operation ist das erzeugen von vorshcaubildern welche aus mp3 dateien extrahiert werden um sie  in der auswahl für die jeweiligen titel anzuzeigen.
+die extrakktion benötig zunehmen zeit je mehr titel hintereinander analysiert werden müssen. die lösung ist simple stat jede mp3 im ordner zu analysieren wird ein verweis in einem bildcache für den jeweiligen ordner hinterlegt. der grund hierfür ist zum einen das dadruch nur eine extraktion durchgeführt werden muss und zum anderen ist dies möglich da zusammengehörige mp3 meist im gleichen ordner abgelegt sind und nciht mit anderen fremden gemischt werden.
+ein ähnlches problem tritt bei der extraktion von metadatenw ie zum beispiel der albumtitel doer titel der audiodatei auf. für diese operation muss für jede audiodatei eine else aktion ausgeführt werden. eine lösung hierfür konnte nicht implementiert werden und eine höhere laufzeit wurde daher in kauf genommen. eine mögliche lösung ist es einen kompletten erfassung alle audiodateien vorzunehmen und alle informatin in einer datenbank abzulegen.
+\subsubsection{Hintergrundprozesse}
+eine weiter problemstellung war es die wiedergabe in den einem hintergrundprozess zu versetzen, sodass werend der wiedergabe andere aktionen und anwendungen auf dem gerät gestartet und verwendet werden können. hierfür bietet die API von adnroid gewisse services an welche in ein hintergrundprozess versetzt werdne können und die angesprochene problemstellung gelöst werden konnte.
+
+\subsection{Ergebnisse}
+das ergebnis der gemeinschaftsarbeit ist eine funktionsfähe applikation die dne gestekcten anforderungen des konzeptes genügt. die anwendung beitet raum für erweiterungen und verbesserungen dabei wurde darauf geachtet das programmerweiterungen problemlos ind en programmcode eingeführt werden kann ohne schon bestehende programmfunktionen zu blockieren doer zu zerstören.
+die üprojektstruktur wurde einfahcgehalten um quellcodefragmente wiederverwenden oder weiterentwicklung betreiben zu können. die entwicklung von nativen anwendungen ist aufwendig. der vorteil ebstimmte systemkomponenten nutzen zu könenn überwiegt.

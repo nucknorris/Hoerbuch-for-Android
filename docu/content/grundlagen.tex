@@ -1,4 +1,5 @@
 %!TEX root = ../docu.tex
+\section{Grundlagen}
 \subsection{Mobile Anwendungen}
 Software und Services können auf vershciedene wege für mobile endgeräte entwickelt und angeboten werden. Aktuelle platformen wie andorid von google oder iOS von Apple ermöglichen auf verschiedene wege das ausführen von software durch den benutzer.
 
@@ -46,6 +47,15 @@ jede auf dem ausgeführte anwendung hat theoretisch auf alle systemkomponenten d
 
 um die jeweiligen applikationen untereinadern zu schützen und das system als solchesslebst zu schützen wird dieses problem mit sogenanten sandboxes begegnet. die funktionsweise der sandboxen wir im kapitel \ref{sandbox} beschreiben.
 \subsubsection{Verbraucher und Datenschutz}
+Die isntallation von zusätzlicher software hat nicht nur vorteile sondern ermöglich es auch personenbezogene daten zu erfassen und sammeln. die unwissenheit der benutzer über die abfliesenden datenströme ist unter verbrauchen unde datenschützern viel diskutiert.
+
+die technische unwissenheit der benutzer erleichert es  unternhemen daten von personen zu sammeln und auszuwerten. beispielsweile lassen sich ewegungsprofile erstellen und diese werdne anshcließend für gezielte werbeaktionen genutzt mit geshcäften die z.b. auf dem heimweg liegen.
+
+der nutzer wird über die erfassung und nutzung seiner daten nicht informiert. bei der installation von software wird der bentuzer jediglich draufhingewise auf welche systemkomponenten die applikation zugreifen möchte. billigt der benutzer ein könen die anwendugen auf die komponenten jederzeit zugreifen ohne das der benutzer intervenieren kann. erst durch die deinstallation der anwendung kann die applikation keien datne mehr erfassen.
+
+dennoch hat das sammeln von daten einen gewissen mehrwert für den benutzer. so können automatisch staumeldungen angezeigt werden, zahrzeiten zu temrinen berechnet oder die geburtstage von freunden oder verwantne geraden nciht in vergesenheit.
+
+das unbemerkte absickern von daten ist dennoch ein probelm und wird weiterhin ein kritikpunkt bleiben.
 
 
 \subsection{Die Architektur von Android}
@@ -69,4 +79,8 @@ durch die verwendung von sandboxes können nicht nur test von software durchgef�
 
 auch webbrowser verwenden sandboxes für webseiten um das  system z.b. gegen die infizierung mit viren zu schützen. diese sanboxes haben auch auf vielen mobilen entgeräten ihren platz eingenommen. so werden native anwendungen auf mobiltelefonen in sandboxes ausgeführt um die anwenungen voneinander abzuschotten und um das system und ihre komponnenten zu shcützen. eine solche umgebung ist in abblidung \ref{sandbox} abstrahiert. die abbildung ezigt eine schematische darstellung eine sandbox mit appllikation.
 
+\subsubsection{Lebenszyklus von Anwendungen}
+\subsubsection{Dalvik Virtual Machine}
 \subsection{Anwendungsstruktur von Android}
+\subsubsection{Klassenstruktur}
+\subsubsection{Berechtigungssystem}
