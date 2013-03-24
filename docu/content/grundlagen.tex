@@ -132,24 +132,29 @@ Zusätzlich zu den Komponenten werden \emph{Ressourcen} zur Verfügung gestellt.
 
 Jede Komponente hat verschiedene Zustände in denen sie sich befinden kann. Diese Zustände spielen eine große Rolle bei der Entwicklung. 
 
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=.6]{images/activity_lifecycle}
+\caption{Der Lebenszyklus einer Activity}
+\label{lifecycle}
+\end{center}
+\end{figure}
+
 Grundsätzlich entscheidet man bei Activities in drei Status:
 
 \begin{description}[style=nextline]
-	\item[Resumed] In diesem Zustand befindet sich die Activity im Vordergrund und ist fokusiert. 
+	\item[Resumed] In diesem Zustand befindet sich die Activity im Vordergrund und ist fokusiert. Wird auch \emph{running} genannt.
 	\item[Paused] Wenn eine andere Activity im Vordergrund ist und die vorherige noch sichtbar ist, ist diese pausiert. Man findet diesen Zustand beispielsweise bei kleinen Auswahlfenstern wobei man nach der Auswahl direkt wieder zur Ausgangs-Activity geleitet wird.
 	\item[Stopped] Die Activity ist im Hintergrund. Der Prozess selbst lebt zwar noch, ist aber für den Anwender nicht mehr sichtbar und wird nach einer gewissen Zeit vom System komplett beendet. 
 \end{description}
 
-\begin{figure}[ht!]
-\begin{center}
-\includegraphics[scale=.7]{images/activity_lifecycle}
-\caption{Der Lebenszyklus einer Activity}
-\label{permissions}
-\end{center}
-\end{figure}
+In Abbildung \ref{lifecycle} werden die Status mit den dazugehörigen Übergangsfunktionen angezeigt.
 
+Wichtig bei der Entwicklung ist es, dass man zu jeder Zeit weiß welche Aktion von welchem Zustand aus ausgeführt werden kann. Dabei muss man alle Status beachten und Aktionen dafür festlegen da es sonst zu ungewolltem Verhalten und Abstürzen kommen kann. Hat man beispielsweise im Status \emph{Activity running} eine Datenbankverbindung geöffnet und vergessen in der \verb+onDestroy()+-Methode diese Verbindung wieder zu schließen wird die Applikation abstürzen und es kann zu Datenverlust kommen. Dies liegt daran, dass Android die Verbindung nicht selbst beendet. Allerdings stellt es Methoden wie \verb+onDestroy()+ bereit, die aufgerufen wird, wenn die Activity beendet wird, um auf Ereignisse zu reagieren.
 
-\label{sdk}
-\subsection{Anwendungsstruktur von Android}
+Um die Speicherverwaltung muss man sich selbst nicht kümmern. Android verwaltet Speicher selbst. Grundlage dafür bieten die Status der Applikationen. Ist beispielsweise der Browser seit mehreren Minuten im Hintergrund und es wurden zwischenzeitlich mehrer Anwendungen gestartet die Speicher benötigen, wird der Browser beendet um den nötigen RAM zur Verfügung zu stellen. Da aktuelle Geräte über bis zu \SI{3}{GB} Speicher verfügen, kann ein schneller Wechsel zwischen Anwendungen gewährleistet werden, da diese nicht beendet werden müssen.
+
+Allerdings sind Entwickler damit dazu verpflichtet ihre Applikationen demensprechend ressourcenschonend und gründlich zu planen um Abstürze oder eingefrorene Hintergrundanwendungen zu vermeiden.
+
 \subsubsection{Klassenstruktur}
 
