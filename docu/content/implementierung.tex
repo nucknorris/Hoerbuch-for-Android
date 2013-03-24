@@ -44,25 +44,27 @@ für diesen zweck legen wir eine mehtode mit den namen \textit{onCreate} an. die
 
 sollte sich das datenbankschema ändern kann dies über eine weiter variable welche wir dem betriebssystem mitteilen realisiert werden. eine datenbankversion beschreibt den standt der datenbankstruktur. sollte ishc die datenbankstruktur geändert haben wird der versionzähler erhöht und eine andere metho wird beim anbinden zur datenbank aufgerufen.
 
-\begin{center}
+
 \begin{figure}
+\begin{center}
 \includegraphics[scale=0.7]{images/database}
 \caption{Klassen für die Implementierung der Datenbank}
 \label{database}
-\end{figure}
 \end{center}
+\end{figure}
+
 
 diese methode nennt sich \textit{onUpgrade} und wird bei eben erwhäter versionserhöhun automatisch ausgeführt. in dieser methode sollten eine datenmegrierung durchgeführt werden oder alle bestehenden daten gelöscht werden und neue tabellen angelegt werden.
 
 durhc diesen meschanismuss ist eine aktuallität des datenbanklayouts immer gegeben. in der abblindung \ref{database} sind die kalssen ersichtlich die es ermöglichen mit der datenbank zu komunizieren. für die verwendung der daten ist es ratsam objekte zu verwenden um abgefragte datensatze weiterzuverwenden oder datensätze zu gewinnen. ein solches objekt wird in abbildung \ref{dbmodel} dargestellt.
 
-\begin{center}
 \begin{figure}
+\begin{center}
 \includegraphics[scale=0.7]{images/dbmodel}
 \caption{Obejkt zum transport der datensätze}
 \label{dbmodel}
-\end{figure}
 \end{center}
+\end{figure}
 
 \subsubsection{Abfragen}
 Eine datenbankabfrage wird über einen sql befehl an die datenbank gestellt. Mit dem befehl \textit{SELECT} und der angabe der tabelle können daten aus der datenbank abgefragt werden. die abfrage wird dafür in ien Cursor Objekt geladen und der cursor anschließden zur ausführung an die datenbank gesendet.
