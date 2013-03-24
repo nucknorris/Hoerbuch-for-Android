@@ -19,3 +19,5 @@ bin
 *.gz
 *.toc
 *.pdf
+*.fdb_latexmk
+*.fls

@@ -60,31 +60,96 @@ das unbemerkte absickern von daten ist dennoch ein probelm und wird weiterhin ei
 
 
 \subsection{Die Architektur von Android}
-\subsubsection{Sandboxes}
+
+\subsubsection{Das Android SDK}
+
+Um die Entwicklung von Applikationen für die Android-Plattform zu vereinfachen und unterstützen stellt \emph{Google} ein \textbf{S}oftware \textbf{D}evelopment \textbf{K}it, kurz \textbf{SDK} zur Verfügung \cite{android_sdk}. Darin sind unter anderem ein Plugin für die Entwicklungsumgebung \verb+Eclipse+ sowie die aktuelle Android Platform mit den verwendbaren Bibliotheken enthalten. Außerdem werden die \textbf{ADT}, die \textbf{A}ndroid \textbf{D}eveloper \textbf{T}ools, eine Sammlung von Werkzeugen die für die Ausführung von Applikationen auf einem Android-Gerät nötig sind mitgeliefert. Mit dessen Hilfe ist es möglich den geschriebenen Quellcode direkt zu übersetzen und auf dem Gerät oder in einem mitgelieferten Emulator zu starten.
+
+\subsubsection{Dalvik Virtual Machine}
+Herzstück von Android ist die \verb+Dalvic Virtual Machine+ (DVM). Diese führt mit der \verb+Java Virtual Machine+ kompilierten Code nach entsprechender Konvertierung als Bytecode aus. Hervorzuheben ist dabei, dass die DVM so kompakt ist, dass jeder Prozess eine eigene Instanz der DVM ausführen kann. Dies stellt die in Abschnitt \ref{sandbox} beschriebene Sandbox dar. 
+
+\subsubsection{Sandbox}
 \label{sandbox}
-Sandboxes ist der englishe begriff für sandkisten. olgend soll das prizip von snadboxen genauer erläutert werde. snadboxes werden häufig als sicherheits feature für andewnungen oder zum test von software verwendet.
+Mit dem Begriff Sandbox\footnote{engl. Sandkasten} bezeichnet man eine in sich abgeschlossene Umgebung die prinzipiell keine Auswirkungen auf ihre Umwelt hat. Sandboxes werden häufig als Sicherheitsfeature für Anwenungen oder zum Test von Software verwendet.
 
-die anwendung wird dabei vom  system auf die sie ausgeführt wird abgeschirmt und durch externe mechanismen kontrolliert. diese mechanismen stellen sicher das die anwendungen in der sandbox bleibt und regeln die informationszuführ oder den zugriffauf systemkomponnenten.
+Die Anwendung wird dabei vom System auf dem sie ausgeführt wird abgeschirmt und durch externe Mechanismen kontrolliert. Diese Mechanismen stellen sicher, dass die Anwendung in der sandbox bleibt und regeln die zusätzlich die Informationszuführ oder den Zugriff auf Systemkomponenten.
 
-die laufende anwendung kann diese mechanismen nicht umgehen oder steuern und ist in ihrem handlungspsielraum eingeschränkt. sollte sie jedoch versuchen aus ihrem küünstlichen gefängnis herraus auzubrehcen wird dies durhc sicherungsmaßmen erkannt und ge versuch unterbrochen oder die ausführung der anwendun gänzlich gestoppt.
+Die laufende Anwendung kann diese Mechanismen nicht umgehen oder steuern und ist in ihrem Handlungspsielraum eingeschränkt. Sollte sie jedoch versuchen aus ihrem künstlichen Gefängnis herauszubrechen wird dies durch Sicherungsmaßmen erkannt und der Versuch unterbrochen oder die Ausführung der Anwendung gänzlich gestoppt.
 
-\begin{figure}
+\begin{figure}[ht!]
 \begin{center}
-\includegraphics[scale=0.6]{images/sandbox}
+\includegraphics[scale=0.4]{images/sandbox}
 \caption{Sandbox-Umgebung mit 2 Applikationen}
-\label{sandbox}
+\label{sandbox_pic}
 \end{center}
 \end{figure}
 
-durch die verwendung von sandboxes können nicht nur test von software durchgeführt werden ohne das eigenliche system zu gefährden sodern auch anwendungen in laufzeitumgebungen ausgeführt werden um die sicherheit von daten oder dem eignetlichen system zu gewährleisten. 
+Durch die Verwendung von Sandboxes können nicht nur Softwaretests durchgeführt werden ohne das eigentliche System zu gefährden, sodern auch Anwendungen in Laufzeitumgebungen ausgeführt werden, um die Sicherheit von Daten oder dem eigentlichen System zu gewährleisten. 
 
-auch webbrowser verwenden sandboxes für webseiten um das  system z.b. gegen die infizierung mit viren zu schützen. diese sanboxes haben auch auf vielen mobilen entgeräten ihren platz eingenommen. so werden native anwendungen auf mobiltelefonen in sandboxes ausgeführt um die anwenungen voneinander abzuschotten und um das system und ihre komponnenten zu shcützen. eine solche umgebung ist in abblidung \ref{sandbox} abstrahiert. die abbildung ezigt eine schematische darstellung eine sandbox mit appllikation.
+Auch Webbrowser verwenden Sandboxes für Webseiten um das System z.b. gegen die Infizierung mit Viren zu schützen. Diese Sandboxes haben auch auf vielen mobilen Endgeräten ihren Platz eingenommen. So werden native Anwendungen auf Mobiltelefonen in Sandboxes ausgeführt um die Anwendungen voneinander abzuschotten und um das System und ihre Komponenten zu schützen. Eine solche Umgebung ist in Abbildung \ref{sandbox_pic} abstrahiert. Die Abbildung zeigt eine schematische Darstellung einer Sandbox mit Applikationen.
+
+\subsubsection{Das Android-Manifest und Permissions}
+Die Kommunikation der Sandbox mit der Systemumgebung wird bei Android über \verb+Permissions+ geregelt. Damit werden der Sandbox Benutzungsrechte für genau definierte Bereiche zugeteilt. 
+Ein Zentraler Punkt in der Sicherheitsarchitektur von Android besteht darin, dass standardmäßig keine Applikation Berechtigungen besitzt irgendetwas zu tun, was andere Apps, das System oder den Nutzer nachteilig beeinflusst. Darunter fallen beispielsweise der Zugriff auf private Daten des Nutzers oder auf das Netzwerk.
+
+Damit eine Applikation auf das Internet zugreifen kann muss der Entwickler dies aktiv erlauben und der Nutzer sieht bekommt diese Information auch vor dem Installieren angezeigt. Abbildung \ref{permissions} zeigt, wie dem Nutzer bei der Installation die Permissions angezeigt werden, die die Applikation benötigt. 
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.3]{images/permissions}
+\caption{Permissions der Applikation Apollo bei der Installation}
+\label{permissions}
+\end{center}
+\end{figure}
+
+Diese Strategie wird konsequent fortgesetzt. So sind automatische Updates nur möglich, wenn sich keine Berechtigungen geändert haben. Falls die App im neusten Update auf die Kontakte zugreifen will muss der Nutzer dies neu bestätigen.
+
+\paragraph{Das Android Manifest}
+Jede App hat eine Datei mit dem Namen \verb+AndroidManifest.xml+ in der wichtige Informationen für das System gespeichert werden. Folgende Übersicht zeigt ein paar der wichtigsten Aufgaben des Manifest:
+
+\begin{itemize}
+	\item Es beschreibt die Komponenten der Applikation,
+	\item Es beinhaltet die verschiedenen Permissions der Applikation,
+	\item Es definiert die verwendete Android-Version,
+	\item Falls zusätzliche Bibliotheken verwendet werden erscheinen diese auch hier.
+\end{itemize}
+
+Somit müssen alle benötigten Permissions in das Manifest eingetragen werden. Bei der Installation kann Android dann diese lesen und dem Nutzer darstellen.
+
+Mit der Transparenz die dem Nutzer durch diese Strategie gegeben wird kann zu jedem Zeitpunkt genau entschieden werden, ob eine Applikation sicher ist oder nicht. Entwickler sind durch den \emph{Developer Guide} \cite{android_api} angehalten die Permissions ihrer Anwendungen so gering wie möglich zu halten. Dadurch werden unnötige Zugriffe und eventuelle Sicherheitslücken vermieden.
+
+\subsection{Komponenten - Die Bestandteile einer Android-Anwendung}
+Damit eine Anwendung im Ganzen funktioniert arbeiten mehrere Komponenten zusammen. Alle Arten von Komponenten haben ihre speziellen Aufgaben. In der Folgenden Übersicht werden die beiden Komponentenarten vorgestellt, die in der hier Applikation verwendet wurden. (aus \cite{android_components}).
+
+\begin{description}[style=nextline]
+	\item[Activities] Ein dargestellter Bildschirm mit seinen Elementen wird als \emph{Activity} bezeichnet. Bei der Applikation dieser Arbeit sind beispielsweise die Startseite die angezeigt wird wenn man die das Programm startet oder auch die Player-Ansicht \emph{Activities}.
+	\item[Services] Als \emph{Service} wird eine Komponente bezeichnet die im Hintergrund läuft und da Aufgaben verrichtet. Der Player der Applikation ist ein Service. Dies bietet die Möglichkeit Musikdateien im Hintergrund zu laden und abzuspielen. So kann der Nutzer beispielsweise im Internet surfen währendessen das Hörbuch weiter läuft.
+\end{description}
+
+Zusätzlich zu den Komponenten werden \emph{Ressourcen} zur Verfügung gestellt. Diese beinhalten beispielsweise Bilder und Icons die für die Darstellung verwendet werden.
 
 \subsubsection{Lebenszyklus von Anwendungen}
-\subsubsection{Dalvik Virtual Machine}
-\subsubsection{Android SDK}
+
+Jede Komponente hat verschiedene Zustände in denen sie sich befinden kann. Diese Zustände spielen eine große Rolle bei der Entwicklung. 
+
+Grundsätzlich entscheidet man bei Activities in drei Status:
+
+\begin{description}[style=nextline]
+	\item[Resumed] In diesem Zustand befindet sich die Activity im Vordergrund und ist fokusiert. 
+	\item[Paused] Wenn eine andere Activity im Vordergrund ist und die vorherige noch sichtbar ist, ist diese pausiert. Man findet diesen Zustand beispielsweise bei kleinen Auswahlfenstern wobei man nach der Auswahl direkt wieder zur Ausgangs-Activity geleitet wird.
+	\item[Stopped] Die Activity ist im Hintergrund. Der Prozess selbst lebt zwar noch, ist aber für den Anwender nicht mehr sichtbar und wird nach einer gewissen Zeit vom System komplett beendet. 
+\end{description}
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=.7]{images/activity_lifecycle}
+\caption{Der Lebenszyklus einer Activity}
+\label{permissions}
+\end{center}
+\end{figure}
+
+
 \label{sdk}
 \subsection{Anwendungsstruktur von Android}
 \subsubsection{Klassenstruktur}
-\subsubsection{Berechtigungssystem}
 
