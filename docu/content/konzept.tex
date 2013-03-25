@@ -2,13 +2,13 @@
 \section{Konzept}
 \subsection{Grundkonzept}
 
-Im folgenden wird die Konzeptionierung der Anwendung beschrieben ,welche im spteren implementiert wird. heirbei handelt es sich um eine applikation hauptsächlich für das abspielen von Hörbüchern im audioformat MP3. Die applikation soll so einfahc wie möglich gestaltet und zweckgerichtet sein.
+Im folgenden wird die Kozeptionierung der Anwendung beschrieben, welche im späteren implementiert wird. Hierbei handelt es sich um eine Applikation hauptsächlich für das abspielen von Hörbüchern im Audioformat MP3. Die Applikation soll so einfach wie möglich gestaltet und zweckgerichtet sein.
 
-die applikation soll dem benutzer ermöglichen hörbücher abzuspielen, welche er vorher auf sein mobiles endgerät abgelegt hat. hierfür muss die applikation einen einstellungsmöglichkeit beinhalten.
+Die Applikation soll dem Benutzer ermöglichen Hörbücher abzuspielen, welche er vorher auf sein mobiles Endgerät abgelegt hat. Hierfür muss die Applikation einen Einstellungsmöglichkeit beinhalten.
 
-über diese einstlelungen muss dem benutzer möglichsein de speicherort frei wählen zu können. über diese einstellungsparameter ist es der anwendung nun möglich alle audiodateien aufzulisten und abspielne zu können.
+Über diese Einstellungen muss es dem Benutzer möglich sein den Speicherort frei wählen zu können. Über diese Einstellungsparameter ist es der Anwendung nun möglich alle Audiodateien aufzulisten und abspielen zu können.
 
-die auflsitung filtert alle nciht abspielbaren daten und ermöglicht desweitern in unterodernen zu navigieren. ein element der lsite stellt dabei entweder eine audidatei doer ein utneroderner dar. 
+Die Auflistung filtert alle nicht abspielbaren Daten und ermöglicht des Weiteren in Unterordnen zu navigieren. Ein Element der Liste stellt dabei entweder eine Audiodatei oder ein Unterordner dar. 
 
 \begin{figure}
 \begin{center}
@@ -18,11 +18,11 @@ die auflsitung filtert alle nciht abspielbaren daten und ermöglicht desweitern 
 \end{center}
 \end{figure}
 
-die abnildung \ref{mocklistel} beschreibt ein soclhes element. ein elemnt enthält das cover des hörbuches sowie der titel und die genau abspielzeit. über ein weiteres element soll es möglichsein eine aktion auszuführen welche das abspielen der jeweiligen audiodatei ermöglicht.
+Die Abbildung \ref{mocklistel} beschreibt ein solches Element. Ein Element enthält das Cover des Hörbuches sowie der Title und die genau Abspielzeit. Über ein weiteres Element soll es möglich sein eine Aktion auszuführen, welche das Abspielen der jeweiligen Audiodatei ermöglicht.
 
-aus dieser auflistung herraus soll es möglich sein audiodateien abspielen zu können. deshalb muss eine schnittstelle zur üebrtragung der informationen zur player komponente erfolgen.
+Aus dieser Auflistung heraus soll es möglich sein Audiodateien abspielen zu können. Deshalb muss eine Schnittstelle zur Übertragung der Informationen zur Player Komponente erfolgen.
 
-diese komponente ist für das abspielne zuständig. sie empfängt emfängt die anweisung zum abspielen der audiodatei und spiel dieses datei ab.
+Diese Komponente ist für das abspielen zuständig. Sie empfängt die Anweisung zum Abspielen der Audiodatei und spielt dieses Datei letztendlich ab.
 
 \begin{figure}
 \begin{center}
@@ -32,7 +32,7 @@ diese komponente ist für das abspielne zuständig. sie empfängt emfängt die a
 \end{center}
 \end{figure}
 
-die palyer komponente in abbildung \ref{playerkomp} dargestellt soll es ermöglichen das abspielen zu steuern. dies beinhaltet das stopen pausieren und andere funktionen. desweitern soll erkennarseinw elche audiodatei abgespielt wird. eine vorschritsanzeige lässt erkennen wie viel von der audio datei bisher abgespielt wird sowie die gesamtlänge der audiodatei.
+Die Player Komponente in Abbildung \ref{playerkomp} dargestellt, soll es ermöglichen das Abspielen zu steuern. Dies beinhaltet das Stoppen, Pausieren und andere Funktionen. Des Weiteren soll Erkennbarkeit sein welche Audiodatei abgespielt wird. Eine Vorschrittanzeige lässt erkennen, wie viel von der Audiodatei bisher abgespielt wird sowie die Gesamtlänge der Audiodatei.
 
 \begin{figure}
 \begin{center}
@@ -42,10 +42,8 @@ die palyer komponente in abbildung \ref{playerkomp} dargestellt soll es ermögli
 \end{center}
 \end{figure}
 
-wird die anwendung geschlossen soll die wiederdabe nciht abbrechen der nutzer soll immernoch in der lage sein die abgespielte audiodatei zu hören.
+Wird die Anwendung geschlossen soll die Wiedergebe abbrechen. Sie soll in der Lage sein Abbrüche der Wiedergabe zu erkennen und diese Punkte zu Speicher. Der Benutzer soll aus diesen Informationen eine Möglichkeit haben, an diesen Punkten die Wiedergabe vorzusetzen.
 
-die anwendung soll in der alge sein abbrüche der wiedergabe zue rknnen und diese punkte zu speicher. der benutzer soll aus diesen informationen eine möglichkeit haben, an diesen punkten die wiedergabe vorzusetzen.
+Die Eingabe erfolgt durch ein übliches Touchscreen Display und sollte dahingehen optimiert sein. Hierzu gehört klare und einfache Programmstrukturen sowie ausreichend große fälschen für Bedienelemente und Steuerung von Programmfunktionen.
 
-die eingabe erfolgt durch ein übliches touchscren display und soltle dahingehen obtimiert sein. hierzu gehört klare und einfache programmstrukturen sowie ausreichend droße fläschen für bedienelemente und steuerung von programmfunktionen.
-
-die gesammte progrmamstruktur muss os aufgebaut sein um eine weiteretwicklung und implementierung neuer funrktionen zu ermöglichen.
+Die gesamte Programmstruktur muss so aufgebaut sein, um eine Weiterentwicklung und Implementierung neuer Funktionen zu ermöglichen.

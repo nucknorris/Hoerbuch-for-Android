@@ -1,5 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2011)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: docu.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: content/einleitung.aux
@@ -9,7 +8,7 @@ A level-1 auxiliary file: content/konzept.aux
 A level-1 auxiliary file: content/programm.aux
 A level-1 auxiliary file: content/implementierung.aux
 A level-1 auxiliary file: content/fazit.aux
-Illegal, another \bibstyle command---line 35 of file docu.aux
+Illegal, another \bibstyle command---line 33 of file docu.aux
  : \bibstyle
  :          {abbrv}
 I'm skipping whatever remains of this command
@@ -20,45 +19,45 @@ Warning--entry type for "android_sdk" isn't style-file defined
 --line 17 of file literatur.bib
 Warning--entry type for "android_components" isn't style-file defined
 --line 24 of file literatur.bib
-You've used 4 entries,
+You've used 5 entries,
             1791 wiz_defined-function locations,
-            465 strings with 3927 characters,
-and the built_in function-call counts, 535 in all, are:
-= -- 39
-> -- 16
+            470 strings with 4033 characters,
+and the built_in function-call counts, 681 in all, are:
+= -- 51
+> -- 20
 < -- 0
-+ -- 8
-- -- 4
-* -- 5
-:= -- 86
-add.period$ -- 12
-call.type$ -- 4
++ -- 10
+- -- 5
+* -- 8
+:= -- 109
+add.period$ -- 15
+call.type$ -- 5
 change.case$ -- 3
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 25
-empty$ -- 74
-format.name$ -- 4
-if$ -- 123
+cite$ -- 5
+duplicate$ -- 35
+empty$ -- 93
+format.name$ -- 5
+if$ -- 158
 int.to.chr$ -- 0
-int.to.str$ -- 4
-missing$ -- 2
-newline$ -- 23
-num.names$ -- 4
-pop$ -- 31
+int.to.str$ -- 5
+missing$ -- 4
+newline$ -- 28
+num.names$ -- 5
+pop$ -- 38
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 11
+skip$ -- 13
 stack$ -- 0
 substring$ -- 0
-swap$ -- 4
+swap$ -- 5
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 4
-width$ -- 5
-write$ -- 39
+while$ -- 5
+width$ -- 6
+write$ -- 49
 (There was 1 error message)

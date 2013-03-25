@@ -1,18 +1,19 @@
 %!TEX root = ../docu.tex
 \section{Entwicklung}
 \subsection{Benutzeroberfläsche}
+Hier fehlt etwas.
 \subsection{Einstellungen}
-Das einstellungsmenü soll in jedem zustand der application ereichbar sein. der einzige ort an dem dies möglich sit ist das menü. hier ist nciht von einem implementierten menü die reden. dieses menü ist in jeder applikation erreichbar und wird durch das betriebssystem bereitgestellt.
+Das Einstellungsmenü soll in jedem zustand der Applikation erreichbar sein. Der einzige Ort an dem dies möglich ist, ist das Menü. Hier ist nicht von einem implementierten Menü die reden. Dieses Menü ist in jeder Applikation erreichbar und wird durch das Betriebssystem bereitgestellt.
 
-druck ein benutzer die menü taste welche sich an jedem gerät befindet welches android als betriebssystem verwendet so öffnet sich ein eine menü schnittstelle welche durhc den entwickler miteinträgen befüllt werden kann um bestimmte funktionen bereitzustellen. eine typishce funktion ist die bereitstelleung der einstellungsseite.
+Druck ein Benutzer die Menü-Taste, welche sich an jedem gerät befindet, welches Android als Betriebssystem verwendet so öffnet sich eine Menü-Schnittstelle welche durch den Entwickler mit Einträgen befüllt werden kann um bestimmte Funktionen bereitzustellen. Eine typische Funktion ist die Bereitstellen der Einstellungsseite.
 
-die konfiguration für die naziege welche einstellungsmöglichkeitem dem nutzer zur verfügung gestellt wird erfolgt über eine XML datei. in älteren API versionen wurde dies noch durch klassen realisiert.diese klassen und emhtoden sind in den version ab android version 4 veraltet und sollten nciht mehr verwendet werden.
+Die Konfiguration der Einstellungsmöglichkeiten, welche dem Nutzer zur Verfügung gestellt wird, erfolgt über eine XML Datei. In älteren API-Versionen wurde dies noch durch Klassen realisiert. Diese Klassen und Methode sind in den Version ab Android Version 4 veraltet und sollten nicht mehr verwendet werden.
 
-die erwähnte XMl datei wird nun durhc bestimmte regler und kontrollstrukturen bestückt. diese strukturen werden durch ids validiert. ihre werte können durhc eine abfrage aus der anwendung herraus ausgelesen werden.
+Die erwähnte XMl-Datei wird nun durch bestimmte Regler und Kontrollstrukturen bestückt. Diese Strukturen werden durch IDs\footnote{Identifier} validiert. Ihre Werte können durch eine Abfrage aus der Anwendung heraus ausgelesen werden.
 
-sollten keine geeigneten vorgefertigte kontrollstrukturen wie zum beispiel radiu button und checkboxen vorhanden sein so können eigene strukturen eingebettet werden.
+Sollten keine geeigneten vorgefertigte Kontrollstrukturen wie zum Beispiel Radio-Button oder Checkboxen vorhanden sein, so können eigene Strukturen eingebettet werden.
 
-im kontrten beispiel existiert keine struktur für das speicher und durchsuchen  eines ordnerpfades. dieser \textit{FilePicker} wurde daher eigens implementiert und kann aus dem einstellungsmenü aufgerufen werden.
+Im konterten Projekt existiert keine Struktur für das Speichern und durchsuchen eines Ordnerpfades. Dieser \textit{FilePicker} wurde daher eigens implementiert und kann aus dem Einstellungsmenü aufgerufen werden.
 
 \begin{center}
 \begin{figure}
@@ -22,27 +23,27 @@ im kontrten beispiel existiert keine struktur für das speicher und durchsuchen 
 \end{figure}
 \end{center}
 
-wurde der gewünschte ordner gefunden kann dieser in in den einstlelungen gespeichert werden. alle anderen komponenten der anwendung können nun auf diese einstellungen zugreifen.
+Wurde der gewünschte Ordner gefunden kann dieser in den Einstellungen gespeichert werden. Alle anderen Komponenten der Anwendung können nun auf diese Einstellungen zugreifen.
 
-dies wird über den \textit{PreferenceManager} realisiert. er benötigt für die abfrage des wertes jediglicht die id der einstellung, welche abgefragt werden soll. zu sicherheit wird bei der abfrage ein standrat wert angebgeben im falle das die eisntellung nciht geufndne oder ausgelesen werden konnte. die einmal eingetragen einstellungen sind jederzeit abrufbar und auch nach beenden der applikation imemrnoch vorhanden.
+Dies wird über den \textit{PreferenceManager} realisiert. Er benötigt für die Abfrage des Wertes lediglich die ID der Einstellung, welche abgefragt werden soll. Zur Sicherheit wird bei der Abfrage ein Standartwert angegeben, im Falle das die Einstellung nicht gefundene oder ausgelesen werden konnte. Die einmal eingetragen Einstellungen sind jederzeit abrufbar und auch nach Beenden der Applikation immer noch vorhanden.
 
-Die Abbildung \ref{settings} zeigt die benötigeten Klassen für die Implementierung der funktionalität der einstellungen.
+Die Abbildung \ref{settings} zeigt die benötigten Klassen für die Implementierung der Funktionalität der Einstellungen.
 
 \subsection{Datenbank}
 \subsubsection{Grundlagen}
-Dass Android eine schnittstelle für SQlite dantenbanken anbietet wurde schön in einem vorrausgestellten Kpitel behandelt \ref{Datenbankstrukturen}. Anshcließend soll erläutert werden wie man diese anbiendung benutzt und wie daten gespeichert und abgefragt werden können.
+Das Android eine Schnittstelle für SQlite Datenbanken anbietet, wurde schön in einem herausgestellten Kapitel \ref{Datenbankstrukturen} behandelt. Anschließend soll erläutert werden wie man diese Anbindung benutzt und wie Daten gespeichert und abgefragt werden können.
 
-Zunächst benötigen wir eine Klasse welche die API klasse \textit{SQLiteOpenHelper} erweitert. Die entstehende klasse bildet nun die schnittstelle unser applikation und der datenbank welche wir benutzen möchten bzw anlegen möchten.
+Zunächst benötigen wir eine Klasse welche die API-Klasse \textit{SQLiteOpenHelper} erweitert. Diese bildet nun die Schnittstelle unser Applikation und der Datenbank, welche wir benutzen möchten bzw. anlegen möchten.
 
-jede applikation kann mehrere datenbanken anlgenen und verwenden. um datenbanken voneinander untershciedne zu können werden die einzelnen datenbanken über namen verifiziert und aufgerugfen.
+Jede Applikation kann mehrere Datenbanken anlegen und verwenden. Um Datenbanken voneinander unterscheiden zu können, werden die einzelnen Datenbanken über Namen verifiziert und aufgerufen.
 
-um android mitteilen zu können welche datenbank wir öffnen möchten wird dem betriebssystem mitgeteilt welche applikationwelche datenbank öffnen möchte.
+Um Android mitteilen zu können, welche Datenbank wir öffnen möchten, wird dem Betriebssystem mitgeteilt welche Applikation welche Datenbank öffnen möchte.
 
-das resultat ist eine verbindung zu einer sqlite datenbank. um daten speicher zu können benötigen wir tabellen die wir beim erstlelen der datenbank mit angelen lassen wollen.
+Das Resultat ist eine Verbindung zu einer SQlite Datenbank. Um Daten speichern zu können, benötigen wir Tabellen die wir beim erstellen der Datenbank mit anlegen lassen wollen.
 
-für diesen zweck legen wir eine mehtode mit den namen \textit{onCreate} an. diese metho wird beim erstellen der datenbank ausgeführt und enthält alle sq-befehlte zum anlegen der von uns gewünschten tabellen.
+Für diesen Zweck legen wir eine Methode mit den Namen \textit{onCreate} an. Diese Methode wird beim Erstellen der Datenbank ausgeführt und enthält alle SQL-Befehle zum Anlegen der von uns gewünschten Tabellen.
 
-sollte sich das datenbankschema ändern kann dies über eine weiter variable welche wir dem betriebssystem mitteilen realisiert werden. eine datenbankversion beschreibt den standt der datenbankstruktur. sollte ishc die datenbankstruktur geändert haben wird der versionzähler erhöht und eine andere metho wird beim anbinden zur datenbank aufgerufen.
+Sollte sich das Datenbankschema ändern kann dies über eine weiter Variable, welche wir dem Betriebssystem mitteilen realisiert werden. Eine Datenbankversion beschreibt den Stand der Datenbankstruktur. Sollte sich die Datenbankstruktur geändert haben wird die Versionsnummer erhöht und eine andere Methode wird beim anbinden zur Datenbank aufgerufen.
 
 
 \begin{figure}
@@ -54,9 +55,9 @@ sollte sich das datenbankschema ändern kann dies über eine weiter variable wel
 \end{figure}
 
 
-diese methode nennt sich \textit{onUpgrade} und wird bei eben erwhäter versionserhöhun automatisch ausgeführt. in dieser methode sollten eine datenmegrierung durchgeführt werden oder alle bestehenden daten gelöscht werden und neue tabellen angelegt werden.
+Diese Methode nennt sich \textit{onUpgrade} und wird bei eben erwähnter Erhöhung der Versionsnummer automatisch ausgeführt. In dieser Methode sollten eine Datenmigration durchgeführt werden oder alle bestehenden Daten gelöscht werden und neue Tabellen angelegt werden.
 
-durhc diesen meschanismuss ist eine aktuallität des datenbanklayouts immer gegeben. in der abblindung \ref{database} sind die kalssen ersichtlich die es ermöglichen mit der datenbank zu komunizieren. für die verwendung der daten ist es ratsam objekte zu verwenden um abgefragte datensatze weiterzuverwenden oder datensätze zu gewinnen. ein solches objekt wird in abbildung \ref{dbmodel} dargestellt.
+Durch diesen Mechanismus ist eine Aktualität des Datenbanklayouts immer gegeben. In der Abbildung \ref{database} sind die Klassen ersichtlich, die es ermöglichen mit der Datenbank zu kommunizieren. Für die Verwendung der Daten ist es ratsam Objekte zu verwenden um abgefragte Datensätze weiter zu verwenden. Ein solches Objekt wird in Abbildung \ref{dbmodel} dargestellt.
 
 \begin{figure}
 \begin{center}
@@ -67,31 +68,29 @@ durhc diesen meschanismuss ist eine aktuallität des datenbanklayouts immer gege
 \end{figure}
 
 \subsubsection{Abfragen}
-Eine datenbankabfrage wird über einen sql befehl an die datenbank gestellt. Mit dem befehl \textit{SELECT} und der angabe der tabelle können daten aus der datenbank abgefragt werden. die abfrage wird dafür in ien Cursor Objekt geladen und der cursor anschließden zur ausführung an die datenbank gesendet.
+Eine Datenbankabfrage wird über einen SQL-Befehl an die Datenbank gestellt. Mit dem Befehl \textit{SELECT} und der Angabe der Tabelle können Daten aus der Datenbank abgefragt werden. Die Abfrage wird dafür in eins Cursor-Objekt geladen und der Cursor anschließend zur Ausführung an die Datenbank gesendet.
 
-das curser objekt enthällt anshcließend alle abgefragten daten welche die datenbank zum übergeben sql behel gefunden wurde. eine direkte abfrage ist nicht möglich.
+Das Cursor-Objekt enthält anschließend alle abgefragten Daten, welche die Datenbank zum übergeben SQL-Befehl gefunden hat. Eine direkte Abfrage ist nicht möglich.
 
-es muss immer eine Curserobjekt verwendet werden. möchte man nur bestimtme datenban oder zielgerichtet daten aus der datenbank laden wird dme curser eine filterung mitgeteilt welche von der datenbank bei der abfrage der daten berücksichtigt wird.
+Es muss immer eine Cursor-Objekt verwendet werden. Möchte man nur bestimmte Daten oder zielgerichtet Datensätze aus der Datenbank laden, wird dem Cursor-Objekt eine Filterung mitgeteilt, welche von der Datenbank bei der Abfrage der Daten berücksichtigt wird.
 
-das curserobjekt enthält eine lsite von allen dateneinträgen die geufnden wurde sind mehre datensätze gefunden wurden können diese durchlaufen werden und jeder datensatz einzeil betrachtet undverarbeitet werden.
+Das Cursor-Objekt enthält eine liste von allen Dateneinträgen die gefunden wurde. Sind mehre Datensätze gefunden wurden, können diese durchlaufen werden und jeder Datensatz einzeilig betrachtet und verarbeitet werden.
 
-bei der abfrage der einzelnen felder des datensatzes ist es nötig den datentyp der einzelnen daten zu kennen. das curserobjekt hat verschiedene mehtoden um untershciedliche datentypen aus den flender zu lesenen. diese typen können wie schon erwähnt nciht typsicher abgefragt werden. so sit es möglich ein datenfeld des types Integer in eine variable des Typen String zu laden.
+Bei der Abfrage der einzelnen Felder des Datensatzes ist es nötig den Datentyp der einzelnen Daten zu kennen. Das Cursor-Objekt hat verschiedene Methoden um unterschiedliche Datentypen aus den Feldern zu lesen. Diese Typen können wie schon erwähnt nicht typischer abgefragt werden. So ist es möglich ein Datenfeld des Types \textit{Integer} in eine variable des Typen \textit{String} zu laden.
 
-der zugriff der datnebank kann über eine schreib oder lesbare datenbank gewährt werden. eine kombination sit nicht möglich. ein zugang zur datenbank kann entwerden nur shcrieben doer nur lesend sein.
+Der Zugriff der Datenbank kann nur schreibend oder lesend gewährt werden. Eine Kombination ist nicht möglich. Ein Zugang zur Datenbank kann entweder nur schreibend oder lesend sein.
 
-möchte man schrieben und lesen wird die durch einen schreibenden zugriff und anschließen über einen lesenden zugriff realisiert. diese beiden vorgänge müssen sepratal initiiert wernden.
+Möchte man Schrieben und Lesen, wird dies durch einen schreibenden Zugriff und anschließen über einen lesenden Zugriff realisiert. Diese beiden Vorgänge müssen separat initiiert werden.
 
 \subsubsection{Löschen}
-das löschen von daten erfolgt ebenso wie das selektieren nach durch sql befehle anders wie bei dem slektieren existiert hierführ kein curser. es wird jedidlich mitgeteilt welcher datensatz in welcher tabelle gelöscht werden soll.
+Das Löschen von Daten erfolgt ebenso wie das Selektieren durch SQL-Befehle anders wie bei dem Selektieren existiert hierfür kein Cursor-Objekt. Es wird lediglich mitgeteilt welcher Datensatz in welcher Tabelle gelöscht werden soll.
 
 \subsubsection{Ändern}
-ähnlich verhölt es sihc mit den ändern von datensätzen. hierführ wird der datenbank mitgeteilt welcher datensatz geändert werden soll und welche datenfelder mit welchem wert gesetzt werden soll.
+Ähnlich verhält es sich mit den Ändern von Datensätzen. Hierfür wird der Datenbank mitgeteilt welcher Datensatz geändert werden soll und welche Datenfelder mit welchem Wert gesetzt werden soll.
 
-die referenzierung einzelner datensätze erfolgt über primärschlüssel oder andere datenfelder, welche im sql behel angegebenw erden muss.
+Die Referenzierung einzelner Datensätze erfolgt über Primärschaltregler oder andere Datenfelder, welche im SQL-Befehl angegeben werden müssen.
 
 \subsubsection{Einfügen}
-das anlegen neure datensätze verläuft durch die methode \textit{insert} diese methode verlangt ein lsite von schlüssel-wert-parren um eien datensatz anlegen zu können.
+Das anlegen neuer Datensätze verläuft durch die Methode \textit{insert}. Diese Methode verlangt ein liste von Schlüssel-Wert-Paaren um einen Datensatz anlegen zu können.
 
-die lsite von paaren repräsentiert den eigentlichen datensetz. in ihr wirden alle datenfelder und die dazugehörigen werte abgelegt. ausgeschlossen ist der primärschlüssel dieser wird durhc einen trigger ind er datenbank automatishc erzeugt und beim einfügen in die datenbank automatisch im datensatz gespeichert.
-
-der emtho wird nun die lsite mit den daten übergeben un die tabelle genannt , in der die daten abgeleggt werden soll.
+Die Liste von Paaren repräsentiert den eigentlichen Datensatz. In ihr werden alle Datenfelder und die dazugehörigen Werte abgelegt. Ausgeschlossen ist der Primärschlüssel, dieser wird durch einen Trigger in der Datenbank automatisch erzeugt und beim Einfügen in die Datenbank an den Datensatz abgehangen und gespeichert. Der Methode wird nun die Liste mit den Daten übergeben und die Tabelle genannt, in der die Daten abgelegt werden soll.

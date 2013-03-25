@@ -1,23 +1,23 @@
 %!TEX root = ../docu.tex
 \section{Programmstruktur}
 \subsection{Allgemeiner Programmaufbau}
-\subsubsection{Benutzeroberfläsche}
-touch und so
+\subsubsection{Benutzeroberfläche}
+Hier fehlt was.
 \subsubsection{Mediaplayer}
 \subsubsection{Datenbankstrukturen}
 \label{Datenbankstrukturen}
-Viele moderene anwendungen benötigen speicherbereiche um anfallende anwendungesdaten aus dem hauptspeicher aus zu lagern. diese daten sollen jedoch für einen späteren zugriff leicht erreichbar bleiben und von andren anwendungen nciht manipuliert werden können.
+Viele moderne Anwendungen benötigen Speicherbereiche um anfallende Anwendungsdaten aus dem Hauptspeicher aus zu lagern. Diese Daten sollen jedoch für einen späteren Zugriff leicht erreichbar bleiben und von andren Anwendungen nicht manipuliert werden können.
 
-für diesen zweck gibt es mehrere möglichekeiten. so ist es zum biepsiel denkbar anfallende anwendungsdaten zu vershclüssel und zusammen mit den nutzerdaten auf den internen oder externen telefonspeicher zu legen. diese daten sind nun durch dritte manipulierbar. dies beeinträchtigt die stabilität und sicherheit der eigenen anwendung und des gesamten systems.
+Für diesen Zweck gibt es mehrere Möglichkeiten. So ist es zum Beispiel denkbar anfallende Anwendungsdaten zu Verschlüsseln und zusammen mit den Nutzerdaten auf den internen oder externen Telefonspeicher ab zu legen. Diese Daten sind nun durch dritte manipulierbar. Dies beeinträchtigt die Stabilität und Sicherheit der eigenen Anwendung und des gesamten Systems.
 
-um nun entwickler die speicherung von anwendungsdaten zu erleichtern bietet die android api eine inegrierte datenbank an. diese datenbank bietet nicht nur schutz der eigenen daten von anderen anwendungen sondern auch den schutz vom anwender seblst.
+Um nun Entwickler die Speicherung von Anwendungsdaten zu erleichtern bietet die Android API eine integrierte Datenbank an. Diese Datenbank bietet nicht nur Schutz der eigenen Daten von anderen Anwendungen, sondern auch den Schutz vom Anwender selbst.
 
-als datenbank struktur wird das quelloffene datenbank system SQlite verwendet. es ist sehr ressourcensparend und einfahc in die programmstruktur einzubinden. wären der laufzeit der anwendung verbraucht die dantenbank nur wenige hundert kilobyte vom hauptspeicher.
+Als Datenbank Struktur wird das quelloffene Datenbank-Management-System SQlite\footnote{http://www.sqlite.org/} verwendet. Es ist sehr ressourcensparend und einfach in die Programmstruktur einzubinden. Während der Laufzeit der Anwendung verbraucht der Datenbankserver nur wenige hundert Kilobyte vom Hauptspeicher.
 
-alle anfallenden daten werden in einer einzigen datei gepseichert. sie bietet alle wichtigen features wie tabelle, view, trigger usw. wie moderne relationale datenbanken. es gibt jedoch auhc untershciede so sit es zum beispiel nicht möglich mehre schreibt und leseprozesse parallel auszuführen. alle datenbankoperatioen werden daher sequenziell ausgeführt. sqlite biete keine typsicherheit, fehlerhafte eingaben werden einfach umgewnadelt und g umgewandelt und gespeichert dies sollte bei der entwicklung von anwendungen beachtet werdenespeichert.
+Alle anfallenden Daten werden in einer einzigen Datei gespeichert. SQlite bietet alle wichtigen Features wie Tabelle, Views, Trigger usw. Es gibt jedoch auch Unterschiede, so ist es zum Beispiel nicht möglich mehre Schreib- und Leseprozesse parallel auszuführen. Alle Datenbankoperation werden daher sequenziell ausgeführt. SQlite biete keine Typsicherheit, fehlerhafte Eingaben werden einfach umgewandelt und gespeichert. Dies sollte bei der Entwicklung von Anwendungen beachtet werden.
 
-somit hat jede anwendung die die sqlite datenbank implementiert hat eine eigene seperate und vor anderen anwendungen geschütze datenbank.
+Somit hat jede Anwendung welche die SQlite Datenbank implementiert hat, eine eigene separate und vor anderen Anwendungen Geschütze Datenbank.
 
-daten werden mittels sql-syntax abgefragt. abgefrate daten werden in eine objektstruktur überführt und anshcließend von der anwedung verarbeit. anders als bei vielen dnkenbanksystem verfügt sqlite keine benutzer und zugriffskontrolle. es gekten die shcrieb und leserechte des dateisystems. es ist weiterhin nciht möglich tabellen im vollen unmfang zu veränder so wie man es von herkömmlichen relationalen datenbanken gewohnt ist. der sql befehlt \textit{ALTER TABLE} ermöglicht das umbennen von tabellen und hinzufügen von spalten.
+Daten werden mittels SQL-Syntax abgefragt. Anders als bei vielen Datenbankserver verfügt SQlite keine Benutzer und Zugriffskontrolle. Es gelten die Schrieb- und Leserechte des Dateisystems. Es ist weiterhin nicht möglich Tabellen im vollen Umfang zu verändern, so wie man es von herkömmlichen relationalen Datenbanken gewohnt ist. Der SQL-Befehlt \textit{ALTER TABLE} ermöglicht das Umbenennen von Tabellen und hinzufügen von Spalten.
 
-sqlite ist durch seine einfache struktur und handhabung das meistgenutzte datenbanksystem der welt.
+SQlite ist durch seine einfache Struktur und Handhabung das meistgenutzte Datenbanksystem der Welt.
