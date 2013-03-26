@@ -123,6 +123,7 @@ Somit müssen alle benötigten Permissions in das Manifest eingetragen werden. B
 Mit der Transparenz die dem Nutzer durch diese Strategie gegeben wird kann zu jedem Zeitpunkt genau entschieden werden, ob eine Applikation sicher ist oder nicht. Entwickler sind durch den \emph{Developer Guide} \cite{android_api} angehalten die Permissions ihrer Anwendungen so gering wie möglich zu halten. Dadurch werden unnötige Zugriffe und eventuelle Sicherheitslücken vermieden.
 
 \subsection{Komponenten - Die Bestandteile einer Android-Anwendung}
+\label{components}
 Damit eine Anwendung im Ganzen funktioniert arbeiten mehrere Komponenten zusammen. Alle Arten von Komponenten haben ihre speziellen Aufgaben. In der Folgenden Übersicht werden die beiden Komponentenarten vorgestellt, die in der hier Applikation verwendet wurden. (aus \cite{android_components}).
 
 \begin{description}[style=nextline]
@@ -159,7 +160,3 @@ Wichtig bei der Entwicklung ist es, dass man zu jeder Zeit weiß welche Aktion v
 Um die Speicherverwaltung muss man sich selbst nicht kümmern. Android verwaltet Speicher selbst. Grundlage dafür bieten die Status der Applikationen. Ist beispielsweise der Browser seit mehreren Minuten im Hintergrund und es wurden zwischenzeitlich mehrer Anwendungen gestartet die Speicher benötigen, wird der Browser beendet um den nötigen RAM zur Verfügung zu stellen. Da aktuelle Geräte über bis zu \SI{3}{GB} Speicher verfügen, kann ein schneller Wechsel zwischen Anwendungen gewährleistet werden, da diese nicht beendet werden müssen.
 
 Allerdings sind Entwickler damit dazu verpflichtet ihre Applikationen demensprechend ressourcenschonend und gründlich zu planen um Abstürze oder eingefrorene Hintergrundanwendungen zu vermeiden.
-
-\subsubsection{Klassenstruktur}
-
-Hier fehlt was.

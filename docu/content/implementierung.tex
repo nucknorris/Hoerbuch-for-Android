@@ -2,6 +2,52 @@
 \section{Entwicklung}
 \subsection{Benutzeroberfläsche}
 Hier fehlt etwas.
+
+\subsection{Klassenstruktur}
+
+Um ein Gesamtbild über die Struktur des Projektes zu geben werden im folgenden Abschnitt die Klassen vorgestellt und zusammengefasst die zusammen gehören.
+
+\subsubsection{Activities}
+Als erstes werden in Abbildung \ref{cd_activities} die Activities vorgestellt. Wie in Abschnitt \ref{components} beschrieben, stellen Activities die sichtbaren Bildschirminhalte dar. Methoden die Android standardmäßig benötigt und durch das Interface \verb+Activity+ bereitgestellt werden sind einmal \verb+onCreate()+ die aufgerufen wird, wenn die Activity gestartet wurde. Weiterhin sind \verb+onCreateOptionsMenu()+, was für die Darstellung des Optionsmenüs notwendig ist, und \verb+onOptionsItemSelected()+, welches Aktionen für die Optionen definiert, in jeder Activity enthalten.
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=.5]{images/diagram}
+\caption{Klassenübersicht der Activities}
+\label{cd_activities}
+\end{center}
+\end{figure}
+
+Die Activities selbst haben dabei folgende Aufgaben:
+
+\begin{description}[style=nextline]
+	\item[MainActivity] Wird angezeigt, wenn die Applikation gestartet wird. Außer den beiden Buttons für das Starten der \verb+FileBrowserActivity+ und der \verb+LastPlayedActivity+ befindet sich darauf nichts.
+	\item[SettingsActivity] Stellt das Einstellungsmenü dar. Da die Inhalte dieses Menüs an anderer Stelle per XML definiert werden befinden sich keine weiteren Methoden in der Klasse.
+	\item[FileBrowserActivity] Wird angezeigt, wenn man auf den \emph{Browser}-Button im Hauptmenü klickt. Hier wird der Dateibrowser angezeigt über den die Hauptnavigation durch die Hörbücher und Ordner möglich ist.
+	\item[LastPlayedActivity] Stellt den Browser dar, der die letzten gehörten Hörbücher anzeigt. Man kommt in diese Ansicht, wenn man im Hauptmenü den entsprechenden Button drückt.
+	\item[PlayerActivity] Der eigentliche Hörbuch-Player. Dieser wird gestartet, wenn man eine Datei im Browser ausgewählt hat.
+\end{description}
+
+\subsubsection{Die MediaPlayer-Architektur}
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=.5]{images/cd_media}
+\caption{Klassenübersicht der Activities}
+\label{cd_media}
+\end{center}
+\end{figure}
+
+Um Mediadateien abspielen zu können stellt die Android-Plattform die Klasse \verb+MediaPlayer+ zur Verfügung. Um ein Hörbuch abzuspielen wird die gewählte Datei geladen und vorbereitet. Das übernimmt der \verb+PlayerService+. Die Entscheidung dies in einen Service, also einen gesonderten Thread auszulagern ist damit begründbar, dass das vorbereiten der Datei bei großen Datein den Haupt-Thread in dem das User-Interface läuft blockiert und die Anwendung träge macht. Gerade im Bereich der Hörbücher muss der Player mit Dateien bis zu \SI{1}{GB} zurechtkommen. Durch die Auslagerung in den Service kann das Hörbuch im Hintergrund vorbereitet werden, ohne, dass der Nutzer eine Verzögerung der Oberfläche mitbekommt.
+
+Wie in Abbildung \ref{cd_media} zu sehen, bildet die \verb+PlayerActivity+ das Zentrum.Ausgehend davon befindet sich der \verb+PlayerService+ und der \verb+PlayerServiceBinder+ welcher die Kommunikation zwischen dem Service und der Activity unterstützt.
+
+Um eine Mediendatei ausreichend gut zu repräsentieren wurde die Datenstruktur \verb+MediaFile+ implementiert. Diese enthält alle Daten die für den Player zum Abspielen oder zur Darstellung von Informationen notwendig sind. 
+
+Der \verb+MediaFileManager+ hat die Aufgabe Dateien vom Speicher zu lesen. Dabei extrahiert er dessen Metainformationen und speichert diese zusammen mit dem Pfad als Liste von \verb+MediaFile+. Diese Liste kann dann vom Browser oder vom Player als Playlist verwendet werden. Damit nur Dateien gelesen werden, die auch wirklich abgespielt werden können, wird der \verb+AudioFilter+ verwendet. Dieser filtert vorher definierte Dateitypen und vermeidet unnötiges Lesen von nicht abspielbaren Dateien.
+
+Die Klasse \verb+Utils+ bietet verschiedene Werkzeuge an die unter anderem für die Darstellung notwendig sind. So können damit beispielsweise die vom MediaPlayer ausgegebenen Millisekunden in ein lesbares Format umgewandelt werden.
+
 \subsection{Einstellungen}
 Das Einstellungsmenü soll in jedem zustand der Applikation erreichbar sein. Der einzige Ort an dem dies möglich ist, ist das Menü. Hier ist nicht von einem implementierten Menü die reden. Dieses Menü ist in jeder Applikation erreichbar und wird durch das Betriebssystem bereitgestellt.
 
@@ -28,6 +74,7 @@ Wurde der gewünschte Ordner gefunden kann dieser in den Einstellungen gespeiche
 Dies wird über den \textit{PreferenceManager} realisiert. Er benötigt für die Abfrage des Wertes lediglich die ID der Einstellung, welche abgefragt werden soll. Zur Sicherheit wird bei der Abfrage ein Standartwert angegeben, im Falle das die Einstellung nicht gefundene oder ausgelesen werden konnte. Die einmal eingetragen Einstellungen sind jederzeit abrufbar und auch nach Beenden der Applikation immer noch vorhanden.
 
 Die Abbildung \ref{settings} zeigt die benötigten Klassen für die Implementierung der Funktionalität der Einstellungen.
+
 
 \subsection{Datenbank}
 \subsubsection{Grundlagen}
