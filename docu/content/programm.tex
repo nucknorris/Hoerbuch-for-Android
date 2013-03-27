@@ -2,8 +2,21 @@
 \section{Programmstruktur}
 \subsection{Allgemeiner Programmaufbau}
 \subsubsection{Benutzeroberfläche}
-Hier fehlt was.
+Die Steuerung aller Programmfunktionen wird durch eine Benutzeroberfläche realisiert. Diese Oberfläche wird über die typischen Elemente von Android Smartphones unterstützt. Zum einen sind das die üblichen 3 Systemknöpfe und zum anderen die gegen druck sensible Anzeigefläche\footnote{Touchscreen}.
+
+Die Standrat Eingabeknöpfe bei Android Telefonen sind: \textit{Zurück}, \textit{Home} und \textit{Menü}-Knopf. Diese befinden sich auf allen Android basierenden Smartphones. Einige Knöpfe lassen sich zur Steuerung von Programmfunktionen nutzen andere wiederum nicht.
+
+Der Hauptteil der Steuerung erfolgt über die gegen druck sensible Anzeigefläche des Telefons. Der Aufbau solcher Displays variiert je nach Hersteller und Typ. Die Funktion unterscheidet sich nicht. Das Display erfasst die Druckpunkte von Fingern auf dem Display. Diese Impulse werden in Koordinaten umgerechnet um Interaktionen mit dem Elementen auf dem Display zu ermöglichen. Die errechneten Koordinaten entsprächen jenen die sich unmittelbar unterhalb des Druckpunktes befinden.
+
+Durch diese Interaktion können verschiedene Bedienelemente verwendete werden. Diese reichen von Buttons über Listen die durchlaufen werden können usw.
+
 \subsubsection{Mediaplayer}
+Das Abspielen von Audiodateien wird von einen Mediaplayer realisiert. dieser erhält als Eingabeparameter eine Audiodatei in vorm eines Fades einer Datei, welche sich auf dem internen oder externen Speicherbereiches des Smartphones befindet. 
+
+Der Player ist so konzipiert das eine Liste alle Audiodateien im Ordner,indem sich die übergebene Audiodatei befindet erzeugt wird. Diese Liste ist gleichzeitig die Warteschlange des Mediaplayers.
+
+Der Mediaplayer muss nicht eigenständig implementiert werden. Die Android API bietet einen schon implementierten Player für verschiedene gängige Audioformate wie MP3 an. Alle benötigten Decoder-Werkzeuge sind im Player integriert. Für spezielle Audioformate müsste eine passende Erweiterung implementiert oder ein anderer Player verwendet werden.
+
 \subsubsection{Datenbankstrukturen}
 \label{Datenbankstrukturen}
 Viele moderne Anwendungen benötigen Speicherbereiche um anfallende Anwendungsdaten aus dem Hauptspeicher aus zu lagern. Diese Daten sollen jedoch für einen späteren Zugriff leicht erreichbar bleiben und von andren Anwendungen nicht manipuliert werden können.

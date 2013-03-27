@@ -1,13 +1,54 @@
 %!TEX root = ../docu.tex
 \section{Entwicklung}
-\subsection{Benutzeroberfläsche}
-Hier fehlt etwas.
+\subsection{Benutzeroberfläche}
+Die Interaktion von Benutzer und Programmstrukturen erfolgt über eine Benutzeroberfläche oder auch GUI\footnote{engl. Graphical User Interface}. Diese ist besonders einfach gehaltene um eine intuitive Bedienung des Programms zu gewährleisten.
+
+Position und Größe von Elementen und Bedienstrukturen sind so gewählt, um die Eingabe über das Display so einfach wie möglich zu gestalten. 
+
+Über eine Hauptansicht gelangt der Benutzer zu allen benötigten Funktionen der Anwendung. Diese Ansicht ist in Abbildung \ref{mainscreen} dargestellt.
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=.5]{images/mainscreen}
+\caption{Hauptansicht der Anwendung}
+\label{mainscreen}
+\end{center}
+\end{figure}
+
+Die Farbgebung orientiert sich am Holo-Design von Android. Dieses Design wird durch klare Farbgebung in Schwarz und Blau charakterisiert.
+
+Die Hauptfunktionen beinhalten zum einen die Auswahl einer bestimmten Audiodatei und zum anderen das Wiederaufnehme von abgebrochenen Wiedergaben.
+
+Beide Funktionen werden über durchlaufbare Listen angezeigt und variieren nur minimal vom Äußeren. Dennoch sind es zwei unterschiedliche Funktionen.
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=.5]{images/browsing}
+\caption{Auswahl der Audiodatei durch Liste}
+\label{browsing}
+\end{center}
+\end{figure}
+
+Abbildung \ref{browsing} zeigt die Auswahlmöglichkeit über die Listenansicht. In Abbildung \ref{broken} ist die Liste mit den abgebrochenen Wiedergaben zu erkennen.
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=.5]{images/broken}
+\caption{Liste mit abgebrochenen Wiedergaben}
+\label{broken}
+\end{center}
+\end{figure}
+
+Das Auswählen der Audiodateien oder Wiederaufnehme erfolgt über einfache Eingaben über das Display mit druck auf das jeweilige Element in der Liste.
+
+Die Einstellung der Anwendung wird über die \textit{Menü}-Taste aufgerufen. Alle Funktionen bilden eigene Strukturen und sind durch separate Klassen definiert. Diese Struktur soll in den nachfolgenden Unterkapiteln von \ref{classes} behandelt werden.
 
 \subsection{Klassenstruktur}
-
+\label{classes}
 Um ein Gesamtbild über die Struktur des Projektes zu geben werden im folgenden Abschnitt die Klassen vorgestellt und zusammengefasst die zusammen gehören.
 
 \subsubsection{Activities}
+
 Als erstes werden in Abbildung \ref{cd_activities} die Activities vorgestellt. Wie in Abschnitt \ref{components} beschrieben, stellen Activities die sichtbaren Bildschirminhalte dar. Methoden die Android standardmäßig benötigt und durch das Interface \verb+Activity+ bereitgestellt werden sind einmal \verb+onCreate()+ die aufgerufen wird, wenn die Activity gestartet wurde. Weiterhin sind \verb+onCreateOptionsMenu()+, was für die Darstellung des Optionsmenüs notwendig ist, und \verb+onOptionsItemSelected()+, welches Aktionen für die Optionen definiert, in jeder Activity enthalten.
 
 \begin{figure}[ht!]

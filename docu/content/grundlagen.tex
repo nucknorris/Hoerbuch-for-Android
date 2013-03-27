@@ -47,6 +47,7 @@ Alle angebotenen Anwendungen müssen verschieben Kriterien der jeweiligen Plattf
 Jede ausgeführte Anwendung hat theoretisch auf alle Systemkomponenten des Smartphones zugriff. Dazu gehören unter anderem Kamera, Speicherkarten, Audioeinrichtungen wie Mikrofon und Lautsprecher.
 
 Um die jeweiligen Applikationen untereinander zu schützen und das System als solches selbst zu schützen wird dieses Problem mit sogenannten Sandbox begegnet. Die Funktionsweise der Sandboxen wir im Kapitel \ref{sandbox} beschreiben.
+
 \subsubsection{Verbraucher und Datenschutz}
 Die Installation von zusätzlicher Software hat nicht nur Voreile sondern ermöglicht es auch personenbezogene Daten zu erfassen und sammeln. Die Unwissenheit der Benutzer über die abfliegenden Datenströme ist unter Verbraucher- und Datenschützern viel diskutiert.
 
@@ -58,19 +59,14 @@ Dennoch hat das sammeln von Daten einen gewissen Mehrwert für den Benutzer. So 
 
 Das unbemerkte Absickern von Daten ist dennoch ein Problem und wird weiterhin ein Kritikpunkt bleiben.
 
-
 \subsection{Die Architektur von Android}
 
 \subsubsection{Das Android SDK}
 
 Um die Entwicklung von Applikationen für die Android-Plattform zu vereinfachen und unterstützen stellt \emph{Google} ein \textbf{S}oftware \textbf{D}evelopment \textbf{K}it, kurz \textbf{SDK} zur Verfügung \cite{android_sdk}. Darin sind unter anderem ein Plugin für die Entwicklungsumgebung \verb+Eclipse+ sowie die aktuelle Android Platform mit den verwendbaren Bibliotheken enthalten. Außerdem werden die \textbf{ADT}, die \textbf{A}ndroid \textbf{D}eveloper \textbf{T}ools, eine Sammlung von Werkzeugen die für die Ausführung von Applikationen auf einem Android-Gerät nötig sind mitgeliefert. Mit dessen Hilfe ist es möglich den geschriebenen Quellcode direkt zu übersetzen und auf dem Gerät oder in einem mitgelieferten Emulator zu starten.
 
-Zu wenig?
-
 \subsubsection{Dalvik Virtual Machine}
 Herzstück von Android ist die \verb+Dalvic Virtual Machine+ (DVM). Diese führt mit der \verb+Java Virtual Machine+ kompilierten Code nach entsprechender Konvertierung als Bytecode aus. Hervorzuheben ist dabei, dass die DVM so kompakt ist, dass jeder Prozess eine eigene Instanz der DVM ausführen kann. Dies stellt die in Abschnitt \ref{sandbox} beschriebene Sandbox dar.
-
-Zu wenig?
 
 \subsubsection{Sandbox}
 \label{sandbox}
