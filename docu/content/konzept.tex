@@ -24,12 +24,20 @@ Aus dieser Auflistung heraus soll es möglich sein Audiodateien abspielen zu kö
 
 Diese Komponente ist für das abspielen zuständig. Sie empfängt die Anweisung zum Abspielen der Audiodatei und spielt dieses Datei letztendlich ab.
 
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.6]{images/playerkomp}
-\caption{Schematische Darstellung der Abspiel-Komponente}
+\begin{figure}[ht]
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\includegraphics[width=\textwidth]{images/playerkomp}
+\caption{Konzept des Players}
 \label{playerkomp}
-\end{center}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.45\linewidth}
+\centering
+\fbox{\includegraphics[width=\textwidth]{images/player_unframed}}
+\caption{Player-Implementierung}
+\label{player}
+\end{minipage}
 \end{figure}
 
 Die Player Komponente in Abbildung \ref{playerkomp} dargestellt, soll es ermöglichen das Abspielen zu steuern. Dies beinhaltet das Stoppen, Pausieren und andere Funktionen. Des Weiteren soll Erkennbarkeit sein welche Audiodatei abgespielt wird. Eine Vorschrittanzeige lässt erkennen, wie viel von der Audiodatei bisher abgespielt wird sowie die Gesamtlänge der Audiodatei.

@@ -16,7 +16,8 @@
 \usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}	% Custom captions under/above floats
 \usepackage{epstopdf}																	% Converts .eps to .pdf
 \usepackage{subfig}																		% Subfigures
-\usepackage{booktabs}																	% Nicer tables
+\usepackage{booktabs}			
+ \usepackage{titlepic}														% Nicer tables
 
 
 %%% Advanced verbatim environment
@@ -108,20 +109,22 @@
 \numberwithin{figure}{section}																% Figurenumbering: section.fig#
 \numberwithin{table}{section}																% Tablenumbering: section.tab#
 
-
 %%% Title	
 \title{ \vspace{-1in} 	\usefont{OT1}{bch}{b}{n}
 		\huge \strut Masterprojekt \strut \\
 		\Large \bfseries \ Android-Anwendungen am praktischen Beispiel einer Applikation für Hörbücher \strut
 }
-\author{ 									\usefont{OT1}{bch}{m}{n}
+\author{ 									
+        \usefont{OT1}{bch}{m}{n}
         Sebastian Nuck,\ Oliver Plewnia\\		\usefont{OT1}{bch}{m}{n}
         Hochschule für Technik, Wirtschaft und Kultur Leipzig\\	\usefont{OT1}{bch}{m}{n}
         Fakultät Informatik, Mathematik und Naturwissenschaften\\
         \texttt{oplewnia@imn.htwk-leipzig.de}\\
-        \texttt{snuck@imn.htwk-leipzig.de}
+        \texttt{snuck@imn.htwk-leipzig.de} \\
 }
-\date{}
+\date{        
+        \vspace{2cm}
+        \includegraphics[scale=0.35]{images/title}}
 
 %%% Begin document
 \begin{document}
