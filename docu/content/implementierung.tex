@@ -35,14 +35,14 @@ Abbildung \ref{browsing} zeigt die Auswahlmöglichkeit über die Listenansicht. 
 \end{center}
 \end{figure}
 
-Das Auswählen der Audiodateien oder Wiederaufnehme erfolgt über einfache Eingaben über das Display mit Druck auf das jeweilige Element in der Liste.
+Das Auswählen der Audiodateien erfolgt über einfache Eingaben über das Display mit Druck auf das jeweilige Element in der Liste.
 
-Die Einstellung der Anwendung wird über die \textit{Menü}-Taste aufgerufen. Alle Funktionen bilden eigene Strukturen und sind durch separate Klassen definiert. Diese Struktur soll in den nachfolgenden Unterkapiteln von \ref{classes} behandelt werden.
+Die Einstellung der Anwendung wird über die \textit{Menü}-Taste am oberen Bildschirmrand aufgerufen. Alle Funktionen bilden eigene Strukturen und sind durch separate Klassen definiert. Diese Struktur soll in den nachfolgenden Unterkapiteln von \ref{classes} behandelt werden.
 
 \subsection{Klassenstruktur}
 \label{classes}
 
-Um ein Gesamtbild über die Struktur des Projektes zu geben werden im folgenden Abschnitt die Klassen vorgestellt und zusammengefasst, die eine wichtige Funktion in der Anwendung übernehmen.
+Um ein Gesamtbild über die Struktur des Projektes zu geben, werden im folgenden Abschnitt die Klassen vorgestellt und zusammengefasst, die eine wichtige Funktion in der Anwendung übernehmen.
 
 \subsubsection{Activities}
 
@@ -88,17 +88,13 @@ Die Klasse \verb+Utils+ bietet verschiedene Werkzeuge an die unter anderem für 
 
 \subsection{Einstellungen}
 
-Das Einstellungsmenü soll in jedem Zustand der Applikation erreichbar sein. Der einzige Ort an dem dies möglich ist, ist das Menü. Hier ist nicht von einem implementierten Menü die reden. Dieses Menü ist in jeder Applikation erreichbar und wird durch das Betriebssystem bereitgestellt.
+Das Einstellungsmenü soll in jedem Zustand der Applikation erreichbar sein. Um dies zu ermöglichen gab es bis Android-Version 2.3 eine separate Menütaste auf den Geräten. Diese wurde mit der Einführung von Android 4.0 abgeschafft. Um dennoch ein Menü aufrufen zu können, wird ein Button, der auf dem Bildschirm nur bei Bedarf dargestellt wird, verwendet.
 
-Drückt ein Benutzer die Menü-Taste, welche sich an jedem Gerät befindet, welches Android als Betriebssystem verwendet, so öffnet sich eine Menü-Schnittstelle. Diese wird durch den Entwickler mit Einträgen befüllt und kann dadurch bestimmte Funktionen bereitzustellen. Eine typische Funktion ist die Einstellungsseite.
+Drückt ein Benutzer den Menü-Button, welcher sich meistens am oberen Bildschirmrand befindet und durch drei übereinanderliegende Punkte dargestellt ist, öffnet sich das Dropdown-Menu. Dieses wird durch den Entwickler mit Einträgen befüllt und kann dadurch bestimmte Funktionen bereitstellen. Eine typische Funktion ist die Einstellungsseite.
 
-Die Konfiguration der Einstellungsmöglichkeiten, welche dem Nutzer zur Verfügung gestellt wird, erfolgt über eine XML Datei. In älteren API-Versionen wurde dies noch durch Klassen realisiert. Diese Klassen und Methode sind in den Version ab Android Version 4 veraltet und sollten nicht mehr verwendet werden.
+Die Konfiguration der Einstellungsmöglichkeiten, welche dem Nutzer zur Verfügung gestellt wird, erfolgt über eine XML Datei. In älteren API-Versionen wurde dies noch durch Klassen realisiert. Diese Klassen und Methode sind in den Version ab Android Version 4 veraltet und sollten nicht mehr verwendet werden. Die erwähnte XML-Datei wird nun durch bestimmte Regler und Kontrollstrukturen bestückt. Diese Strukturen werden durch ID's validiert. Ihre Werte können durch eine Abfrage aus der Anwendung heraus ausgelesen werden. Sollten keine geeigneten vorgefertigte Kontrollstrukturen wie zum Beispiel Radio-Button oder Checkboxen vorhanden sein, so können eigene Strukturen eingebettet werden.
 
-Die erwähnte XMl-Datei wird nun durch bestimmte Regler und Kontrollstrukturen bestückt. Diese Strukturen werden durch IDs\footnote{Identifier} validiert. Ihre Werte können durch eine Abfrage aus der Anwendung heraus ausgelesen werden.
-
-Sollten keine geeigneten vorgefertigte Kontrollstrukturen wie zum Beispiel Radio-Button oder Checkboxen vorhanden sein, so können eigene Strukturen eingebettet werden.
-
-Im konterten Projekt existiert keine Struktur für das Speichern und Durchsuchen eines Ordnerpfades. Dieser \textit{FilePicker} wurde daher eigens implementiert und kann aus dem Einstellungsmenü aufgerufen werden.
+Im konkreten Projekt existiert keine Struktur für das Speichern und Durchsuchen eines Ordnerpfades. Dieser \textit{FilePicker} wurde daher geziehlt implementiert und kann aus dem Einstellungsmenü aufgerufen werden.
 
 \begin{center}
 \begin{figure}
@@ -108,9 +104,7 @@ Im konterten Projekt existiert keine Struktur für das Speichern und Durchsuchen
 \end{figure}
 \end{center}
 
-Wurde der gewünschte Ordner gefunden, kann dieser in den Einstellungen gespeichert werden. Alle anderen Komponenten der Anwendung können nun auf diese Einstellungen zugreifen.
-
-Dies wird über den \textit{PreferenceManager} realisiert. Er benötigt für die Abfrage des Wertes lediglich die ID der Einstellung. Die angesprochene ID hat einen Wert hinterlegt welche bei der Abfrage zurückgegeben wird. Zur Sicherheit wird bei der Abfrage ein Standartwert angegeben, im Falle das die Einstellung nicht gefundene oder ausgelesen werden konnte. Die einmal eingetragen Einstellungen sind jederzeit abrufbar und auch nach Beenden der Applikation immer noch vorhanden.
+Wurde der gewünschte Ordner gefunden, kann dieser in den Einstellungen gespeichert werden. Alle anderen Komponenten der Anwendung können nun auf diese Einstellungen zugreifen. Dies wird über den \textit{PreferenceManager} realisiert. Er benötigt für die Abfrage des Wertes lediglich die ID der Einstellung. Die angesprochene ID hat einen Wert hinterlegt welche bei der Abfrage zurückgegeben wird. Zur Sicherheit wird bei der Abfrage ein Standartwert angegeben, im Falle, dass die Einstellung nicht gefunden oder ausgelesen werden konnte. Die einmal eingetragen Einstellungen sind jederzeit abrufbar und auch nach Beenden der Applikation immer noch vorhanden.
 
 Die Abbildung \ref{settings} zeigt die benötigten Klassen für die Implementierung der Funktionalität der Einstellungen.
 
@@ -118,16 +112,15 @@ Die Abbildung \ref{settings} zeigt die benötigten Klassen für die Implementier
 
 \subsubsection{Grundlagen}
 
-Das Android eine Schnittstelle für SQlite Datenbanken anbietet, wurde schön in einem vorherigen Kapitel \ref{Datenbankstrukturen} behandelt. Anschließend wird nun erläutert wie man diese Anbindung benutzt und wie Daten gespeichert und abgefragt werden.
+Das Android eine Schnittstelle für SQlite Datenbanken anbietet, wurde schon in einem vorherigen Abschnitt \ref{Datenbankstrukturen} behandelt. Anschließend wird nun erläutert, wie man diese Anbindung benutzt und wie Daten gespeichert und abgefragt werden.
 
-Zunächst benötigen wir eine Klasse welche die API-Klasse \textit{SQLiteOpenHelper} erweitert. Diese bildet nun die Schnittstelle unser Applikation und der Datenbank, welche wir benutzen möchten bzw. anlegen möchten.
+Zunächst benötigen wir eine Klasse welche die API-Klasse \textit{SQLiteOpenHelper} erweitert. Diese bildet nun die Schnittstelle unserer Applikation und der Datenbank, welche wir benutzen möchten bzw. anlegen möchten.
 
 Jeder Applikation ist es möglich mehrere Datenbanken anzulegen und zu verwenden. Um Datenbanken voneinander unterscheiden zu können, werden die einzelnen Datenbanken über Namen verifiziert und aufgerufen.
 
-Um Android mitzuteilen, welche Datenbank wir öffnen möchten, wird dem Betriebssystem mitgeteilt 
-um welche Applikation es sich handelt und wie der Name der zu öffnenden Datenbank ist.
+Um Android mitzuteilen, welche Datenbank wir öffnen möchten, wird dem Betriebssystem mitgeteilt, um welche Applikation es sich handelt und wie der Name der zu öffnenden Datenbank ist.
 
-Das Resultat ist eine Verbindung zu einer SQlite Datenbank. Um Daten zu speichern, wird eine Tabellen angesprochen. Diese Tabelle wir bei der Erstellung der Datenbank mit anlegen.
+Das Resultat ist eine Verbindung zu einer SQlite Datenbank. Um Daten zu speichern, wird eine Tabellen angesprochen. Diese Tabelle wir bei der Erstellung der Datenbank mit angelegt.
 
 Für diesen Zweck legen wir eine Methode mit den Namen \textit{onCreate} an. Diese Methode wird beim Erstellen der Datenbank ausgeführt und enthält alle SQL-Befehle zum Anlegen der von uns gewünschten Tabellen.
 
@@ -141,7 +134,7 @@ Sollte sich das Datenbankschema ändern kann dies über eine weiter Variable, we
 \end{center}
 \end{figure}
 
-Diese Methode nennt sich \textit{onUpgrade} und wird bei eben erwähnter Erhöhung der Versionsnummer automatisch ausgeführt. In dieser Methode sollten eine Datenmigration durchgeführt werden oder alle bestehenden Daten gelöscht werden und neue Tabellen angelegt werden.
+Diese Methode nennt sich \textit{onUpgrade} und wird bei eben erwähnter Erhöhung der Versionsnummer automatisch ausgeführt. In dieser Methode wird eine Datenmigration durchgeführt oder alle bestehenden Daten gelöscht und neue Tabellen angelegt.
 
 Durch diesen Mechanismus ist die Aktualität des Datenbanklayouts immer gegeben. In der Abbildung \ref{database} sind die Klassen ersichtlich, die es ermöglichen mit der Datenbank zu kommunizieren. Für die Verwendung der Daten ist es ratsam Objekte zu verwenden um abgefragte Datensätze weiter zu verwenden. Ein solches Objekt wird in Abbildung \ref{dbmodel} dargestellt.
 
@@ -163,15 +156,13 @@ Es muss immer eine Cursor-Objekt verwendet werden. Möchte man nur bestimmte Dat
 
 Das Cursor-Objekt enthält eine Liste von allen Dateneinträgen die gefunden wurde. Sind mehre Datensätze gefunden wurden, können diese durchlaufen werden und jeder Datensatz einzeilig betrachtet und verarbeitet werden.
 
-Bei der Abfrage der einzelnen Felder des Datensatzes ist es nötig den Datentyp der einzelnen Daten zu kennen. Das Cursor-Objekt hat verschiedene Methoden um unterschiedliche Datentypen aus den Feldern zu lesen. Diese Typen können wie schon erwähnt nicht typsicher abgefragt werden. So ist es möglich ein Datenfeld des Types \textit{Integer} in eine variable des Typen \textit{String} zu laden.
+Bei der Abfrage der einzelnen Felder des Datensatzes ist es nötig den Datentyp der einzelnen Daten zu kennen. Das Cursor-Objekt hat verschiedene Methoden um unterschiedliche Datentypen aus den Feldern zu lesen. Diese Typen können wie schon erwähnt nicht typsicher abgefragt werden. So ist es möglich ein Datenfeld des Types \textit{Integer} in eine Variable des Typen \textit{String} zu laden.
 
-Der Zugriff der Datenbank kann nur schreibend oder lesend gewährt werden. Eine Kombination ist nicht möglich. Ein Zugang zur Datenbank kann entweder nur schreibend oder lesend sein.
-
-Möchte man Schrieben und Lesen, wird dies durch einen schreibenden Zugriff und anschließen über einen lesenden Zugriff realisiert. Diese beiden Vorgänge müssen separat initiiert werden.
+Der Zugriff zur Datenbank ist seriell und kann nur entweder lesend oder schreibend gewährleistet werden. Eine Kombination beider Vorgänge parallel ist nicht möglich. Möchte man Schrieben und Lesen, wird dies durch einen schreibenden Zugriff und einen anschließenen lesenden Zugriff realisiert. Diese beiden Vorgänge müssen separat initiiert werden.
 
 \subsubsection{Löschen}
 
-Das Löschen von Daten erfolgt ebenso wie das Selektieren durch SQL-Befehle. Anders wie bei dem Selektieren existiert hierfür kein Cursor-Objekt. Es wird lediglich mitgeteilt welcher Datensatz in welcher Tabelle gelöscht werden soll.
+Das Löschen von Daten erfolgt ebenso wie das Selektieren durch SQL-Befehle. Anders als bei dem Selektieren existiert hierfür kein Cursor-Objekt. Es wird lediglich mitgeteilt welcher Datensatz in welcher Tabelle gelöscht werden soll.
 
 \subsubsection{Ändern}
 

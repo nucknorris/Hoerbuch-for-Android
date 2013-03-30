@@ -1,4 +1,5 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: docu.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: content/einleitung.aux
@@ -8,7 +9,7 @@ A level-1 auxiliary file: content/konzept.aux
 A level-1 auxiliary file: content/programm.aux
 A level-1 auxiliary file: content/implementierung.aux
 A level-1 auxiliary file: content/fazit.aux
-Illegal, another \bibstyle command---line 34 of file docu.aux
+Illegal, another \bibstyle command---line 37 of file docu.aux
  : \bibstyle
  :          {abbrv}
 I'm skipping whatever remains of this command

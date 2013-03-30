@@ -5,6 +5,11 @@
 \newblock http://developer.android.com/sdk - android sdk.
 \newblock last checked: 24.03.2013.
 
+\bibitem{eiddvm}
+{Carlo U. Nicola}.
+\newblock einblick-in-die-dalvik-virtual-machine.
+\newblock last checked: 30.03.2013.
+
 \bibitem{android_api}
 {Android}.
 \newblock developer.android.com - api guide.
@@ -14,11 +19,6 @@
 {Android}.
 \newblock developer.android.com/guide/components/fundamentals.html.
 \newblock last checked: 24.03.2013.
-
-\bibitem{eiddvm}
-{Carlo U. Nicola}.
-\newblock einblick-in-die-dalvik-virtual-machine.
-\newblock last checked: 30.03.2013.
 
 \bibitem{9783898647304}
 David~J. Anderson.
