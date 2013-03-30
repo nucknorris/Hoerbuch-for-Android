@@ -1,5 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2011)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: docu.aux
 The style file: unsrt.bst
 A level-1 auxiliary file: content/einleitung.aux
@@ -9,7 +8,7 @@ A level-1 auxiliary file: content/konzept.aux
 A level-1 auxiliary file: content/programm.aux
 A level-1 auxiliary file: content/implementierung.aux
 A level-1 auxiliary file: content/fazit.aux
-Illegal, another \bibstyle command---line 36 of file docu.aux
+Illegal, another \bibstyle command---line 34 of file docu.aux
  : \bibstyle
  :          {abbrv}
 I'm skipping whatever remains of this command
@@ -20,45 +19,47 @@ Warning--entry type for "android_sdk" isn't style-file defined
 --line 17 of file literatur.bib
 Warning--entry type for "android_components" isn't style-file defined
 --line 24 of file literatur.bib
-You've used 5 entries,
+Warning--entry type for "eiddvm" isn't style-file defined
+--line 31 of file literatur.bib
+You've used 6 entries,
             1791 wiz_defined-function locations,
-            470 strings with 4033 characters,
-and the built_in function-call counts, 681 in all, are:
-= -- 51
-> -- 20
+            474 strings with 4118 characters,
+and the built_in function-call counts, 804 in all, are:
+= -- 60
+> -- 24
 < -- 0
-+ -- 10
-- -- 5
++ -- 12
+- -- 6
 * -- 8
-:= -- 109
-add.period$ -- 15
-call.type$ -- 5
-change.case$ -- 3
+:= -- 127
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 4
 chr.to.int$ -- 0
-cite$ -- 5
-duplicate$ -- 35
-empty$ -- 93
-format.name$ -- 5
-if$ -- 158
+cite$ -- 6
+duplicate$ -- 40
+empty$ -- 111
+format.name$ -- 6
+if$ -- 187
 int.to.chr$ -- 0
-int.to.str$ -- 5
+int.to.str$ -- 6
 missing$ -- 4
-newline$ -- 28
-num.names$ -- 5
-pop$ -- 38
+newline$ -- 33
+num.names$ -- 6
+pop$ -- 46
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 13
+skip$ -- 16
 stack$ -- 0
 substring$ -- 0
-swap$ -- 5
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 5
-width$ -- 6
-write$ -- 49
+while$ -- 6
+width$ -- 7
+write$ -- 58
 (There was 1 error message)

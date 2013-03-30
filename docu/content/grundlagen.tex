@@ -1,27 +1,31 @@
 %!TEX root = ../docu.tex
 \section{Grundlagen}
+
 \subsection{Mobile Anwendungen}
-Software und Services können auf verschiedenen Wegen für mobile Endgeräte entwickelt und angeboten werden. Aktuelle Plattformen wie Android\footnote{http://developer.android.com/index.html} von Google oder iOS\footnote{https://developer.apple.com/devcenter/ios/index.action} von Apple ermöglichen das ausführen von Software durch den Benutzer.
+
+Software und Services können auf verschiedenen Wegen für mobile Endgeräte entwickelt und angeboten werden. Aktuelle Plattformen wie Android\footnote{http://developer.android.com/index.html} von Google oder iOS\footnote{https://developer.apple.com/devcenter/ios/index.action} von Apple ermöglichen das Ausführen von Software durch den Benutzer.
 
 Hierbei haben sich zwei Arten von Applikationen durchgesetzt. Beide bieten gewisse Vor- und Nachteile die im folgenden näher betrachtet werden sollen.
 
 \subsubsection{Webapplikationen}
 
-Webapplikationen - so verrät der Name - sind Applikationen die über einen Webbrowser auf dem Gerät abgerufen werden können. Diese Applikationen werden von Betreibern von Websiten zur Verfügung gestellt und laufen unabhängig von der normalen Webpräsenz.
+Webapplikationen sind Applikationen die über einen Webbrowser auf dem Gerät abgerufen werden können. Diese Applikationen werden von Betreibern von Websiten zur Verfügung gestellt und laufen unabhängig von der normalen Webpräsenz.
 
-Durch verschiedene Kennungen kann der Webserver erkennen ob Besucher der Webseiten von einem mobilen Endgerät aus auf die zur Verfügung gestellten Inhalte zugreifen wollen und kann eine Webapplikation anbieten.
+Durch verschiedene Kennungen kann der Webserver erkennen, ob Besucher der Webseiten von einem mobilen Endgerät aus auf die zur Verfügung gestellten Inhalte zugreift und anbietet daraufhin eine Webapplikation an.
 
 Diese Form der Anwendungen ist in Unternehmen sehr beliebt. So können verschiedene IT-Systeme und Geschäftsprozesse ortsunabhängig von mobilen Geräten aus gesteuert und angezeigt werden.
 
-Diese Art der Applikationen hat einen großen Vorteil für die Administration von mobilen Endgeräten im Unternehmen. So ist es möglich die Installation von nativen Applikationen gänzlich zu verbieten um sensible Daten auf den Gerät vor dritten zu schützen. Dennoch können Anwendungen über den Webbrowser des Gerätes aufgerufen und verwendet werden.
+Diese Art der Applikationen hat einen großen Vorteil für die Administration von mobilen Endgeräten im Unternehmen. So ist es möglich die Installation von nativen Applikationen gänzlich zu verbieten um sensible Daten auf den Gerät vor dritten zu schützen. Was native Applikationen sind wird im Kapitel \ref{natand} erläutert. Dennoch können Anwendungen über den Webbrowser des Gerätes aufgerufen und verwendet werden.
 
 VPN\footnote{Virtuell Private LAN}-Lösungen unterstützen diese Verfahrensweise in dem sie den Benutzer im unternehmensinternen Internet\footnote{Intranet} festhalten und nur das Öffnen der Webapplikation im Unternehmensnetzwerk erlauben.
 
 Der Sinn solcher Applikation ist neben der Plattformunabhängigkeit eine Ersparnis an Zeit und Kosten für bestimmte Unternehmensprozesse.
 
-Ein Beispiel sind Geräte für Kassensysteme in Bars und Restaurants oder Geräte im Einsatz in Lagerhallen. Im Außendienst lösen Tablets und Smartphones immer mehr das Notebooks als Hauptwerkzeug der im Außendienst tätigen Mitarbeiter ab. Dies wird durch sinkende Notebookverkäufe auf dem Businesssektor verdeutlicht. QUELLE
+Ein Beispiel sind Geräte für Kassensysteme in Bars und Restaurants oder Geräte im Einsatz in Lagerhallen. Im Außendienst lösen Tablets und Smartphones immer mehr das Notebooks als Hauptwerkzeug der im Außendienst tätigen Mitarbeiter ab. Verschiedene Analysten von Marktforschungsgruppen melden vermehrt, dass Tablet-PCs und Smartphones das Notebook auf lange Sicht ablösen werden\footnote{http://blogs.forrester.com/frank\_gillett/12-04-23-why\_tablets\_will\_become\_our\_primary\_computingd\_device}.
 
-Einige Unternehmen in Deutschland so z.b die RWE Gruppe führen Aktionen durch, indem die Mitarbeiter ihre eigenen Endgeräte zur Arbeit verwenden können. QUELLE Für diesen Zweck können sie sich in das Unternehmensnetzwerk verbinden und Webapplikationen nutzen. Diese Maßnahmen sind oft mit Schulungen und Einweisungen verbunden und sollen die Produktivität erhöhen ohne hohe Kosten für Geräte und Mobilfunkverträge zu erzeugen.
+Viele Unternehmen weltweit\footnote{http://www.faz.net/aktuell/beruf-chance/arbeitswelt/bring-your-own-device-betriebsgeheimnis-auf-dem-smartphone-12123686.html} profitieren von dem Trend von \textit{BYOD}\footnote{bring your own device} welches Übersetzt soviel wie, dass Mitarbeiter private Technik für die Arbeit nutzen dürfen. Vertreiber und Hersteller Hewlett Packard von IT-Komponenten bietet verschiedene Hardware zur Unterstützung und Umsetzung an\footnote{http://h17007.www1.hp.com/de/de/solutions/technology/BYOD/}.
+
+ Für den Zweck \textit{BOYD} können sich Mitarbeiter in das Unternehmensnetzwerk verbinden und Webapplikationen nutzen. Diese Maßnahmen sind oft mit Schulungen und Einweisungen verbunden und sollen die Produktivität erhöhen ohne hohe Kosten für Geräte und Mobilfunkverträge zu erzeugen.
 
 \subsubsection{Native Applikationen}
 \label{natand}
@@ -49,6 +53,7 @@ Jede ausgeführte Anwendung hat theoretisch auf alle Systemkomponenten des Smart
 Um die jeweiligen Applikationen untereinander und das System als solches selbst zu schützen, wird dieses Problem mit sogenannten Sandboxes begegnet, dessen Funktionsweisen wir im Kapitel \ref{sandbox} beschreiben.
 
 \subsubsection{Verbraucher und Datenschutz}
+
 Die Installation von zusätzlicher Software bietet nicht nur Voreile sondern ermöglicht es auch personenbezogene Daten zu erfassen und sammeln. Die Unwissenheit der Benutzer über die ausgehenden Datenströme wird unter Verbraucher- und Datenschützern viel diskutiert.
 
 Die technische Unwissenheit der Benutzer erleichtert es Unternehmen Daten von Personen zu sammeln und auszuwerten. Beispielsweise lassen sich Bewegungsprofile erstellen. Diese werden anschließend für gezielte Werbeaktionen genutzt z.B. für Geschäfte die auf dem Heimweg liegen.
@@ -63,13 +68,124 @@ Das unbemerkte Speichern von Daten ist dennoch ein Problem und wird weiterhin ei
 
 \subsubsection{Das Android SDK}
 
-Um die Entwicklung von Applikationen für die Android-Plattform zu vereinfachen und unterstützen stellt \emph{Google} ein \textbf{S}oftware \textbf{D}evelopment \textbf{K}it, kurz \textbf{SDK} zur Verfügung \cite{android_sdk}. Darin sind unter anderem ein Plugin für die Entwicklungsumgebung \verb+Eclipse+ sowie die aktuelle Android Platform mit den verwendbaren Bibliotheken enthalten. Außerdem werden die \textbf{ADT}, die \textbf{A}ndroid \textbf{D}eveloper \textbf{T}ools, eine Sammlung von Werkzeugen die für die Ausführung von Applikationen auf einem Android-Gerät nötig sind mitgeliefert. Mit dessen Hilfe ist es möglich den geschriebenen Quellcode direkt zu übersetzen und auf dem Gerät oder in einem mitgelieferten Emulator zu starten.
+Um die Entwicklung von Applikationen für die Android-Plattform zu vereinfachen und unterstützen stellt \emph{Google} ein \textbf{S}oftware \textbf{D}evelopment \textbf{K}it, kurz \textbf{SDK} zur Verfügung \cite{android_sdk}. Darin sind unter anderem ein Plugin für die Entwicklungsumgebung \verb+Eclipse+ sowie die aktuelle Android Plattform mit den verwendbaren Bibliotheken enthalten. Außerdem werden die \textbf{ADT}, die \textbf{A}ndroid \textbf{D}eveloper \textbf{T}ools, eine Sammlung von Werkzeugen die für die Ausführung von Applikationen auf einem Android-Gerät nötig sind mitgeliefert. Mit dessen Hilfe ist es möglich den geschriebenen Quellcode direkt zu übersetzen und auf dem Gerät oder in einem mitgelieferten Emulator zu starten.
 
 \subsubsection{Dalvik Virtual Machine}
+
 Herzstück von Android ist die \verb+Dalvic Virtual Machine+ (DVM). Diese führt mit der \verb+Java Virtual Machine+ kompilierten Code nach entsprechender Konvertierung als Bytecode aus. Hervorzuheben ist dabei, dass die DVM so kompakt ist, dass jeder Prozess eine eigene Instanz der DVM ausführen kann. Dies stellt die in Abschnitt \ref{sandbox} beschriebene Sandbox dar.
 
+Jede ausgeführte Anwendung läuft unter einem bestimmten für die Anwendung angelegten Nutzer. Des Weiteren hat jedes ausgeführte Programm einen eigenen Thread im Betriebssystem. Alle weiteren Threads sind Kindprozesse dieses Threads.
+
+Wird eine Applikation geschlossen, so wird auch der Prozess beendet und all seine Kindprozesse. Diese Applikationen haben ein geringe Speicheranforderung. Die gesamte DVM ist so ausgelegt, dass sie wenig Speicher und Rechenlast erzeugt. Sie ist für besonders schwache Prozessoren optimiert und ausgelegt. Dies ist nötig um auch auf einfachen Prozessoren lauffähig zu sein.
+
+Ein weitere Aspekt bei der Entwicklung war die Akkulaufzeit von Geräten. Die DVM wurde auch dahingehend optimiert. Welche genauen Unterschiede zwischen der Java VM und der Dalvik VM bestehen ist bis heute umstritten\footnote{http://www.heise.de/newsticker/meldung/Oracle-klagt-gegen-Google-wegen-Patent-und-Urheberrechtsverletzung-1058227.html}.
+
+Normaler Java Bytecode kann nicht in der DVM ausgeführt werden.Hierfür wird der Quellcodes der Anwendung in eine spezielle Form gebracht welche mit der Dateiendung \textit{.dex} endet. Ein Spezieller Prozess Namens \textit{Zygote} stellt sicher, das jede Anwendung als Prozess über den \textit{fork()}-Befehl gestartet wird.
+
+Ein System-Manager stellt eine Verbindung zum Linux-Kernel her und ermöglicht so Anwendungen per API auf verschiedene Funktionen zuzugreifen.
+
+Der Start einer Anwendung erfolgt so:
+
+\begin{description}
+
+\item[Eins] \hfill \\
+
+Zu beginn werden verschieden \textit{deamon} wie zum Beispiel der Logging-\textit{Deamon} gestartet.
+
+\item[Second] \hfill \\
+
+Weiterhin wird der Systemmanager und Zygote aufgerufen.
+
+\item[Third] \hfill \\
+
+Der Systemmanager stellt eine Verbindung zum Linux-Kernel her.
+
+\end{description}
+ 
+ Zusammengefasst ergibt sich daraus folgender Ablauf. Die Anwendung wird mittels \textit{fork()} als einzelner Porzess gestartet. Gleichzeitig wird in jedem Prozess eine DVM gestartet welche über einen eigenen Stack und Heap verfügt. Über diese sind die Hauptbestandteile der Java API erreichbar. Diese Bestandteile werden in einem geschützten Speicherbereich gelegt und sind dadurch für alle Android Applikationen erreichbar.
+ 
+ \begin{figure}[ht!]
+ \begin{center}
+ \includegraphics[scale=0.5]{images/dvm}
+ \caption{Schematische Darstellung des Starts einer Android Applikation}
+ \label{dvm}
+ \end{center}
+ \end{figure}
+ 
+ Jede Applikation bzw. ihr Prozess verfügt über eine einfache Standard-C-Bibliothek namens \textit{bionic}. Der gesamte Vorgang ist in Abbildung \ref{dvm} dargestellt.
+ 
+ Die gestrichelten Linien beschreiben den Zugriff auf die Hauptkomponenten. Dieses sind zum eine die Java Core Bibliotheken und zum anderen der Linux Kernel um bestimmte Hardwarekomponenten zu verwenden.
+ 
+ Eine VM arbeitet wie schon erwähnt als Stack-Maschine. Diese verfolgt drei Schritte zum Ausführen des Byte-Codes.
+ 
+ \begin{description}
+ 
+ \item[Schritt 1] \hfill \\
+ 
+Der Erste Schritt oder auch \textit{fetch} genannt holt ein Befehl vom Stack.
+ 
+ \item[Schritt 2] \hfill \\
+Der nächste Schritt wird als \textit{decode} bezeichnet. In diesem wird abhängig vom Typ des Bytecodes auf Argumente die auf dem Stack liegen zugegriffen.
+ 
+ \item[Schritt 3] \hfill \\
+ 
+Der letzte Schritt wird als \textit{execute} bezeichnet. In ihm wird die Funktion des Bytecodes ausgeführt.
+ 
+ \end{description}
+ 
+ Der Unterschied zwischen der JVM und der DVM liegt in der Realisierung dieser VM. In der JVM wird die VM durch eine Stack-Maschine realisiert. Die DVM arbeitet als Register-Maschine. Dieseholt ihr bytecode nciht von einem Stack sondern einem - in diesem Fall virtuellen - Register.
+ 
+ Der Vorteil der DVM liegt nun darin das die Register Anzahl und Größe speziell auf ARM-Prozessoren angepasst sind. Des weiteren ist ein Element des Bytecodes der DVM größer als das der JVM.
+ 
+ Jede gestartet Anwendung benötigt Klassen aus der Java-Core-Bibliothek. Der Zygote-Prozess versucht so viele gemeinsam genutzte Klassen in einem geteilten Speicherbereich zu laden um die Speicherbelegung der Applikationen so gering wie möglich zu halten
+ 
+\subsubsection{Aufbau des Bytecodes}
+
+Der gesamte Bytecode der Android Applikation sowie der Bytecode der Java-Core-Bibliotheken sind in einen extra für Android entwickelten Format - dem sogenannten \textit{dex} codiert. Dieses unterschiedet sich stark vom \textit{jar}-Format der JVM.
+
+Der Bytecode der DVM ist in Segmente eingeteilt. Die Reihenfolge der einzelnen Segmente ist vorgegeben und muss eingehalten werden. Es gibt insgesamt 9 Segmente die in der nachfolgen Tabelle \ref{segand} \cite{eiddvm} erläutert werden.
+
+\begin{table}[p]
+\begin{tabular}{|p{3cm}|p{11cm}|}\hline
+
+   \textbf{Segmentname} & \textbf{Beschreibung des Segmentes} \\ \hline
+
+   header & Enthält die Versionsnummer und Sicherheitsmerkmale. Alle anderen Segmente sind hier verifiziert und ihre Startadressen vermerkt. \\ \hline
+
+   string\_ids & Zeichenketten die verwendet werden sind hier hinterlegt und haben einen eindeutigen Bezeichner. \\ \hline
+
+   type\_ids & In diesem Segment sind alle Typen (Klassen, Arrays, Elementartypen) definiert unabhängig ob sie verwendet werden oder nicht. \\ \hline
+
+   proto\_ids & Signaturen alle Methoden die in den verschiedenen Klassen verwendet werden. \\ \hline
+
+   fields\_ids & Bezeichner für alle Instanzvariablen unabhängig von ihrer Verwendung. \\ \hline
+
+   methods\_ids & Bezeichner aller Methoden die in der Datei enthalten und verwendet werden. \\ \hline
+
+   class\_ids & Liste aller Klassen und Interfaces.\\ \hline
+
+   data & Datenbereich der alle Informationen der oben genannten Segmenten enthält.\\ \hline
+   
+   link\_data & Datenbereich für Bindung mit weiteren Dateien. \\ \hline
+  
+\end{tabular}
+\caption{Segmente des Android Bytecodes}
+\label{segand}
+\end{table} 
+ 
+ Eine Gegenüberstellung wie in Abbildung \ref{dexjar} schematische Dargestellt macht die wesentliche Unterschiede im Aufbau des Bytecodes von Java und Android Applikationen ersichtlich.
+ 
+ \begin{figure}[ht!]
+ \begin{center}
+ \includegraphics[scale=0.5]{images/dexjar}
+ \caption{Gegenüberstellung Java-Bytecode (links) und Android-Bytecode (rechts)}
+ \label{dexjar}
+ \end{center}
+ \end{figure}
+ 
 \subsubsection{Sandbox}
 \label{sandbox}
+
 Mit dem Begriff Sandbox\footnote{engl. Sandkasten} bezeichnet man eine in sich abgeschlossene Umgebung die prinzipiell keine Auswirkungen auf ihre Umwelt hat. Sandboxes werden häufig als Sicherheitsfeature für Anwendungen oder zum Test von Software verwendet.
 
 Die Anwendung wird dabei vom System auf dem sie ausgeführt wird abgeschirmt und durch externe Mechanismen kontrolliert. Diese Mechanismen stellen sicher, dass die Anwendung in der Sandbox bleibt und regeln die zusätzlich die Informationszufuhr oder den Zugriff auf Systemkomponenten.
@@ -86,9 +202,10 @@ Die laufende Anwendung kann diese Mechanismen nicht umgehen oder steuern und ist
 
 Durch die Verwendung von Sandboxes können nicht nur Softwaretests durchgeführt werden ohne das eigentliche System zu gefährden, sondern auch Anwendungen in Laufzeitumgebungen ausgeführt werden, um die Sicherheit von Daten oder dem eigentlichen System zu gewährleisten. 
 
-Auch Webbrowser verwenden Sandboxes für Webseiten um das System z.b. gegen die Infizierung mit Viren zu schützen. Diese Sandboxes haben auch auf vielen mobilen Endgeräten ihren Platz eingenommen. So werden native Anwendungen auf Mobiltelefonen in Sandboxes ausgeführt um die Anwendungen voneinander abzuschotten und um das System und ihre Komponenten zu schützen. Eine solche Umgebung ist in Abbildung \ref{sandbox_pic} abstrahiert. Die Abbildung zeigt eine schematische Darstellung einer Sandbox mit Applikationen.
+Auch Webbrowser verwenden Sandboxes für Webseiten um das System zum Beispiel gegen die Infizierung mit Viren zu schützen. Diese Sandboxes haben auch auf vielen mobilen Endgeräten ihren Platz eingenommen. So werden native Anwendungen auf Mobiltelefonen in Sandboxes ausgeführt um die Anwendungen voneinander abzuschotten und um das System und ihre Komponenten zu schützen. Eine solche Umgebung ist in Abbildung \ref{sandbox_pic} schematisch dargestellt. Sie beschreibt eine System mit mehreren Applikationen und ihre Kommunikationsströmen mit den Systemkomponenten durch mehrere Sandboxes.
 
 \subsubsection{Das Android-Manifest und Permissions}
+
 Die Kommunikation der Sandbox mit der Systemumgebung wird bei Android über \verb+Permissions+ geregelt. Damit werden der Sandbox Benutzungsrechte für genau definierte Bereiche zugeteilt. 
 Ein Zentraler Punkt in der Sicherheitsarchitektur von Android besteht darin, dass standardmäßig keine Applikation Berechtigungen besitzt irgendetwas zu tun, was andere Apps, das System oder den Nutzer nachteilig beeinflusst. Darunter fallen beispielsweise der Zugriff auf private Daten des Nutzers oder auf das Netzwerk.
 
@@ -105,6 +222,7 @@ Damit eine Applikation auf das Internet zugreifen kann muss der Entwickler dies 
 Diese Strategie wird konsequent fortgesetzt. So sind automatische Updates nur möglich, wenn sich keine Berechtigungen geändert haben. Falls die App im neusten Update auf die Kontakte zugreifen will muss der Nutzer dies neu bestätigen.
 
 \paragraph{Das Android Manifest}
+
 Jede App hat eine Datei mit dem Namen \verb+AndroidManifest.xml+ in der wichtige Informationen für das System gespeichert werden. Folgende Übersicht zeigt ein paar der wichtigsten Aufgaben des Manifest:
 
 \begin{itemize}
@@ -120,11 +238,17 @@ Mit der Transparenz die dem Nutzer durch diese Strategie gegeben wird kann zu je
 
 \subsection{Komponenten - Die Bestandteile einer Android-Anwendung}
 \label{components}
+
 Damit eine Anwendung im Ganzen funktioniert arbeiten mehrere Komponenten zusammen. Alle Arten von Komponenten haben ihre speziellen Aufgaben. In der Folgenden Übersicht werden die beiden Komponentenarten vorgestellt, die in der hier Applikation verwendet wurden. (aus \cite{android_components}).
 
 \begin{description}[style=nextline]
-	\item[Activities] Ein dargestellter Bildschirm mit seinen Elementen wird als \emph{Activity} bezeichnet. Bei der Applikation dieser Arbeit sind beispielsweise die Startseite die angezeigt wird wenn man die das Programm startet oder auch die Player-Ansicht \emph{Activities}.
-	\item[Services] Als \emph{Service} wird eine Komponente bezeichnet die im Hintergrund läuft und da Aufgaben verrichtet. Der Player der Applikation ist ein Service. Dies bietet die Möglichkeit Musikdateien im Hintergrund zu laden und abzuspielen. So kann der Nutzer beispielsweise im Internet surfen währendessen das Hörbuch weiter läuft.
+
+	\item[Activities] \hfill \\
+	Ein dargestellter Bildschirm mit seinen Elementen wird als \emph{Activity} bezeichnet. Bei der Applikation dieser Arbeit sind beispielsweise die Startseite die angezeigt wird wenn man die das Programm startet oder auch die Player-Ansicht \emph{Activities}.
+	
+	\item[Services] \hfill \\
+	Als \emph{Service} wird eine Komponente bezeichnet die im Hintergrund läuft und da Aufgaben verrichtet. Der Player der Applikation ist ein Service. Dies bietet die Möglichkeit Musikdateien im Hintergrund zu laden und abzuspielen. So kann der Nutzer beispielsweise im Internet surfen währendessen das Hörbuch weiter läuft.
+	
 \end{description}
 
 Zusätzlich zu den Komponenten werden \emph{Ressourcen} zur Verfügung gestellt. Diese beinhalten beispielsweise Bilder und Icons die für die Darstellung verwendet werden.
@@ -144,9 +268,16 @@ Jede Komponente hat verschiedene Zustände in denen sie sich befinden kann. Dies
 Grundsätzlich entscheidet man bei Activities in drei Status:
 
 \begin{description}[style=nextline]
-	\item[Resumed] In diesem Zustand befindet sich die Activity im Vordergrund und ist fokusiert. Wird auch \emph{running} genannt.
-	\item[Paused] Wenn eine andere Activity im Vordergrund ist und die vorherige noch sichtbar ist, ist diese pausiert. Man findet diesen Zustand beispielsweise bei kleinen Auswahlfenstern wobei man nach der Auswahl direkt wieder zur Ausgangs-Activity geleitet wird.
-	\item[Stopped] Die Activity ist im Hintergrund. Der Prozess selbst lebt zwar noch, ist aber für den Anwender nicht mehr sichtbar und wird nach einer gewissen Zeit vom System komplett beendet. 
+
+	\item[Resumed] \hfill \\
+	In diesem Zustand befindet sich die Activity im Vordergrund und ist fokusiert. Wird auch \emph{running} genannt.
+	
+	\item[Paused] \hfill \\
+	Wenn eine andere Activity im Vordergrund ist und die vorherige noch sichtbar ist, ist diese pausiert. Man findet diesen Zustand beispielsweise bei kleinen Auswahlfenstern wobei man nach der Auswahl direkt  zur Ausgangs-Activity geleitet wird.
+	
+	\item[Stopped] \hfill \\
+	Die Activity ist im Hintergrund. Der Prozess selbst lebt zwar noch, ist für den Anwender nicht mehr sichtbar und wird nach einer gewissen Zeit vom System komplett beendet.
+	
 \end{description}
 
 In Abbildung \ref{lifecycle} werden die Status mit den dazugehörigen Übergangsfunktionen angezeigt.

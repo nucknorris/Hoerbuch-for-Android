@@ -1,6 +1,8 @@
 %!TEX root = ../docu.tex
 \section{Entwicklung}
+
 \subsection{Benutzeroberfläche}
+
 Die Interaktion von Benutzer und Programmstrukturen erfolgt über eine Benutzeroberfläche oder auch GUI\footnote{engl. Graphical User Interface}. Diese ist besonders einfach gehalten um eine intuitive Bedienung des Programms zu gewährleisten.
 
 \begin{figure}[h!t]
@@ -13,7 +15,7 @@ Die Interaktion von Benutzer und Programmstrukturen erfolgt über eine Benutzero
 
 Position und Größe von Elementen und Bedienstrukturen sind so gewählt, dass die Eingabe über das Display so einfach wie möglich ist. Über eine Hauptansicht gelangt der Benutzer zu allen benötigten Funktionen der Anwendung. Diese Ansicht ist in Abbildung \ref{mainscreen} dargestellt.
 
-Die Farbgebung orientiert sich am Holo-Design von Android. Dieses Design wird durch klare Farbgebung in Schwarz und Blau charakterisiert. Die Hauptfunktionen beinhalten zum einen die Auswahl einer bestimmten Audiodatei und zum anderen das Wiederaufnehmen von abgebrochenen Wiedergaben. Beide Funktionen werden über durchlaufbare Listen dargestellt und variieren nur minimal vom Äußeren. Dennoch sind es zwei unterschiedliche Funktionen.
+Die Farbgebung orientiert sich am Holo-Design von Android. Dieses Design wird durch klare Farbgebung in Schwarz und Blau charakterisiert. Die Hauptfunktionen beinhalten zum einen die Auswahl einer bestimmten Audiodatei und zum anderen das Wiederaufnehmen von abgebrochenen Wiedergaben. Beide Funktionen werden über durchlaufbare Listen dargestellt und variieren nur minimal vom Design. Dennoch sind es zwei unterschiedliche Funktionen.
 
 \begin{figure}[h!t]
 \begin{center}
@@ -33,13 +35,14 @@ Abbildung \ref{browsing} zeigt die Auswahlmöglichkeit über die Listenansicht. 
 \end{center}
 \end{figure}
 
-Das Auswählen der Audiodateien oder Wiederaufnehme erfolgt über einfache Eingaben über das Display mit druck auf das jeweilige Element in der Liste.
+Das Auswählen der Audiodateien oder Wiederaufnehme erfolgt über einfache Eingaben über das Display mit Druck auf das jeweilige Element in der Liste.
 
 Die Einstellung der Anwendung wird über die \textit{Menü}-Taste aufgerufen. Alle Funktionen bilden eigene Strukturen und sind durch separate Klassen definiert. Diese Struktur soll in den nachfolgenden Unterkapiteln von \ref{classes} behandelt werden.
 
 \subsection{Klassenstruktur}
 \label{classes}
-Um ein Gesamtbild über die Struktur des Projektes zu geben werden im folgenden Abschnitt die Klassen vorgestellt und zusammengefasst die zusammen gehören.
+
+Um ein Gesamtbild über die Struktur des Projektes zu geben werden im folgenden Abschnitt die Klassen vorgestellt und zusammengefasst, die eine wichtige Funktion in der Anwendung übernehmen.
 
 \subsubsection{Activities}
 
@@ -73,20 +76,21 @@ Die Activities selbst haben dabei folgende Aufgaben:
 \end{center}
 \end{figure}
 
-Um Mediadateien abspielen zu können stellt die Android-Plattform die Klasse \verb+MediaPlayer+ zur Verfügung. Um ein Hörbuch abzuspielen wird die gewählte Datei geladen und vorbereitet. Das übernimmt der \verb+PlayerService+. Die Entscheidung dies in einen Service, also einen gesonderten Thread auszulagern ist damit begründbar, dass das vorbereiten der Datei bei großen Datein den Haupt-Thread in dem das User-Interface läuft blockiert und die Anwendung träge macht. Gerade im Bereich der Hörbücher muss der Player mit Dateien bis zu \SI{1}{GB} zurechtkommen. Durch die Auslagerung in den Service kann das Hörbuch im Hintergrund vorbereitet werden, ohne, dass der Nutzer eine Verzögerung der Oberfläche mitbekommt.
+Um Mediadateien abspielen zu können stellt die Android-Plattform die Klasse \verb+MediaPlayer+ zur Verfügung. Um ein Hörbuch abzuspielen wird die gewählte Datei geladen und vorbereitet. Das übernimmt der \verb+PlayerService+. Die Entscheidung dies in einen Service, einen gesonderten Thread auszulagern ist damit begründbar, dass das vorbereiten der Datei bei großen Datein den Haupt-Thread in dem das User-Interface läuft blockiert und die Anwendung träge macht. Gerade im Bereich der Hörbücher muss der Player mit Dateien bis zu \SI{1}{GB} zurechtkommen. Durch die Auslagerung in den Service kann das Hörbuch im Hintergrund vorbereitet werden, ohne, dass der Nutzer eine Verzögerung der Oberfläche mitbekommt.
 
 Wie in Abbildung \ref{cd_media} zu sehen, bildet die \verb+PlayerActivity+ das Zentrum.Ausgehend davon befindet sich der \verb+PlayerService+ und der \verb+PlayerServiceBinder+ welcher die Kommunikation zwischen dem Service und der Activity unterstützt.
 
 Um eine Mediendatei ausreichend gut zu repräsentieren wurde die Datenstruktur \verb+MediaFile+ implementiert. Diese enthält alle Daten die für den Player zum Abspielen oder zur Darstellung von Informationen notwendig sind. 
 
-Der \verb+MediaFileManager+ hat die Aufgabe Dateien vom Speicher zu lesen. Dabei extrahiert er dessen Metainformationen und speichert diese zusammen mit dem Pfad als Liste von \verb+MediaFile+. Diese Liste kann dann vom Browser oder vom Player als Playlist verwendet werden. Damit nur Dateien gelesen werden, die auch wirklich abgespielt werden können, wird der \verb+AudioFilter+ verwendet. Dieser filtert vorher definierte Dateitypen und vermeidet unnötiges Lesen von nicht abspielbaren Dateien.
+Der \verb+MediaFileManager+ hat die Aufgabe Dateien vom Speicher zu lesen. Dabei extrahiert er dessen Metainformationen und speichert diese zusammen mit dem Pfad als Liste von \verb+MediaFile+. Diese Liste kann vom Browser oder vom Player als Playlist verwendet werden. Damit nur Dateien gelesen werden, die auch wirklich abgespielt werden können, wird der \verb+AudioFilter+ verwendet. Dieser filtert vorher definierte Dateitypen und vermeidet unnötiges Lesen von nicht abspielbaren Dateien.
 
 Die Klasse \verb+Utils+ bietet verschiedene Werkzeuge an die unter anderem für die Darstellung notwendig sind. So können damit beispielsweise die vom MediaPlayer ausgegebenen Millisekunden in ein lesbares Format umgewandelt werden.
 
 \subsection{Einstellungen}
-Das Einstellungsmenü soll in jedem zustand der Applikation erreichbar sein. Der einzige Ort an dem dies möglich ist, ist das Menü. Hier ist nicht von einem implementierten Menü die reden. Dieses Menü ist in jeder Applikation erreichbar und wird durch das Betriebssystem bereitgestellt.
 
-Druck ein Benutzer die Menü-Taste, welche sich an jedem gerät befindet, welches Android als Betriebssystem verwendet so öffnet sich eine Menü-Schnittstelle welche durch den Entwickler mit Einträgen befüllt werden kann um bestimmte Funktionen bereitzustellen. Eine typische Funktion ist die Bereitstellen der Einstellungsseite.
+Das Einstellungsmenü soll in jedem Zustand der Applikation erreichbar sein. Der einzige Ort an dem dies möglich ist, ist das Menü. Hier ist nicht von einem implementierten Menü die reden. Dieses Menü ist in jeder Applikation erreichbar und wird durch das Betriebssystem bereitgestellt.
+
+Drückt ein Benutzer die Menü-Taste, welche sich an jedem Gerät befindet, welches Android als Betriebssystem verwendet, so öffnet sich eine Menü-Schnittstelle. Diese wird durch den Entwickler mit Einträgen befüllt und kann dadurch bestimmte Funktionen bereitzustellen. Eine typische Funktion ist die Einstellungsseite.
 
 Die Konfiguration der Einstellungsmöglichkeiten, welche dem Nutzer zur Verfügung gestellt wird, erfolgt über eine XML Datei. In älteren API-Versionen wurde dies noch durch Klassen realisiert. Diese Klassen und Methode sind in den Version ab Android Version 4 veraltet und sollten nicht mehr verwendet werden.
 
@@ -94,7 +98,7 @@ Die erwähnte XMl-Datei wird nun durch bestimmte Regler und Kontrollstrukturen b
 
 Sollten keine geeigneten vorgefertigte Kontrollstrukturen wie zum Beispiel Radio-Button oder Checkboxen vorhanden sein, so können eigene Strukturen eingebettet werden.
 
-Im konterten Projekt existiert keine Struktur für das Speichern und durchsuchen eines Ordnerpfades. Dieser \textit{FilePicker} wurde daher eigens implementiert und kann aus dem Einstellungsmenü aufgerufen werden.
+Im konterten Projekt existiert keine Struktur für das Speichern und Durchsuchen eines Ordnerpfades. Dieser \textit{FilePicker} wurde daher eigens implementiert und kann aus dem Einstellungsmenü aufgerufen werden.
 
 \begin{center}
 \begin{figure}
@@ -104,29 +108,30 @@ Im konterten Projekt existiert keine Struktur für das Speichern und durchsuchen
 \end{figure}
 \end{center}
 
-Wurde der gewünschte Ordner gefunden kann dieser in den Einstellungen gespeichert werden. Alle anderen Komponenten der Anwendung können nun auf diese Einstellungen zugreifen.
+Wurde der gewünschte Ordner gefunden, kann dieser in den Einstellungen gespeichert werden. Alle anderen Komponenten der Anwendung können nun auf diese Einstellungen zugreifen.
 
-Dies wird über den \textit{PreferenceManager} realisiert. Er benötigt für die Abfrage des Wertes lediglich die ID der Einstellung, welche abgefragt werden soll. Zur Sicherheit wird bei der Abfrage ein Standartwert angegeben, im Falle das die Einstellung nicht gefundene oder ausgelesen werden konnte. Die einmal eingetragen Einstellungen sind jederzeit abrufbar und auch nach Beenden der Applikation immer noch vorhanden.
+Dies wird über den \textit{PreferenceManager} realisiert. Er benötigt für die Abfrage des Wertes lediglich die ID der Einstellung. Die angesprochene ID hat einen Wert hinterlegt welche bei der Abfrage zurückgegeben wird. Zur Sicherheit wird bei der Abfrage ein Standartwert angegeben, im Falle das die Einstellung nicht gefundene oder ausgelesen werden konnte. Die einmal eingetragen Einstellungen sind jederzeit abrufbar und auch nach Beenden der Applikation immer noch vorhanden.
 
 Die Abbildung \ref{settings} zeigt die benötigten Klassen für die Implementierung der Funktionalität der Einstellungen.
 
-
 \subsection{Datenbank}
+
 \subsubsection{Grundlagen}
-Das Android eine Schnittstelle für SQlite Datenbanken anbietet, wurde schön in einem herausgestellten Kapitel \ref{Datenbankstrukturen} behandelt. Anschließend soll erläutert werden wie man diese Anbindung benutzt und wie Daten gespeichert und abgefragt werden können.
+
+Das Android eine Schnittstelle für SQlite Datenbanken anbietet, wurde schön in einem vorherigen Kapitel \ref{Datenbankstrukturen} behandelt. Anschließend wird nun erläutert wie man diese Anbindung benutzt und wie Daten gespeichert und abgefragt werden.
 
 Zunächst benötigen wir eine Klasse welche die API-Klasse \textit{SQLiteOpenHelper} erweitert. Diese bildet nun die Schnittstelle unser Applikation und der Datenbank, welche wir benutzen möchten bzw. anlegen möchten.
 
-Jede Applikation kann mehrere Datenbanken anlegen und verwenden. Um Datenbanken voneinander unterscheiden zu können, werden die einzelnen Datenbanken über Namen verifiziert und aufgerufen.
+Jeder Applikation ist es möglich mehrere Datenbanken anzulegen und zu verwenden. Um Datenbanken voneinander unterscheiden zu können, werden die einzelnen Datenbanken über Namen verifiziert und aufgerufen.
 
-Um Android mitteilen zu können, welche Datenbank wir öffnen möchten, wird dem Betriebssystem mitgeteilt welche Applikation welche Datenbank öffnen möchte.
+Um Android mitzuteilen, welche Datenbank wir öffnen möchten, wird dem Betriebssystem mitgeteilt 
+um welche Applikation es sich handelt und wie der Name der zu öffnenden Datenbank ist.
 
-Das Resultat ist eine Verbindung zu einer SQlite Datenbank. Um Daten speichern zu können, benötigen wir Tabellen die wir beim erstellen der Datenbank mit anlegen lassen wollen.
+Das Resultat ist eine Verbindung zu einer SQlite Datenbank. Um Daten zu speichern, wird eine Tabellen angesprochen. Diese Tabelle wir bei der Erstellung der Datenbank mit anlegen.
 
 Für diesen Zweck legen wir eine Methode mit den Namen \textit{onCreate} an. Diese Methode wird beim Erstellen der Datenbank ausgeführt und enthält alle SQL-Befehle zum Anlegen der von uns gewünschten Tabellen.
 
 Sollte sich das Datenbankschema ändern kann dies über eine weiter Variable, welche wir dem Betriebssystem mitteilen realisiert werden. Eine Datenbankversion beschreibt den Stand der Datenbankstruktur. Sollte sich die Datenbankstruktur geändert haben wird die Versionsnummer erhöht und eine andere Methode wird beim anbinden zur Datenbank aufgerufen.
-
 
 \begin{figure}
 \begin{center}
@@ -136,10 +141,9 @@ Sollte sich das Datenbankschema ändern kann dies über eine weiter Variable, we
 \end{center}
 \end{figure}
 
-
 Diese Methode nennt sich \textit{onUpgrade} und wird bei eben erwähnter Erhöhung der Versionsnummer automatisch ausgeführt. In dieser Methode sollten eine Datenmigration durchgeführt werden oder alle bestehenden Daten gelöscht werden und neue Tabellen angelegt werden.
 
-Durch diesen Mechanismus ist eine Aktualität des Datenbanklayouts immer gegeben. In der Abbildung \ref{database} sind die Klassen ersichtlich, die es ermöglichen mit der Datenbank zu kommunizieren. Für die Verwendung der Daten ist es ratsam Objekte zu verwenden um abgefragte Datensätze weiter zu verwenden. Ein solches Objekt wird in Abbildung \ref{dbmodel} dargestellt.
+Durch diesen Mechanismus ist die Aktualität des Datenbanklayouts immer gegeben. In der Abbildung \ref{database} sind die Klassen ersichtlich, die es ermöglichen mit der Datenbank zu kommunizieren. Für die Verwendung der Daten ist es ratsam Objekte zu verwenden um abgefragte Datensätze weiter zu verwenden. Ein solches Objekt wird in Abbildung \ref{dbmodel} dargestellt.
 
 \begin{figure}
 \begin{center}
@@ -150,29 +154,33 @@ Durch diesen Mechanismus ist eine Aktualität des Datenbanklayouts immer gegeben
 \end{figure}
 
 \subsubsection{Abfragen}
+
 Eine Datenbankabfrage wird über einen SQL-Befehl an die Datenbank gestellt. Mit dem Befehl \textit{SELECT} und der Angabe der Tabelle können Daten aus der Datenbank abgefragt werden. Die Abfrage wird dafür in eins Cursor-Objekt geladen und der Cursor anschließend zur Ausführung an die Datenbank gesendet.
 
 Das Cursor-Objekt enthält anschließend alle abgefragten Daten, welche die Datenbank zum übergeben SQL-Befehl gefunden hat. Eine direkte Abfrage ist nicht möglich.
 
 Es muss immer eine Cursor-Objekt verwendet werden. Möchte man nur bestimmte Daten oder zielgerichtet Datensätze aus der Datenbank laden, wird dem Cursor-Objekt eine Filterung mitgeteilt, welche von der Datenbank bei der Abfrage der Daten berücksichtigt wird.
 
-Das Cursor-Objekt enthält eine liste von allen Dateneinträgen die gefunden wurde. Sind mehre Datensätze gefunden wurden, können diese durchlaufen werden und jeder Datensatz einzeilig betrachtet und verarbeitet werden.
+Das Cursor-Objekt enthält eine Liste von allen Dateneinträgen die gefunden wurde. Sind mehre Datensätze gefunden wurden, können diese durchlaufen werden und jeder Datensatz einzeilig betrachtet und verarbeitet werden.
 
-Bei der Abfrage der einzelnen Felder des Datensatzes ist es nötig den Datentyp der einzelnen Daten zu kennen. Das Cursor-Objekt hat verschiedene Methoden um unterschiedliche Datentypen aus den Feldern zu lesen. Diese Typen können wie schon erwähnt nicht typischer abgefragt werden. So ist es möglich ein Datenfeld des Types \textit{Integer} in eine variable des Typen \textit{String} zu laden.
+Bei der Abfrage der einzelnen Felder des Datensatzes ist es nötig den Datentyp der einzelnen Daten zu kennen. Das Cursor-Objekt hat verschiedene Methoden um unterschiedliche Datentypen aus den Feldern zu lesen. Diese Typen können wie schon erwähnt nicht typsicher abgefragt werden. So ist es möglich ein Datenfeld des Types \textit{Integer} in eine variable des Typen \textit{String} zu laden.
 
 Der Zugriff der Datenbank kann nur schreibend oder lesend gewährt werden. Eine Kombination ist nicht möglich. Ein Zugang zur Datenbank kann entweder nur schreibend oder lesend sein.
 
 Möchte man Schrieben und Lesen, wird dies durch einen schreibenden Zugriff und anschließen über einen lesenden Zugriff realisiert. Diese beiden Vorgänge müssen separat initiiert werden.
 
 \subsubsection{Löschen}
-Das Löschen von Daten erfolgt ebenso wie das Selektieren durch SQL-Befehle anders wie bei dem Selektieren existiert hierfür kein Cursor-Objekt. Es wird lediglich mitgeteilt welcher Datensatz in welcher Tabelle gelöscht werden soll.
+
+Das Löschen von Daten erfolgt ebenso wie das Selektieren durch SQL-Befehle. Anders wie bei dem Selektieren existiert hierfür kein Cursor-Objekt. Es wird lediglich mitgeteilt welcher Datensatz in welcher Tabelle gelöscht werden soll.
 
 \subsubsection{Ändern}
-Ähnlich verhält es sich mit den Ändern von Datensätzen. Hierfür wird der Datenbank mitgeteilt welcher Datensatz geändert werden soll und welche Datenfelder mit welchem Wert gesetzt werden soll.
+
+Ähnlich verhält es sich mit den Ändern von Datensätzen. Hierfür wird der Datenbank mitgeteilt, welcher Datensatz geändert werden soll und welche Datenfelder mit welchem Wert gesetzt werden soll.
 
 Die Referenzierung einzelner Datensätze erfolgt über Primärschaltregler oder andere Datenfelder, welche im SQL-Befehl angegeben werden müssen.
 
 \subsubsection{Einfügen}
-Das anlegen neuer Datensätze verläuft durch die Methode \textit{insert}. Diese Methode verlangt ein liste von Schlüssel-Wert-Paaren um einen Datensatz anlegen zu können.
 
-Die Liste von Paaren repräsentiert den eigentlichen Datensatz. In ihr werden alle Datenfelder und die dazugehörigen Werte abgelegt. Ausgeschlossen ist der Primärschlüssel, dieser wird durch einen Trigger in der Datenbank automatisch erzeugt und beim Einfügen in die Datenbank an den Datensatz abgehangen und gespeichert. Der Methode wird nun die Liste mit den Daten übergeben und die Tabelle genannt, in der die Daten abgelegt werden soll.
+Das Anlegen neuer Datensätze wird durch die Methode \textit{insert} ausgelöst. Diese Methode verlangt ein Liste von Schlüssel-Wert-Paaren um einen Datensatz anlegen zu können.
+
+Die Liste von Paaren repräsentiert den eigentlichen Datensatz. In ihr werden alle Datenfelder und die dazugehörigen Werte abgelegt. Ausgeschlossen ist der Primärschlüssel, dieser wird durch einen Trigger in der Datenbank automatisch erzeugt und beim Einfügen in die Datenbank an den Datensatz abgehangen und gespeichert. Der Methode wird nun die Liste mit den Daten übergeben und die Tabelle genannt, in der die Daten abgelegt werden soll. Der Trigger muss nicht separat angelegt werden, sondern wird durch das Erzeugen einer Spalte, welche als Primärschlüssel gekennzeichnet wird, angelegt.

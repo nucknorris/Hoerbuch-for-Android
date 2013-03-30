@@ -1,28 +1,30 @@
 %!TEX root = ../docu.tex
 \section{Projektplanung}
 \label{proj}
+
 \subsection{Arbeitspakete und Planung}
-Bei der Arbeit im Team stellt sich häufig die frage wie Programmfeatures Bugs und allgemeine Änderungen am Quellcode durchgeführt werden bzw. von welcher Person.
 
-Hierfür gibt es viele Vorgehensweisen. Eine der häufigsten ist das anfertigen von sogenannten Arbeitspaketen. Diese beinhalten das vorher definierte Ziel und jene Schritte die zur Erreichung des Ziels nötig sind und welche Anforderungen das Ziel erfüllen muss.
+Bei der Arbeit im Team stellt sich häufig die Frage wie Programmfeatures Bugs und allgemeine Änderungen am Quellcode durchgeführt werden bzw. von welcher Person.
 
-Ein solches Arbeitspaket wird anschließend bewertet und im Aufwand eingeschätzt. Das so erstellte Arbeitspaket kann jetzt einem Bearbeiter zugeteilt werden.
+Hierfür gibt es viele Vorgehensweisen. Eine der Häufigsten ist das Anfertigen von sogenannten Arbeitspaketen. Diese beinhalten das vorher definierte Ziel und jene Schritte die zur Erreichung des Ziels nötig sind und welche Anforderungen das Ziel erfüllen muss.
 
-Abhängigkeiten von Arbeitspaketen oder solche die auf einander aufbauen spielen eine gesonderte Rolle. Schnittstellen zwischen verschiedene in den Paketen implantierten Programmkomponenten müssen genau definiert werden und spätere Fehler oder Inkompatibilität auszuschließen.
+Ein solches Arbeitspaket wird anschließend bewertet und im Aufwand eingeschätzt. Das so erstellte Arbeitspaket wird jetzt einem Bearbeiter zugeteilt.
 
-Die Verwaltung der Pakete und Zuweisung variiert je nach Größe des Teams. Weit verbreitet sind Trac\footnote{http://trac.edgewall.org/}, Bugzilla\footnote{http://www.bugzilla.org/} sowie Redmine\footnote{http://www.redmine.org/}. Für ein Team mit kleinerer Anzahl von Mitgliedern empfehlen sich solche Systeme nicht.
+Abhängigkeiten von Arbeitspaketen oder solche die auf einander aufbauen spielen eine gesonderte Rolle. Schnittstellen zwischen verschiedene in den Paketen implementierten Programmkomponenten müssen genau definiert werden und spätere Fehler oder Inkompatibilität auszuschließen.
+
+Die Verwaltung der Pakete und Zuweisung variiert je nach Größe des Teams. Weit verbreitet sind Systeme wie Trac\footnote{http://trac.edgewall.org/}, Bugzilla\footnote{http://www.bugzilla.org/} oder Redmine\footnote{http://www.redmine.org/}. Für ein Team mit kleinerer Anzahl von Mitgliedern empfehlen sich solche Systeme nicht.
 
 Die Wartung und Konfiguration ist zu aufwendig. Die Kosten von Zeit und entstehender Nutzen stehen in keinem vertretbaren Verhältnis.
 
-Für die Umsetzung des Projektes wurde daher auf ein Managementtool namens Trello\footnote{https://trello.com/} verwendet. es realisiert eine Management Methode namens \textit{Kanban} welche von Automobilhersteller Toyota entwickelt wurde.
+Für die Umsetzung des Projektes wurde daher das Managementtool namens Trello\footnote{https://trello.com/} eingesetzt. Es realisiert eine Management Methode namens \textit{Kanban} welche von Automobilhersteller Toyota entwickelt wurde.
 
 \subsubsection{Kanban}
 
-Die Funktionsweise von Kanban kann auf ein paar wesentliche Bestandteile differenziert werden. Zunächst werden Stadien definiert. Je nach Projektumgebung variieren diese Stadien. Für die Entwicklung von Anwendungen sind folgende Stadien ausreichen. Zu Beginn ist ein Paket im Stadium \textit{nicht zugewiesen} bzw. \textit{neu}. Das nächste Stadium ist \textit{zugewiesen} gefolgt vom Stadium \textit{in Bearbeitung}. Anschließend wandert das Arbeitspaket in das Stadium \textit{Test} und von dort aus in das Stadium beendet.
+Die Funktionsweise von Kanban wird auf ein paar wesentliche Bestandteile differenziert. Zunächst werden Stadien definiert. Je nach Projektumgebung variieren diese Stadien. Für die Entwicklung von Anwendungen sind folgende Stadien ausreichen. Zu Beginn ist ein Paket im Stadium \textit{nicht zugewiesen} beziehungsweise \textit{neu}. Das nächste Stadium ist \textit{zugewiesen} gefolgt vom \textit{in Bearbeitung}. Anschließend wandert das Arbeitspaket in das Stadium \textit{Test} und von dort aus in \textit{beendet}.
 
-Das System ist sehr übersichtlich da alle Pakete auf einen Blick ersichtlich sind, sowie welche Person für das jeweilige Arbeitspaket zuständig ist.\newpage
+Das System ist sehr übersichtlich da alle Pakete auf einen Blick einsehbar. Des Weiteren ist ersichtlich welche Person für das jeweilige Arbeitspaket zuständig ist und es bearbeitet.
 
-Des Weiteren kann man sofort Erkennen in welchen Stadium sich gerade welches Paket befindet. Das ganze System ist daher sehr übersichtlich und einfach strukturiert.
+Durch die Position eines Paketes ist sofort erkennbar in welchen Stadium sich gerade ein Paket befindet. Das ganze System ist daher sehr übersichtlich und einfach strukturiert.
 
 Der Vorteile von Kanban liegt an der hohen Transparenz der Arbeitspakete und deren gegenwärtigen Status. Die Einführung und Umsetzung sind ressourcenschonend und schnell. Der Umgang mit Kanban ist leicht zu erlernen und gerade für kleiner Teams zu empfehlen.
 
@@ -36,39 +38,42 @@ Der Vorteile von Kanban liegt an der hohen Transparenz der Arbeitspakete und der
 
 In der Abbildung \ref{kanban} ist ein Kanban-Board abgebildet. Sie durchlaufen verschiedene Stadien und wandern von der linken zu rechten Seite des Boards.
 
-Abgeschlossene Pakete werden nach einiger Zeit vom Brett genommen um die Übersichtlichkeit weiterhin zu gewährleisten. Solche Boards können in Papierform oder auch auf elektronischen Wege simuliert werden. Eine elektronische Variante wie sie im abgearbeiteten Projekt verwendet wurde, ist genannten wurden. Weitere Einzelheiten könne aus der Literaturquelle \cite{9783898647304} entnommen werden.
+Abgeschlossene Pakete werden nach einiger Zeit vom Brett genommen um die Übersichtlichkeit weiterhin zu gewährleisten. Solche Boards werde in Papierform oder auch auf elektronischen Wege simuliert. Eine elektronische Variante wie sie im abgearbeiteten Projekt verwendet wurde, ist genannten wurden. Weitere Einzelheiten könne aus der Literaturquelle \cite{9783898647304} entnommen werden.
 
 \subsection{Entwicklungsumgebung}
+
 Für das Arbeiten mit der umfangreichen Android API empfiehlt es sich eine Entwicklerwerkzeuge wie Eclipse zu wendenden. Dies gewährleistet einen schnellen Umgang mit allen Bestandteilen der Android SDK.
 
-Des weitern können die LOG-Daten schnell ausgewertet werden und Fehler identifiziert werden. Des weiteren können ähnlich wie bei der Programmierung von Java Anwendungen Test verfasst werden und ein Debuggen erfolgen.
+Des Weiteren wird die Auswertung von LOG-Daten durch die SDK schnell und Fehler somit eher identifiziert. Ähnlich wie bei der Entwicklung von Java Anwendungen ist es möglich Test zu verfasst und dadurch ein Debugging zu betreiben.
 
 Eclipse bietet eine automatische Vervollständigung für Quellcode und eine Typprüfung vor der Kompilierung des Codes. Eclipse ist weiterhin in der Lage viele Codeabschnitte automatisch zu erzeugen und somit Entwicklungsschritte zu erleichtern.
 
-Wichtig bei der Arbeit mit einer IDE\footnote{Integrated Development Environment} wie Eclipse ist die Integration des SDKs um die für die Entwicklung von Android Applikationen bereitgestellten Werkzeuge nutzen zu können. Hierzu gehören verschiedene Debuggen sowie Kompilierwerkzeuge Hilfestellung leisten sollen.
+Wichtig bei der Arbeit mit einer IDE\footnote{Integrated Development Environment} wie Eclipse ist die Integration des SDKs um die für die Entwicklung von Android Applikationen bereitgestellten Werkzeuge nutzen zu  . Hierzu gehören verschiedene Debugger sowie Kompilierwerkzeuge welche dem Entwickler Hilfestellung leisten.
 
 \subsection{Versionsverwaltung des Quellcode}
+
 Die Versionierung von Quellcode spielt eine große Rolle bei der Entwicklung von Software. Hierbei werden Änderungen am Quellcode zeitlich erfasst um einen chronologischen Verlauf von Änderungen festzuhalten und die Aktualität des Codes zu gewährleisten.
 
-Für diesen Zweck gibt es verschiedene Lösungsmöglichkeiten. Weit verbreitet sind die Versionsverwaltungssysteme SVN und GIT.
-SVN ist ein zentrales Versionsverwaltungssystem für Dateien. Es gibt eine zentrale Versionierung zudem sich Klienten verbinden könne und Änderungen einreichen können.
+Für diesen Zweck gibt es verschiedene Lösungsmöglichkeiten. Weit verbreitet sind die Versionsverwaltungssysteme SVN\footnote{http://subversion.apache.org/} und GIT\footnote{http://git-scm.com/}.
+SVN ist ein zentrales Versionsverwaltungssystem für Dateien. Es gibt eine zentrale Versionierung zudem sich Klienten verbinden und Änderungen einreichen werden.
 
-Die Wahl für die Versionsverwaltung viel auf GIT. GIT verfolgt eine andere Strategie. Änderungen werden dezentral verwaltet. im folgenden sollen die wesentlichen Aspekte von GIT genannt werden.
+Die Wahl für die Versionsverwaltung viel auf GIT. GIT verfolgt eine andere Strategie. Änderungen werden dezentral verwaltet. Im folgenden Kapitel werden die wesentlichen Aspekte von GIT genannt.
 
-\textbf{kein zentraler server}
+\begin{description}
 
-Jeder Benutzer hat eine exakte Kopie der Versionierung und ihren verlauf. alle arbeiten können daher größtenteils ohne Netzwerkzugriff ausgeführt werden.
+\item[Kein zentraler Server] \hfill \\
 
-\textbf{Datenaustausch}
+Jeder Benutzer hat eine exakte Kopie der Versionierung und ihren Verlauf. Alle Arbeiten werden daher größtenteils ohne Netzwerkzugriff ausgeführt.
 
-Der Austausch von Daten kann über viele Protokolle und Arten abgewickelt werden. Der Austausch ist sehr flexibel und sicher, wenn für die Übertragung geeignete, abgesicherte Protokolle verwendet werden.
+\item[Datenaustausch] \hfill \\
 
+Der Austausch von Daten wird über viele Protokolle und Arten abgewickelt. Der Austausch ist sehr flexibel und sicher, wenn für die Übertragung geeignete, abgesicherte Protokolle verwendet werden.
 
-\textbf{Kryptographische Sicherheit der Projektgeschichte}
+\item[Kryptographische Sicherheit der Projektgeschichte] \hfill \\
 
-Während des Versionierungprozesses wird ein eindeutiger Hash erzeugt, welcher den gesamten verlauf zur aktuellen Version widerspiegelt eine nachträgliche Änderung ist somit nicht möglich bzw. kann nicht verschleiert werden. Gelöschte Informationen bleiben erhalten und können wiederhergestellt werden.
+Während des Versionierungprozesses wird ein eindeutiger Hash erzeugt, welcher den gesamten Verlauf zur aktuellen Version widerspiegelt eine nachträgliche Änderung ist somit nicht möglich und es ist ausgeschlossen das sie verschleiert wird. Gelöschte Informationen bleiben erhalten und können wiederhergestellt werden.
+\end{description}
 
 Durch die Dezentralisierung der Versionierung muss dennoch ein Austausch der Daten zwischen den Teammitgliedern gewährleistet sein.
 
 Hierfür gibt es verschiedene Möglichkeiten unter anderem eine gemeinsame Austauschstelle. Diese Austauschstellen fungieren als Vermittelns und Sammelpunkten. Es besteht die Möglichkeit solch einen Punkt selber zu betreiben oder kostenlose Anbieter wie GitHub\footnote{https://github.com/} zu verwenden.
-

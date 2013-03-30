@@ -1,33 +1,38 @@
 %!TEX root = ../docu.tex
 \section{Programmstruktur}
+
 \subsection{Allgemeiner Programmaufbau}
+
 \subsubsection{Benutzeroberfläche}
-Die Steuerung aller Programmfunktionen wird durch eine Benutzeroberfläche realisiert. Diese Oberfläche wird über die typischen Elemente von Android Smartphones unterstützt. Zum einen sind das die üblichen 3 Systemknöpfe und zum anderen die gegen druck sensible Anzeigefläche\footnote{Touchscreen}.
 
-Die Standrat Eingabeknöpfe bei Android Telefonen sind: \textit{Zurück}, \textit{Home} und \textit{Menü}-Knopf. Diese befinden sich auf allen Android basierenden Smartphones. Einige Knöpfe lassen sich zur Steuerung von Programmfunktionen nutzen andere wiederum nicht.
+Die Steuerung aller Programmfunktionen wird durch eine Benutzeroberfläche realisiert. Diese Oberfläche wird über die typischen Elemente von Android Smartphones unterstützt. Zum einen sind das die üblichen drei Systemknöpfe und zum anderen die gegen Druck sensible Anzeigefläche\footnote{Touchscreen}.
 
-Der Hauptteil der Steuerung erfolgt über die gegen druck sensible Anzeigefläche des Telefons. Der Aufbau solcher Displays variiert je nach Hersteller und Typ. Die Funktion unterscheidet sich nicht. Das Display erfasst die Druckpunkte von Fingern auf dem Display. Diese Impulse werden in Koordinaten umgerechnet um Interaktionen mit dem Elementen auf dem Display zu ermöglichen. Die errechneten Koordinaten entsprächen jenen die sich unmittelbar unterhalb des Druckpunktes befinden.
+Die Standard Eingabeknöpfe bei Android Telefonen sind: \textit{Zurück}, \textit{Home} und \textit{Menü}-Knopf. Diese befinden sich auf allen Android basierenden Smartphones. Einige Knöpfe lassen sich zur Steuerung von Programmfunktionen nutzen andere wiederum nicht. Viele neuen Geräte wie zum Beispiel das Nexus 4\footnote{http://www.google.de/nexus/4/} oder Nexus 7\footnote{http://www.google.de/nexus/7/} haben diese Knöpfe softwaretechnisch integriert. Das heißt sie werden durch Teile des Displays realisiert.
 
-Durch diese Interaktion können verschiedene Bedienelemente verwendete werden. Diese reichen von Buttons über Listen die durchlaufen werden können usw.
+Der Hauptteil der Steuerung erfolgt über die gegen Druck sensible Anzeigefläche des Telefons. Der Aufbau solcher Displays variiert je nach Hersteller und Typ. Die Funktion unterscheidet sich nicht. Das Display erfasst die Druckpunkte von Fingern auf dem Display. Diese Impulse werden in Koordinaten umgerechnet um Interaktionen mit dem Elementen auf dem Display zu ermöglichen. Die errechneten Koordinaten entsprächen jenen die sich unmittelbar unterhalb des Druckpunktes befinden.
+
+Durch diese Interaktion können verschiedene Bedienelemente verwendete werden. Diese reichen von Buttons über Listen die durchlaufen werden können und so weiter.
 
 \subsubsection{Mediaplayer}
-Das Abspielen von Audiodateien wird von einen Mediaplayer realisiert. Dieser erhält als Eingabeparameter eine Audiodatei in Form eines Pfades einer Datei, welche sich auf dem internen oder externen Speicherbereich des Smartphones befindet. 
 
-Der Player ist so konzipiert das eine Liste alle Audiodateien im Ordner,indem sich die übergebene Audiodatei befindet erzeugt wird. Diese Liste ist gleichzeitig die Warteschlange des Mediaplayers.
+Das Abspielen von Audiodateien wird von einen Mediaplayer realisiert. Dieser erhält als Eingabeparameter eine Audiodatei. Der Pfand dieser Audiodatei dient zur Identifizierung und wird für das Abspielen benötigt.
 
-Der Mediaplayer muss nicht eigenständig implementiert werden. Die Android API bietet einen schon implementierten Player für verschiedene gängige Audioformate wie MP3 an. Alle benötigten Decoder-Werkzeuge sind im Player integriert. Für spezielle Audioformate müsste eine passende Erweiterung implementiert oder ein anderer Player verwendet werden.
+Der Player ist so konzipiert das eine Liste alle Audiodateien im Ordner, indem sich die übergebene Audiodatei befindet erzeugt wird. Diese Liste ist gleichzeitig die Warteschlange des Mediaplayers.
+
+Der Mediaplayer muss nicht eigenständig implementiert werden. Die Android API bietet einen schon implementierten Player für verschiedene gängige Audioformate wie MP3\footnote{ISO/IEC 11172-3, ISO/IEC 13818-3} an. Alle benötigten Decoder-Werkzeuge sind im Player integriert. Für spezielle Audioformate müsste eine passende Erweiterung implementiert oder ein anderer Player verwendet werden.
 
 \subsubsection{Datenbankstrukturen}
 \label{Datenbankstrukturen}
-Viele moderne Anwendungen benötigen Speicherbereiche um anfallende Anwendungsdaten aus dem Hauptspeicher aus zu lagern. Diese Daten sollen jedoch für einen späteren Zugriff leicht erreichbar bleiben und von andren Anwendungen nicht manipuliert werden können.
 
-Für diesen Zweck gibt es mehrere Möglichkeiten. So ist es zum Beispiel denkbar anfallende Anwendungsdaten zu Verschlüsseln und zusammen mit den Nutzerdaten auf den internen oder externen Telefonspeicher ab zu legen. Diese Daten sind nun durch dritte manipulierbar. Dies beeinträchtigt die Stabilität und Sicherheit der eigenen Anwendung und des gesamten Systems.
+Viele moderne Anwendungen benötigen Speicherbereiche um anfallende Anwendungsdaten aus dem Hauptspeicher aus zu lagern. Diese Daten sollen jedoch für einen späteren Zugriff leicht erreichbar bleiben und von anderen Anwendungen nicht manipuliert werden können.
 
-Um nun Entwickler die Speicherung von Anwendungsdaten zu erleichtern bietet die Android API eine integrierte Datenbank an. Diese Datenbank bietet nicht nur Schutz der eigenen Daten von anderen Anwendungen, sondern auch den Schutz vom Anwender selbst.
+Für diesen Zweck gibt es mehrere Möglichkeiten. So ist es zum Beispiel denkbar anfallende Anwendungsdaten zu Verschlüsseln und zusammen mit den Nutzerdaten auf den internen oder externen Telefonspeicher ab zu legen. Diese Daten sind nun durch Dritte manipulierbar. Dies beeinträchtigt die Stabilität und Sicherheit der eigenen Anwendung und des gesamten Systems.
 
-Als Datenbank Struktur wird das quelloffene Datenbank-Management-System SQlite\footnote{http://www.sqlite.org/} verwendet. Es ist sehr ressourcensparend und einfach in die Programmstruktur einzubinden. Während der Laufzeit der Anwendung verbraucht der Datenbankserver nur wenige hundert Kilobyte vom Hauptspeicher.
+Um nun Entwickler die Speicherung von Anwendungsdaten zu erleichtern, ist es möglich durch die Android API eine integrierte Datenbank zu verwenden. Diese bietet nicht nur Schutz der eigenen Daten vor anderen Anwendungen, sondern auch vor dem Anwender selbst.
 
-Alle anfallenden Daten werden in einer einzigen Datei gespeichert. SQlite bietet alle wichtigen Features wie Tabelle, Views, Trigger usw. Es gibt jedoch auch Unterschiede, so ist es zum Beispiel nicht möglich mehre Schreib- und Leseprozesse parallel auszuführen. Alle Datenbankoperation werden daher sequenziell ausgeführt. SQlite biete keine Typsicherheit, fehlerhafte Eingaben werden einfach umgewandelt und gespeichert. Dies sollte bei der Entwicklung von Anwendungen beachtet werden.
+Als Datenbank Struktur wird das quelloffene Datenbank-Management-System SQlite\footnote{http://www.sqlite.org/} verwendet. Es ist sehr ressourcensparend und einfach in die Programmstruktur einzubinden. Während der Laufzeit der Anwendung verbraucht der Datenbankserver (DBMS\footnote{Datenbankmanagementsystem}) nur wenige hundert Kilobyte vom Hauptspeicher.
+
+Alle anfallenden Daten werden in einer einzigen Datei gespeichert. SQlite bietet alle wichtigen Features wie Tabelle, Views, Trigger usw. Es gibt jedoch auch Unterschiede, so ist es zum Beispiel nicht möglich mehre Schreib- und Leseprozesse parallel auszuführen. Alle Datenbankoperation werden daher sequenziell ausgeführt. SQlite biete keine Typsicherheit, fehlerhafte Eingaben werden einfach umgewandelt und gespeichert. Dies ist bei der Entwicklung von Anwendungen zu beachten.
 
 Somit hat jede Anwendung welche die SQlite Datenbank implementiert hat, eine eigene separate und vor anderen Anwendungen Geschütze Datenbank.
 
