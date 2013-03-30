@@ -1,24 +1,49 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{stat_1}
+{www.statista.com}.
+\newblock quarterly worldwide smartphone sales by operating system since 2009.
+\newblock last checked: 22.03.2013.
+
+\bibitem{stat_2}
+{www.statista.com}.
+\newblock Anzahl der verfuegbaren apps im google playstore.
+\newblock last checked: 28.03.2013.
+
+\bibitem{blogpost_1}
+{Frank Gillett}.
+\newblock Why tablets will become our primary computingd device.
+\newblock last checked: 25.03.2013.
+
+\bibitem{news_1}
+{Martin Dommer and Stephan Finsterbusch}.
+\newblock Betriebsgeheimnis auf dem smartphone.
+\newblock last checked: 26.03.2013.
 
 \bibitem{android_sdk}
 {Android}.
 \newblock http://developer.android.com/sdk - android sdk.
-\newblock last checked: 24.03.2013.
+\newblock last checked: 18.03.2013.
+
+\bibitem{news_2}
+{www.heise.de}.
+\newblock Oracle klagt gegen google wegen patent- und urheberrechtsverletzung.
+\newblock last checked: 27.03.2013.
 
 \bibitem{eiddvm}
 {Carlo U. Nicola}.
-\newblock einblick-in-die-dalvik-virtual-machine.
+\newblock Einblick in die dalvik-virtual-machine.
 \newblock last checked: 30.03.2013.
 
 \bibitem{android_api}
 {Android}.
 \newblock developer.android.com - api guide.
-\newblock last checked: 24.03.2013.
+\newblock last checked: 22.03.2013.
 
 \bibitem{android_components}
 {Android}.
 \newblock developer.android.com/guide/components/fundamentals.html.
-\newblock last checked: 24.03.2013.
+\newblock last checked: 19.03.2013.
 
 \bibitem{9783898647304}
 David~J. Anderson.
