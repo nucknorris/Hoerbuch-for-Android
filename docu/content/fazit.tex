@@ -3,19 +3,19 @@
 
 \subsection{Aufgetretene Probleme}
 
-Während der Entwicklung sind einige Probleme aufgetreten. An diese Stelle wird auf diese genauer eingegangen und die Lösung für das aufgetretene Problem diskutiert.
+Während der Entwicklung sind mehrere Probleme aufgetreten. An diese Stelle wird auf diese genauer eingegangen und die Lösung für die aufgetretenen Probleme diskutiert.
 
 \subsubsection{Laufzeiten für verschiedene Operationen}
 
 Die Laufzeit spielt in Anwendungen für Benutzer eine große Rolle. Langsame Laufzeiten wirken frustrieren auf Benutzer und die Akzeptanz für lange Wartezeiten ist gering. Diese langen Laufzeiten treten häufig bei rechenintensiven Operationen auf. Eine dieser Operation ist das Erzeugen von Vorschaubildern, welche aus MP3 Dateien extrahiert werden, um sie in der Auswahl für die jeweiligen Titel anzuzeigen.
 
-Die Extraktionen benötigen so viel Zeit wie Titel hintereinander analysiert werden müssen. Um dieses Problem zu umgehen, wird ein Verweis in Form eines Bildcache für den jeweiligen Ordner hinterlegt. Die Gründe hierfür sind zum einen, dass dadurch nur eine Extraktion durchgeführt werden muss. Außerdem ist dies möglich, da zusammengehörige MP3 meist im gleichen Ordner abgelegt sind und nicht mit anderen Datein gemischt werden.
+Die Extraktionen benötigen so viel Zeit, wie Titel hintereinander analysiert werden müssen. Um dieses Problem zu umgehen, wird ein Verweis in Form eines Bildcache für den jeweiligen Ordner hinterlegt. Die Gründe hierfür sind, dass dadurch nur eine Extraktion durchgeführt werden muss. Außerdem ist dies möglich, da zusammengehörige MP3 meist im gleichen Ordner abgelegt sind und nicht mit anderen Datein gemischt werden.
 
-Ein ähnliches Problem tritt bei der Extraktion von Metadaten wie zum Beispiel der Interpret des Albums oder Titel der Audiodatei auf. Für diese Operation muss für jede Audiodatei eine lese Aktion ausgeführt werden. Eine Lösung hierfür konnte nicht implementiert werden und eine höhere Laufzeit wurde daher in Kauf genommen. Eine mögliche Lösung ist es einen komplette Erfassung aller Audiodateien vorzunehmen und alle Informationen der Metadaten in einer Datenbank abzulegen.
+Ein ähnliches Problem tritt bei der Extraktion von Metadaten, wie zum Beispiel der Interpret des Albums oder Titel der Audiodatei auf. Für diese Operation muss für jede Audiodatei ein lesender Zugriff ausgeführt werden. Eine Lösung hierfür konnte nicht implementiert werden und eine höhere Laufzeit wurde daher in Kauf genommen. Eine mögliche Lösung ist es einen komplette Erfassung aller Audiodateien vorzunehmen und alle Informationen der Metadaten in einer Datenbank abzulegen.
 
 \subsubsection{Hintergrundprozesse}
 
-Eine weiter Problemstellung war es, die Wiedergabe in einem Hintergrundprozess zu versetzen, sodass wehrend der Wiedergabe andere Aktionen und Anwendungen auf dem Gerät gestartet und verwendet werden können. Hierfür bietet die API von Android gewisse Services an, welche in ein Hintergrundprozess versetzt werden können und so die angesprochene Problemstellung gelöst wird.
+Eine weitere Problemstellung war es, die Wiedergabe in einem Hintergrundprozess zu versetzen, sodass während der Wiedergabe andere Aktionen und Anwendungen auf dem Gerät gestartet und verwendet werden können. Hierfür bietet die API von Android gewisse Services an, welche in ein Hintergrundprozess versetzt werden können und so die angesprochene Problemstellung gelöst wird.
 
 Wichtig bei der Arbeit mit Threads und Services ist der Austausch von Daten und Zugriff auf gemeinsame Speicherbereiche.
 
@@ -23,6 +23,6 @@ Wichtig bei der Arbeit mit Threads und Services ist der Austausch von Daten und 
 
 Das Ergebnis der Gemeinschaftsarbeit ist eine funktionsfähige Applikation die den gesteckten Anforderungen des Konzeptes genügt. Die Anwendung bietet Raum für Erweiterungen und Verbesserungen. Dabei wurde darauf geachtet das Programmerweiterungen problemlos in den Programmcode eingeführt werden kann ohne schon bestehende Programmfunktionen zu blockieren oder zu zerstören.
 
-Die Projektstruktur wurde einfach gehalten um Quellcodefragmente wiederverwenden zu können oder Weiterentwicklung betreiben zu können. Die Entwicklung von nativen Anwendungen ist aufwendig. Der Vorteil bestimmte Systemkomponenten nutzen zu können überwiegt dennoch.
+Die Projektstruktur wurde einfach gehalten um Quellcodefragmente wiederverwenden zu können oder Weiterentwicklung betreiben zu können. Die Entwicklung von nativen Anwendungen ist aufwendig. Der Vorteil bestimmte Systemkomponenten nutzen zu können, überwiegt dennoch.
 
-Durch die Arbeit am Projekt wurden die Grundlage für die Entwicklung für native Anwendungen für Android Plattformen angeeignet und erprobt. Des Weiteren sind Kenntnisse über die Android Plattform und des Android Betriebssystem erarbeitet und angelernt wurden. Das Arbeiten in kleineren Gruppen erfordert flexible und einfache Kommunikationsstrukturen. Diese unterschiedene sich stark von Projekten in größeren Gruppe wie etwa die Scrum\cite{9783868998337} Projektarbeit.
+Durch die Arbeit am Projekt wurde die Grundlage für die Entwicklung für native Anwendungen für Android Plattformen angeeignet und erprobt. Des Weiteren sind Kenntnisse über die Android Plattform und des Android Betriebssystem erarbeitet und angelernt wurden. Das Arbeiten in kleineren Gruppen erfordert flexible und einfache Kommunikationsstrukturen. Diese unterschieden sich stark von Projekten in größeren Gruppe, wie etwa die Scrum\cite{9783868998337} Projektarbeit.
