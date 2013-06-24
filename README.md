@@ -1,4 +1,3 @@
 prj_hoerbuch
 ============
-- NOW with the xyz-fanzy-algorithm!
-- OUT NOW!
+- A simple Android audio player implementation.
